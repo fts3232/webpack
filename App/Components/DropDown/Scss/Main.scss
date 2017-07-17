@@ -1,0 +1,65 @@
+.dropDown{
+    text-align: right;
+}
+
+.dropDown .hide{
+    display: none;
+}
+
+.dropDown .show{
+    display: block
+}
+
+.dropDown .button{
+    color: #333;
+    background-color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.dropDown .button:hover,.dropDown .button.show{
+    background-color: #e6e6e6;
+    border: 1px solid #adadad;;
+}
+
+.dropDown .button .icon{
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+
+.dropDown .button span,.dropDown .button svg{
+    vertical-align: middle;
+}
+
+.dropDown ul{
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+}
+
+.dropDown ul li{
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+.dropDown ul li:hover{
+    background-color: #424F63;
+    color: #FFFFFF;
+    text-decoration: none;
+}

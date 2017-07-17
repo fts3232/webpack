@@ -1,0 +1,182 @@
+$sizeMap:(
+    large:(font-size:16px,height:42px),
+    small:(font-size:13px,height:30px),
+    mini:(font-size:12px,height:22px)
+);
+.form-input {
+    & .input-inner{
+        appearance: none;
+        background-color: #fff;
+        background-image: none;
+        border-radius: 4px;
+        border: 1px solid #bfcbd9;
+        box-sizing: border-box;
+        color: #1f2d3d;
+        display: inline-block;
+        font-size: inherit;
+        height: 36px;
+        line-height: 1;
+        outline: none;
+        padding: 3px 10px;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        width: 100%;
+        &:hover{
+            border-color: #8391a5;
+        }
+        &:focus{
+            outline: none;
+            border-color: #20a0ff;
+        }
+    }
+    &.is-disabled .input-inner{
+        background-color: #eef1f6;
+        border-color: #d1dbe5;
+        color: #bbb;
+        cursor: not-allowed;
+    }
+    @each $size,$style in $sizeMap{
+        &.input-#{$size} .input-inner{
+            @each $key,$value in $style{
+                #{$key}:$value;
+            }
+        }
+    }
+    &.input-group{
+        display: inline-table;
+        border-collapse: separate;
+    }
+    &.input-group .input-inner{
+        display: table-cell;
+        vertical-align: middle;
+    }
+    &.input-group .input-append,&.input-group .input-prepend{
+        background-color: #fbfdff;
+        color: #97a8be;
+        vertical-align: middle;
+        display: table-cell;
+        position: relative;
+        border: 1px solid #bfcbd9;
+        border-radius: 4px;
+        padding: 0 10px;
+        width: 1px;
+        white-space: nowrap;
+    }
+    &.input-group .input-prepend{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none
+    }
+    &.input-group.input-group-prepend .input-inner{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    &.input-group .input-append{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none
+    }
+    &.input-group.input-group-append .input-inner{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+.form-textarea{
+    & .input-inner{
+        display: block;
+        resize: vertical;
+        padding: 5px 7px;
+        line-height: 1.5;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 14px;
+        color: #1f2d3d;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #bfcbd9;
+        border-radius: 4px;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        &:hover{
+            border-color: #8391a5;
+        }
+        &:focus{
+            outline: none;
+            border-color: #20a0ff;
+        }
+    }
+    &.is-disabled .input-inner{
+        background-color: #eef1f6;
+        border-color: #d1dbe5;
+        color: #bbb;
+        cursor: not-allowed;
+    }
+}
+
+.form-input-number{
+    position: relative;
+    & .input-inner{
+        appearance: none;
+        background-color: #fff;
+        background-image: none;
+        border-radius: 4px;
+        border: 1px solid #bfcbd9;
+        box-sizing: border-box;
+        color: #1f2d3d;
+        display: inline-block;
+        font-size: inherit;
+        height: 36px;
+        line-height: 1;
+        outline: none;
+        padding: 3px 10px;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        width: 100%;
+        &:hover{
+            border-color: #8391a5;
+        }
+        &:focus{
+            outline: none;
+            border-color: #20a0ff;
+        }
+    }
+    &.is-disabled .input-inner{
+        background-color: #eef1f6;
+        border-color: #d1dbe5;
+        color: #bbb;
+        cursor: not-allowed;
+    }
+    & .input-number-minus,& .input-number-add{
+        height: auto;
+        border-left: 1px solid #bfcbd9;
+        width: 36px;
+        line-height: 34px;
+        top: 1px;
+        text-align: center;
+        color: #97a8be;
+        cursor: pointer;
+        position: absolute;
+        z-index: 1;
+        user-select :none;
+    }
+    @each $size,$style in $sizeMap{
+        &.input-#{$size} .input-inner{
+            @each $key,$value in $style{
+                #{$key}:$value;
+            }
+        }
+        &.input-#{$size} .input-number-minus,&.input-#{$size} .input-number-add{
+            line-height: map-get($style,'height') - 2
+        }
+    }
+    & .input-number-minus{
+        right: 37px;
+    }
+    & .input-number-add{
+        right: 0px;
+    }
+    & .input-number-minus:hover,& .input-number-add:hover{
+        color:#20a0ff
+    }
+    & .input-number-minus.is-disabled,& .input-number-add.is-disabled {
+        color: #d1dbe5;
+        cursor: not-allowed;
+    }
+}

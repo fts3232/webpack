@@ -1,0 +1,81 @@
+
+.main-content{
+	min-height: auto;
+	margin:0;
+	padding: 0;
+}
+
+.login{
+	background: #6bc5a4;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	top: 0;
+    left: 0;
+}
+
+.login .container{
+	margin:100px auto;
+}
+
+.login .container .title{
+	font-size: 24px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.login .container .form{
+	background: #fff;
+	border-radius: 5px;
+	padding: 25px 15px;
+    text-align: center;
+    width: 330px;
+    margin:0 auto;
+}
+
+.login .container .logo{
+	background: url(../../../../Assets/images/login-logo.png) no-repeat;
+	width: 118px;
+	height: 113px;
+	margin:0 auto;
+	margin-bottom: 30px;
+}
+
+.login .container .form input[type="text"],.login .container form input[type="password"]{
+	margin-bottom: 15px;
+    border: 1px solid #eaeaec;
+    background: #eaeaec;
+    font-size: 12px;
+}
+
+.login .container .form .submitBtn{
+	background: #6bc5a4;
+	width: 100%;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin: 5px 0 15px;
+    padding: 7px;
+    font-size: 30px;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+
+.login .container .form .submitBtn:hover{
+	 background: #688ac2;
+}
+
+.login .container .form .remember-me{
+	color:#c7c7c7
+}
+
+.login .container .form .remember-me input,.login .container .form .remember-me span{
+	vertical-align: middle;
+}

@@ -1,0 +1,28 @@
+.layout>.header{
+	position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    left: 240px;
+    transition: left 0.5s;
+    background: #fff;
+}
+
+.layout>.header.pack{
+	left: 50px;
+}
+
+.layout>.header .menu-right{
+    float: right;
+    margin-right: 240px;
+    transition: margin-right 0.5s;
+}
+
+.layout>.header.pack .menu-right{
+    float: right;
+    margin-right: 50px;
+}
+
+.layout>.header .menu-right>div{
+	float: left;
+}

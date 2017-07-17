@@ -1,0 +1,53 @@
+.alert{
+	padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    position: relative;
+    opacity: 0;
+    transition: opacity .5s linear;
+}
+
+.alert .close{
+	width: 50px;
+	height: 50px;
+	fill:rgba(0,0,0,0.5);
+	cursor: pointer;
+	vertical-align: middle;
+	position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.alert .close:hover{
+	fill:#000;
+}
+
+.alert .alert-info{
+	vertical-align: middle;
+}
+
+.alert.default{
+	color: #31708f;
+    background-color: #d9edf7; 
+}
+
+.alert.success{
+	color: #3c763d;
+    background-color: #dff0d8;
+}
+
+.alert.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+}
+
+.alert.danger {
+    color: #a94442;
+    background-color: #f2dede;
+}
+
+.alert.fade-in{
+	opacity: 1;
+}

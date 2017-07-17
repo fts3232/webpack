@@ -1,0 +1,151 @@
+.layout>.left-nav{
+	position: fixed;
+	width: 240px;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background: #424f63;
+	transition: width 0.5s;
+}
+
+.layout>.left-nav.pack{
+	width: 50px;
+ }
+
+.layout>.left-nav .logo{
+	padding-left: 20px;
+    background: url(../../../../Assets/images/logo.png) no-repeat;
+    background-position: 20px;
+    padding-top: 5px;
+    height: 50px;
+}
+
+.layout>.left-nav.pack .logo{
+    background: url(../../../../Assets/images/logo_icon.png) no-repeat;
+    background-position: 5px;
+    padding-left: 0px;
+}
+
+.layout>.left-nav .menu-list.active,.layout>.left-nav .menu-list:hover{
+	background: #353f4f;
+}
+
+.layout>.left-nav .menu-list>a{
+	display:block;
+	position: relative;
+	transition: background .5s;
+	color:#fff;
+	padding: 12px 17px;
+	cursor: pointer;
+}
+
+.layout>.left-nav.pack .menu-list>a:hover{
+	background: #fff
+}
+
+.layout>.left-nav .menu-list.active>a,.layout>.left-nav .menu-list:hover>a{
+	color:#65cea7;
+}
+
+.layout>.left-nav .menu-list .icon{
+	width: 16px;
+	height: 16px;
+	fill:#fff;
+	vertical-align: middle;
+    margin-right: 10px;
+}
+
+.layout>.left-nav.pack .menu-list:hover .icon{
+	fill:#424f63;
+}
+
+.layout>.left-nav .menu-list.active .icon,.layout>.left-nav .menu-list:hover .icon{
+	fill:#65cea7
+}
+
+.layout>.left-nav .menu-list .category-name{
+	vertical-align: middle;
+}
+
+.layout>.left-nav.pack .menu-list .category-name{
+	position: absolute;
+    top: 0;
+    left: 50px;
+    width: 158px;
+    background: #65CEA7;
+    height: 44px;
+    padding: 0 10px;
+    line-height: 44px;
+    color: #fff;
+}
+
+.layout>.left-nav.pack .menu-list:hover .category-name{
+	display: block;
+}
+
+.layout>.left-nav.pack .menu-list .category-name{
+	display: none;
+}
+
+.layout>.left-nav.pack .menu-list .category-name:before{
+	content: '';
+    display: block;
+    border-top: 8.5px solid transparent;
+    border-bottom: 8.5px solid transparent;
+    border-right: 8.5px solid #65CEA7;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -8.5px;
+    top: 13.5px;
+}
+
+.layout>.left-nav .menu-list .switch{
+	width: 21px;
+    height: 21px;
+    top: 15px;
+    right: 17px;
+    position: absolute;
+    margin: 0px;
+}
+
+.layout>.left-nav.pack .menu-list .switch{
+	display: none;
+}
+
+.layout>.left-nav .menu-list .sub-menu,.layout>.left-nav.pack .menu-list.active .sub-menu{
+	display:none;
+}
+
+.layout>.left-nav .menu-list.active .sub-menu{
+	display: block;
+}
+
+.layout>.left-nav.pack .menu-list .sub-menu{
+	position: absolute;
+	left: 50px;
+	background: #353f4f;
+}
+
+.layout>.left-nav.pack .menu-list:hover .sub-menu{
+	display: block;
+}
+
+.layout>.left-nav .menu-list .sub-menu li a{
+	padding: 10px 0 10px 46px;
+	font-size: 13px;
+	transition: background .5s;
+	display: block;
+	color:#fff;
+}
+
+.layout>.left-nav.pack .menu-list .sub-menu li a{
+	text-align: left;
+    padding: 6px 10px;
+    width: 158px;
+}
+
+.layout>.left-nav .menu-list .sub-menu li:hover,.layout>.left-nav .menu-list .sub-menu li.active{
+	color: #65cea7;
+    background: #2a323f;
+}
