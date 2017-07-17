@@ -1,0 +1,92 @@
+.layout>.header .usermenu{
+	float: left;
+	position: relative;
+	text-align: center;
+}
+
+.layout>.header .menu-right .usermenu:hover,.layout>.header .usermenu.on{
+	background: #424f63;
+}
+
+.layout>.header .usermenu>a{
+	color:#000;
+	padding: 12px 10px;
+	margin-right: 10px;
+	position: relative;
+	display: block;
+}
+
+.layout>.header .usermenu .avatar{
+	width: 26px;
+	height: 26px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.layout>.header .usermenu .user-name{
+	vertical-align: middle;
+}
+
+.layout>.header .usermenu:hover .user-name,.layout>.header .usermenu.on .user-name{
+	color:#65CEA7
+}
+
+.layout>.header .usermenu .caret{
+	width: 0;
+	height: 0;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.layout>.header .usermenu:hover .caret,.layout>.header .usermenu.on .caret{
+	border-top: 4px solid #65CEA7;
+}
+
+.layout>.header .usermenu .sub-menu{
+	width: 200px;
+	padding: 5px;
+	background: #65cea7;
+	position: absolute;
+	top: 50px;
+	right: 0;
+	text-align: left;
+	display:none;
+	transition: opacity .5s;
+
+}
+
+.layout>.header .usermenu .sub-menu:before{
+	border-bottom: 6px solid #65cea7;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    display: inline-block;
+    right: 10px;
+    position: absolute;
+    top: -6px;
+}
+
+.layout>.header .usermenu.on .sub-menu{
+	display: block;
+}
+
+.layout>.header .usermenu .sub-menu li{
+	color:#fff;
+	padding: 7px 10px;
+	transition: background .5s;
+}
+
+.layout>.header .usermenu .sub-menu li:hover{
+	background: #2a323f;
+}
+
+.layout>.header .usermenu .sub-menu li .icon{
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
+	fill:#fff;
+}

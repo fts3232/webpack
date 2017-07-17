@@ -1,0 +1,151 @@
+
+.calendar .tools{
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.calendar .tools .button:focus{
+	outline: none;
+}
+
+.calendar .tools .next-prev{
+	float: left;
+	margin-right:10px;
+}
+
+.calendar .tools .next-prev .button{
+	border:none;
+	background: #F3F3F3;
+	width: 50px;
+	height: 34px;
+	text-align: center;
+	border-right:1px solid #ddd;
+	cursor: pointer;
+}
+
+.calendar .tools .next-prev .button:last-child{
+	border:none;
+}
+
+.calendar .tools .next-prev .button:first-child:after{
+	content:'';
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	border-right: 10px solid #646464;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+}
+
+.calendar .tools .next-prev .button:last-child:after{
+	content:'';
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	border-left: 10px solid #646464;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+}
+
+.calendar .tools .next-prev .button:hover{
+	background: #32323A;
+}
+
+.calendar .tools .next-prev .button:hover:first-child:after{
+	border-right: 10px solid #fff;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+}
+
+.calendar .tools .next-prev .button:hover:last-child:after{
+	border-left: 10px solid #fff;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+}
+
+.calendar .tools .today-info{
+	float: left;
+}
+
+.calendar .tools .today-info .button{
+	border:none;
+	background: #F3F3F3;
+	width: 50px;
+	height: 34px;
+	text-align: center;
+	color:#646464;
+	margin-right: 5px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.calendar .tools .today-info .button:hover{
+	background: #32323A;
+	color:#fff;
+}
+
+.calendar .tools .today-info .text{
+	color:#646464;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+
+.calendar .tools .switch-btn{
+	float: right;
+}
+
+.calendar .tools .switch-btn .button{
+	position: relative;
+    float: left;
+    height: 34px;
+    line-height: 1;
+    padding: 5px;
+    background: #F3F3F3;
+    border:none;
+    width: 50px;
+    border-right:1px solid #ddd;
+    color:#646464;
+    cursor: pointer;
+}
+
+.calendar .tools .switch-btn .button.active,.calendar .tools .switch-btn .button:hover{
+	background: #32323A;
+	color:#fff;
+}
+
+.calendar .tools .switch-btn .button:last-child{
+	border:none;
+}
+
+.calendar .table{
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.calendar .table .table-header{
+	height: 45px;
+	width: (100% / 7);
+    line-height: 45px;
+    text-align: center;
+    background: #e4e4e4;
+    color: #646464;
+    border: 1px solid #ddd;
+}
+
+.calendar .table .day{
+	border: 1px solid #ddd;
+    color: #646464;
+    height: 84px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.calendar .table .day.current-month{
+	opacity: 1;
+}
+
+.calendar .table .day.active{
+	background: #ddd;
+}

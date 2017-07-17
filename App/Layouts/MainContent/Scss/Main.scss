@@ -1,0 +1,39 @@
+.page-header{
+	padding: 15px;
+    position: relative;
+}
+
+.page-header h3{
+	color: #49586e;
+    font-size: 25px;
+    font-weight: normal;
+    margin: 10px 0;
+}
+
+.page-header .breadcrumb{
+	overflow: hidden;
+}
+
+.page-header .breadcrumb li{
+	float: left;
+	color: #999999;
+	font-size: 14px;
+}
+
+.breadcrumb>li+li:before{
+	padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+
+.page-header .breadcrumb li.active {
+    color: #65CEA7;
+}
+
+.page-content{
+    position: relative;
+    background: #fff;
+    border-radius: 4px;
+    margin:15px;
+    padding: 15px;
+}

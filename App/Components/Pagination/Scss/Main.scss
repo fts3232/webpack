@@ -1,0 +1,39 @@
+.pagination-info{
+	color: #7a7676;
+    line-height: 20px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.pagination-info .info{
+	float: left;
+}
+
+.pagination-info .pagination{
+	float: right;
+}
+
+.pagination-info .pagination ul li{
+	float: left;
+	margin: 0 1px;
+    border: 1px solid #ddd;
+}
+
+.pagination-info .pagination ul li a{
+	color: #797979;
+    padding: 5px 10px;
+    display: inline-block;
+    transition: all 0.5s;
+}
+
+.pagination-info .pagination ul li a:hover,.pagination-info .pagination ul li.active a{
+	color: #fff;
+    background: #65cea7;
+}
+
+.pagination-info .pagination ul li.disabled a,.pagination-info .pagination ul li.disabled:hover a{
+	color: #C7C7C7;
+    background: #fff;
+    border-color: #DDDDDD;
+    cursor: no-drop;
+}
