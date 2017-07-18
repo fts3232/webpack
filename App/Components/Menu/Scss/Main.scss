@@ -70,6 +70,7 @@
     transition: border-color .3s,background-color .3s,color .3s;
     white-space: nowrap;
     border-bottom: 5px solid transparent;
+    user-select:none;
 }
 
 .menu-horizontal .menu-item {

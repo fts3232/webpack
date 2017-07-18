@@ -51,8 +51,8 @@ class Scrollbar extends Component {
                 <div className="scrollbar-wrapper" onScroll={this.handleScroll.bind(this)} ref={(wrapper)=>{this.wrapper = wrapper}}>
                     {this.props.children}
                 </div>
-                <Bar  move={moveX} size={sizeWidth}/>
-                <Bar move={moveY} size={sizeHeight}  vertical={true}/>
+                <Bar  move={moveX} size={sizeWidth} getParentWrap={()=>this.wrapper} />
+                <Bar move={moveY} size={sizeHeight} getParentWrap={()=>this.wrapper} vertical={true}/>
             </div>
         )
     }
