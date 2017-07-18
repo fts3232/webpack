@@ -12,9 +12,11 @@ body{
 
 .frame>.header{
 	background-color: #324157;
-    position: relative;
+    position: fixed;
     height: 60px;       
     min-width: 800px;
+    width: 100%;
+    z-index: 30;
 }
 
  .frame>.header .menu{
@@ -37,17 +39,24 @@ body{
 
 .frame>.nav{
     position: fixed;
-    top: 60px;
+    top: 0px;
+    padding-top:60px;
     left: 0px;
     height: 100%;
     width: 200px;
     background-color: #fff;
+    z-index: 20;
+}
+
+.frame>.nav .scrollbar-wrapper{
+    overflow-x: hidden;
 }
 
 .frame>.body{
     padding-left: 200px;
     min-width: 800px;
     height: 100%;
+    z-index: 10;
 }
 
 .frame>.body .breadcrumb{
