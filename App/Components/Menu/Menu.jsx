@@ -5,7 +5,7 @@ class Menu extends Component {
 		super(props);
         this.state = {
             activeIndex: props.defaultActive,
-            openMenus:props.defaultOpen,
+            openMenus:[props.defaultOpen],
             menuItems: [],
             submenus: []
         }

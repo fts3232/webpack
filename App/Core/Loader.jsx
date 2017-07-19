@@ -14,6 +14,7 @@ class Loader extends React.Component {
         let filePath = componentName;
         if(filePath.indexOf('jsx')==-1)
             filePath+='/index.js';
+
         System.import("../Views/"+filePath).then((component)=>{
             let Component = component.default;
             this.setState({'Component':<Component location={location} />,path:this.props.path})
