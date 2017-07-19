@@ -42,38 +42,35 @@ class Bar extends Component {
 	}
 	clickTrackHandler(e) {
 	    const offset = Math.abs(e.target.getBoundingClientRect()[this.bar.direction] - e[this.bar.client]);
-	    const thumbHalf = (this.refs.thumb[this.bar.offset] / 2);
-	    const thumbPositionPercentage = ((offset - thumbHalf) * 100 / this.root[this.bar.offset]);
+    	const thumbHalf = (this.thumb[this.bar.offset] / 2);
+    	const thumbPositionPercentage = ((offset - thumbHalf) * 100 / this.root[this.bar.offset]);
 
-	    this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize] / 100);
+    	this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize] / 100);
 	}
 	startDrag(e) {
 	    event.stopImmediatePropagation();
 	    this.cursorDown = true;
-	    console.log(1)
-	   	window.addEventListener('mousemove', this.mouseMoveDocumentHandler.bind(this),false);
-		window.addEventListener('mouseup', this.mouseUpDocumentHandler.bind(this),false);
+	   	document.addEventListener('mousemove', this.mouseMoveDocumentHandler,false);
+		document.addEventListener('mouseup', this.mouseUpDocumentHandler,false);
 	}
 	mouseMoveDocumentHandler(e) {
-	    if (this.cursorDown === false) return;
-	    const prevPage = this[this.bar.axis];
+		 if (this.cursorDown === false) return;
+    	const prevPage = this[this.bar.axis];
+
 	    if (!prevPage) return;
 
 	    const offset = (e[this.bar.client] - this.root.getBoundingClientRect()[this.bar.direction]);
-
 	    const thumbClickPosition = (this.thumb[this.bar.offset] - prevPage);
 	    const thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this.root[this.bar.offset]);
 
 	    this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize] / 100);
-	     document.onselectstart = () => false;
-	  }
+	}
 
 	mouseUpDocumentHandler() {
-		console.log(111)
 	    this.cursorDown = false;
-	    this[this.bar.axis] = 0;
-	   	window.removeEventListener('mousemove', this.mouseMoveDocumentHandler);
-	   	document.onselectstart = null;
+    	this[this.bar.axis] = 0;
+    	document.removeEventListener('mousemove', this.mouseMoveDocumentHandler);
+    	document.onselectstart = null;
   	}
 	render() {
 		let style = {}

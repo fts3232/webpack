@@ -28,12 +28,15 @@ class Scrollbar extends Component {
 
         let sizeHeight = (heightPercentage < 100) ? (heightPercentage + '%') : '';
         let sizeWidth = (widthPercentage < 100) ? (widthPercentage + '%') : '';
-
         this.setState({sizeHeight:sizeHeight,sizeWidth:sizeWidth})
     }
     componentDidMount(){
         let wrap = this.wrapper;
         let handler = this.update.bind(this)
+        let rafId = requestAnimationFrame(handler)
+        this.cleanRAF = ()=>{
+          cancelAnimationFrame(rafId)
+        }
         wrap.addEventListener('scroll', handler, true);
         window.addEventListener('resize',handler,true);
         this.cleanResize = ()=>{
@@ -42,6 +45,7 @@ class Scrollbar extends Component {
         }
     }
     componentWillUnmount(){
+        this.cleanRAF();
         this.cleanResize && this.cleanResize();
       }
     render() {

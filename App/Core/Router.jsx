@@ -10,27 +10,32 @@ class Routers extends React.Component{
 	constructor(props){
 		super(props);
 	}
+	getParent(){
+		return this.context.component;
+	}
 	render() {
-		let loginPath = global.frameConfig.Root + "Login";
+		let route = this.getParent().state.route
+		//let loginPath = global.frameConfig.Root + "Login";
 		return (
 				<Router history={history}>
-					{/*<Switch>
-						<Route path={loginPath} render={(props) =>(
+					<Switch>
+						{/*<Route path={loginPath} render={(props) =>(
 							this.state.login ? (<Redirect to={global.frameConfig.Root}/>):(<Loader name='LoginPage'/>)	
 							)
-						} />
-						{this.state.route.map((val)=>{
+						} />*/}
+						{route.map((val)=>{
 							return (
 								<Route exact path={global.frameConfig.Root + val.path} render={(props) =>(
-										this.state.login ? (<Loader path={val.path} name={val.component} menu={this.state.menu} location={props.location} />):(<Redirect to={loginPath}/>)
+										<Loader path={val.path} name={val.component} location={props.location} />
+										//this.state.login ? (<Loader path={val.path} name={val.component} menu={this.state.menu} location={props.location} />):(<Redirect to={loginPath}/>)
 									)			
 								} />
 							)
 						})}
-						<Route render={(props) =>
+						{/*<Route render={(props) =>
 							<Loader name='NotFound'/>		
-						} />
-					</Switch>*/}
+						} />*/}
+					</Switch>
 				</Router>
 		);
 	}

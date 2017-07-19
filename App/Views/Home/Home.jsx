@@ -33,7 +33,7 @@ class Home extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="home-page">
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
                         <Breadcrumb item={[{name:'首页',path:'/'}]}/>

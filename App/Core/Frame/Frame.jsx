@@ -3,6 +3,7 @@ import css from './Scss/Main.scss';
 import Menu from '../../Components/Menu';
 import request from 'superagent';
 import Scrollbar from '../../Components/Scrollbar';
+import Link from 'react-router-dom/Link.js';
 class Frame extends React.Component {
 	constructor(props){
 		super(props);
@@ -49,6 +50,24 @@ class Frame extends React.Component {
 		})
 	}
 	render() {
+		let defaultActive;
+		let defaultOpen;
+		this.state.menu.map((val,key)=>{
+			let index = key+1;
+			if(typeof val.subMenu !='undefined'){
+				val.subMenu.map((v,k)=>{
+					let childIndex = index+'-'+(k+1);		
+					if(location.pathname==  global.frameConfig.Root+v.path){
+						defaultActive = k+1;
+						defaultOpen = index;
+					}
+				})
+			}else{
+				if(location.pathname==   global.frameConfig.Root+val.path){
+					defaultActive = index
+				}
+			}
+		})
 		return (
 			<div className="frame">
 				<div className="header">
@@ -64,40 +83,43 @@ class Frame extends React.Component {
 					</Menu>
 				</div>
 				<div className="nav">
-					<Scrollbar>
-						<Menu mode="vertical">
-							{this.state.menu.map((val,key)=>{
-								if(typeof val.subMenu !='undefined'){
+					{this.state.menu!=''?(
+						<Scrollbar>
+							<Menu mode="vertical" defaultActive={defaultActive} defaultOpen={defaultOpen}>
+								{this.state.menu.map((val,key)=>{
 									let index = key+1;
-									return (
-										<Menu.SubMenu index={index} title={val.cnName}>
-											{val.subMenu.map((v,k)=>{
-												let childIndex = index+'-'+(k+1);
-												return (<Menu.Item index={childIndex}>{v.cnName}</Menu.Item>)
-											})}
-										</Menu.SubMenu>
-									)
-								}else{
-									return (<Menu.Item index={key+1}>{val.cnName}</Menu.Item>)
-								}
-							})}
-							{/*<Menu.Item index='1'>导航一</Menu.Item>
-							<Menu.Item index='2'>导航二</Menu.Item>
-							<Menu.SubMenu index='3' title="导航三">
-								<Menu.ItemGroup title='分组1'>
-									<Menu.Item index='3-1'>选项1</Menu.Item>
-									<Menu.Item index='3-2'>选项2</Menu.Item>
-								</Menu.ItemGroup>
-								<Menu.ItemGroup title='分组2'>
-									<Menu.Item index='3-3'>选项3</Menu.Item>
-									<Menu.Item index='3-4'>选项4</Menu.Item>
-								</Menu.ItemGroup>
-							</Menu.SubMenu>
-							<Menu.Item index='4'>导航四</Menu.Item>*/}
-						</Menu>
-					</Scrollbar>
+									if(typeof val.subMenu !='undefined'){
+										return (
+											<Menu.SubMenu index={index} title={val.cnName}>
+												{val.subMenu.map((v,k)=>{
+													let childIndex = index+'-'+(k+1);
+													return (<Menu.Item index={childIndex}><Link to={ global.frameConfig.Root + v.path}>{v.cnName}</Link></Menu.Item>)
+												})}
+											</Menu.SubMenu>
+										)
+									}else{
+										return (<Menu.Item index={index}><Link to={ global.frameConfig.Root + val.path}>{val.cnName}</Link></Menu.Item>)
+									}
+								})}
+								{/*<Menu.Item index='1'>导航一</Menu.Item>
+								<Menu.Item index='2'>导航二</Menu.Item>
+								<Menu.SubMenu index='3' title="导航三">
+									<Menu.ItemGroup title='分组1'>
+										<Menu.Item index='3-1'>选项1</Menu.Item>
+										<Menu.Item index='3-2'>选项2</Menu.Item>
+									</Menu.ItemGroup>
+									<Menu.ItemGroup title='分组2'>
+										<Menu.Item index='3-3'>选项3</Menu.Item>
+										<Menu.Item index='3-4'>选项4</Menu.Item>
+									</Menu.ItemGroup>
+								</Menu.SubMenu>
+								<Menu.Item index='4'>导航四</Menu.Item>*/}
+							</Menu>
+						</Scrollbar>
+					):null}
 				</div>
 				<div className="body">
+					{this.props.children}
 					{/*<Scrollbar>
 						{this.props.children}
 					</Scrollbar>*/}

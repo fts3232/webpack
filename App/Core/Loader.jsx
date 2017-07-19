@@ -10,14 +10,13 @@ class Loader extends React.Component {
 	}
     loadPage(props){
         let componentName = props.name;
-        let menu = props.menu 
         let location = props.location
         let filePath = componentName;
         if(filePath.indexOf('jsx')==-1)
             filePath+='/index.js';
         System.import("../Views/"+filePath).then((component)=>{
             let Component = component.default;
-            this.setState({'Component':<Component menu={menu} match={props.match} location={location} />,path:this.props.path})
+            this.setState({'Component':<Component location={location} />,path:this.props.path})
 
         }).catch((err)=>{
             console.log(err);
@@ -39,12 +38,10 @@ class Loader extends React.Component {
 }
 
 Loader.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    menu: React.PropTypes.array,
     path:React.PropTypes.string,
     location:React.PropTypes.object
 }
 Loader.defaultProps={
-    menu:[],
     path:'',
     location:{}
 };//设置默认属性
