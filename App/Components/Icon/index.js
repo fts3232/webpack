@@ -6,14 +6,14 @@ class Icon extends Component {
 	}
 	render() {
 		return (
-			<i className={this.classNames('icon','icon-'+this.props.type)}></i>
+			<i className={this.classNames('icon','fa','fa-'+this.props.iconName)} aria-hidden="true" ></i>
 		);
 	}
 }
 
 
 Icon.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    type:React.PropTypes.string.isRequired
+    iconName:React.PropTypes.string.isRequired
 }
 Icon.defaultProps={
     

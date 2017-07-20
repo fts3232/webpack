@@ -21,10 +21,11 @@ var config = {
   eval-source-map 使用eval打包源文件模块，在同一个文件中生成干净的完整的source map。这个选项可以在不影响构建速度的前提下生成完整的sourcemap，但是对打包后输出的JS文件的执行具有性能和安全的隐患。不过在开发阶段这是一个非常好的选项，但是在生产阶段一定不要用这个选项；
   cheap-module-eval-source-map  这是在打包文件时最快的生成source map的方法，生成的Source Map 会和打包后的JavaScript文件同行显示，没有列映射，和eval-source-map选项具有相似的缺点；
    */
-  devtool: 'eval-source-map',//配置生成Source Maps，选择合适的选项
+  //devtool: 'eval-source-map',//配置生成Source Maps，选择合适的选项
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
-    'index':APP_PATH+'/main.js'
+    'index':APP_PATH+'/main.js',
+    'vendor':[APP_PATH+'/Components/Svg']
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -33,6 +34,7 @@ var config = {
   output: {
     path: BUILD_PATH,
     filename:'js/[name].js',
+    chunkFilename: 'js/[name].bundle.js',
     publicPath:ROOT,
   },
   //webpack-dev-server
@@ -57,7 +59,7 @@ var config = {
       {
         test: /\.scss$/, 
         loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
+          //fallback: "style-loader",
           use: ["css-loader","postcss-loader",'sass-loader'],
         }),
         include:APP_PATH
@@ -65,7 +67,7 @@ var config = {
       {
         test: /\.css$/, 
         loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
+          //fallback: "style-loader",
           use: ["css-loader","postcss-loader"],
         }),
         include:APP_PATH
@@ -82,6 +84,7 @@ var config = {
         include: APP_PATH,
         query: {
           presets: ['es2015',"react"],
+          plugins:['syntax-dynamic-import'],
           "env": {
             "development": {
                 "presets": ["react-hmre"]
@@ -92,10 +95,15 @@ var config = {
     ]
   },
   externals: {
+    'postcss-loader':'postcss-loader',
+    'style-loader':'style-loader',
+    'sass-loader':'sass-loader',
+    "lodash":'lodash',
     "react": 'React',
+    'mockjs':'Mock',
+    'superagent':'superagent',
     'prop-types':'React.PropTypes',
     'react-dom': 'ReactDOM',
-    
     'react-router':'ReactRouter',
     'react-router-dom':'react-router-dom',
     'history/createBrowserHistory':'history',//history插件
@@ -148,22 +156,25 @@ if(env == 'production' || env == 'test' ){
     config.plugins.push(extractJs);
     config.plugins.push(extractCss);
   }
-  var extractText = new ExtractTextPlugin({filename:"css/style.css",allChunks: true});  //打包成一个css文件
-  //提取多个入口的公共部分
-  var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "commons", filename: "js/commons.js"});
-  //动态加载
-  /*var CommonAsyncChunk = new webpack.optimize.CommonsChunkPlugin({
-    async: 'common-in-lazy',
-    name:'async'
-  })*/
-  config.plugins.push(extractText);
-  config.plugins.push(CommonChunk);
+  
+  
   /*config.plugins.push(CommonAsyncChunk);*/
 }
 else{
-  var extractCss = new ExtractTextPlugin({filename:"css/[name].css"});
-  config.plugins.push(extractCss);
+  /*var extractCss = new ExtractTextPlugin({filename:"css/[name].css"});
+  config.plugins.push(extractCss);*/
 }
+//提取多个入口的公共部分
+var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "commons", filename: "js/commons.js"});
+config.plugins.push(CommonChunk);
+var extractText = new ExtractTextPlugin({filename:"css/style.css",allChunks: true});  //打包成一个css文件
+config.plugins.push(extractText);
+//动态加载
+/*var CommonAsyncChunk = new webpack.optimize.CommonsChunkPlugin({
+  async: 'common-in-lazy',
+  name:'async'
+})*/
+
 //页面
 var pages = ['index'];
 pages.forEach(function(name) {

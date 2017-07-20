@@ -9,43 +9,58 @@ var data = Mock.mock({
         	name:'Home',
             cnName:'网站概况',
         	path:'',
-            component:'Home'
+            component:'Home',
+            icon:'home',
+            isShow:true
         },
         {
         	name:'Setting',
             cnName:'设置',
+            icon:'cogs',
+            isShow:true,
         	subMenu:[
                 {
                     name:'subMenu-1',
-                    cnName:'子菜单1',
+                    cnName:'设置1',
                     path:'Setting/subMenu-1',
-                    component:'HomePage'
+                    component:'HomePage',
+                    isShow:true
                 },
                 {
                     name:'subMenu-2',
-                    cnName:'子菜单2',
+                    cnName:'设置2',
                     path:'Setting/subMenu-2',
-                    component:'HomePage'
+                    component:'HomePage',
+                    isShow:true
                 }
             ]
         },
         {
         	name:'User',
-            cnName:'用户列表',
-            path:'User',
-            component:'User/Index.jsx',
+            cnName:'用户管理',
+            icon:'user',
+            isShow:true,
             subMenu:[
+                {
+                    name:'show',
+                    cnName:'查看',
+                    path:'User/show',
+                    component:'User/Show.jsx',
+                    isShow:true
+                },
                 {
                     name:'add',
                     cnName:'添加',
                     path:'User/add',
-                    component:'User/Add.jsx'
+                    component:'User/Add.jsx',
+                    isShow:true
                 },
                 {
                     name:'edit',
                     cnName:'修改',
                     path:'User/edit/:id',
-                    component:'User/Edit.jsx'
+                    component:'User/Edit.jsx',
+                    isShow:true
                 },
                 {
                     name:'delete',
@@ -79,7 +94,7 @@ var data = Mock.mock({
                 },
             ]
         },
-        {
+        /*{
             name:'Chart',
             cnName:'图表',
             path:'Chart',
@@ -144,7 +159,7 @@ var data = Mock.mock({
             cnName:'备忘录',
             path:'Todo',
             component:'TodoPage'
-        }
+        }*/
     ]
 })
 

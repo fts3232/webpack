@@ -47,3 +47,5 @@ vendor/
 Test/
 mochawesome-report/
 *.log
+Build/
+stats.json

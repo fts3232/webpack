@@ -55,16 +55,16 @@ class SubMenu extends MixinComponent {
     }
     render() {
         let style = {};
-        let icon = 'arrow-down'
+        let icon = 'angle-down'
         if(!this.opened()){
             style = {display:'none'}
         }
         if(this.rootMenu().props.mode=='horizontal'){
-            icon = 'caret-bottom';
+            icon = 'caret-down';
         }
         return (
             <li className={this.classNames('menu-submenu',{'is-active':this.active(),'is-opened':this.opened()})} index={this.props.index} >
-                <div ref="submenu-title" className="menu-title">{this.props.title}<Icon type={icon}/></div>
+                <div ref="submenu-title" className="menu-title">{this.props.title}<Icon iconName={icon}/></div>
                 <ul className="menu" style={style}>
                     {this.props.children}
                 </ul>

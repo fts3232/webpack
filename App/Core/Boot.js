@@ -17,54 +17,50 @@ import Nav from './Nav';
 //加载框架页面加载插件
 import Loader from './Loader';
 //react-router
-const Router = ReactRouter.Router;
-const Route = ReactRouter.Route;
-const Redirect = ReactRouter.Redirect;
-const Switch = ReactRouter.Switch;
+const Router = ReactRouterDOM.Router;
+const Route = ReactRouterDOM.Route;
+const Redirect = ReactRouterDOM.Redirect;
+const Switch = ReactRouterDOM.Switch;
 const history = History.createBrowserHistory();
 //菜单
-let menu = [];
-let route = [];
-function getMenu(){
+let menus = [];
+let routes = [];
+const getRoute = ()=>{
 	return new Promise((resolve,reject)=>{
 		request.post('/api/getMenu')
 			   .end(function(err, res){
 				 	if(res.ok){
 				 		resolve(JSON.parse(res.text))
 				 	}else{
-				 		reject(err)
+				 		reject('数据获取失败')
 				 	}
 			   })
 	})
 }
-getMenu().then((data)=>{
-	menu = data.menu
-	data.menu.map((val)=>{
-		if(typeof val.path !='undefined'){
-			route.push(val)
-		}
-		if(typeof val.subMenu !='undefined'){
-			val.subMenu.map((submenu)=>{
-				route.push(submenu)
+getRoute().then((data)=>{
+	menus = data.menu;
+	data.menu.map((menu)=>{
+		routes.push(menu)
+		if(typeof menu.subMenu!='undefined'){
+			menu.subMenu.map((subMenu)=>{
+				routes.push(subMenu)
 			})
 		}
 	})
-	menu = menu;
-	route = route;
 	//_this.setState({route:route,menu:menu})
 	//渲染
 	ReactDOM.render((
 		<Router history={history}>
 			<Frame>
 				<Header />
-				<Nav menu={menu}/>
+				<Nav menu={menus}/>
 				<div className="body">
 					<Switch>
 						{/*<Route path={loginPath} render={(props) =>(
 							this.state.login ? (<Redirect to={global.frameConfig.Root}/>):(<Loader name='LoginPage'/>)	
 							)
 						} />*/}
-						{route.map((val)=>{
+						{routes.map((val)=>{
 							return (
 								<Route exact path={global.frameConfig.Root + val.path} render={(props) =>(
 										<Loader path={val.path} name={val.component} location={props.location} />
@@ -72,6 +68,7 @@ getMenu().then((data)=>{
 									)			
 								} />
 							)
+							
 						})}
 						{/*<Route render={(props) =>
 							<Loader name='NotFound'/>		
@@ -81,5 +78,7 @@ getMenu().then((data)=>{
 			</Frame>
 		</Router>
 	), document.getElementsByTagName('section')[0]);
+}).catch((err)=>{
+	console.log(err)
 })
 

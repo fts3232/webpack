@@ -1,5 +1,5 @@
 import Menu from '../Components/Menu';
-import Link from 'react-router-dom/Link.js';
+const Link = ReactRouterDOM.Link;
 class Header extends React.Component {
 	constructor(props){
 		super(props);

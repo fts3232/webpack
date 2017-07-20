@@ -1,7 +1,10 @@
 //Component1.jsx
 /*import React from 'react';*/
+import Layout from '../../Components/Layout';
+import Breadcrumb from '../../Components/Breadcrumb';
 import Table from '../../Components/Table';
-class Index extends React.Component {
+import Button from '../../Components/Button';
+class Show extends React.Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -26,20 +29,31 @@ class Index extends React.Component {
     }
     render() {
         return (
-            <div className="content-block">
-        	   <Table action={this.props.action} changeData={this.changeData.bind(this)} data={this.state.data} columns={this.props.columns} search={true}  pagination={true} checkBox={true} tools={this.props.tools} pageSize='10'/>
+            <div className="user-show-page">
+                <Layout.Row>
+                    <Layout.Col span='22' offset='1'>
+                        <Breadcrumb item={[{name:'用户列表',path:'/User/Show'}]}/>
+                    </Layout.Col>
+                </Layout.Row>
+                <Layout.Row>
+                    <Layout.Col span='22' offset='1'>
+                        <div className="block">
+                            <Table action={this.props.action} changeData={this.changeData.bind(this)} data={this.state.data} columns={this.props.columns} search={true}  pagination={true} checkBox={true} tools={this.props.tools} pageSize='10'/>
+                        </div>
+                    </Layout.Col>
+                </Layout.Row>
             </div>
         )
     }
 }
 
-Index.propTypes={//属性校验器，表示改属性必须是bool，否则报错
+Show.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     url: React.PropTypes.string,
     columns:React.PropTypes.array,
     action:React.PropTypes.array,
     tools:React.PropTypes.array
 }
-Index.defaultProps={
+Show.defaultProps={
     url:'/api/getUser',
     tools:{
         left:{
@@ -109,4 +123,4 @@ Index.defaultProps={
 };//设置默认属性
 
 //导出组件
-export default Index;
+export default Show;

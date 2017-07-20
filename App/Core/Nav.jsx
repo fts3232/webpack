@@ -1,6 +1,7 @@
 import Menu from '../Components/Menu';
 import Scrollbar from '../Components/Scrollbar';
-import Link from 'react-router-dom/Link.js';
+const Link = ReactRouterDOM.Link;
+import Icon from '../Components/Icon';
 class Nav extends React.Component {
 	constructor(props){
 		super(props);
@@ -35,17 +36,23 @@ class Nav extends React.Component {
 						<Menu mode="vertical" defaultActive={defaultActive} defaultOpen={defaultOpen}>
 							{this.getMenu().map((val,key)=>{
 								let index = key+1;
+								if(!val.isShow){
+									return false;
+								}
 								if(typeof val.subMenu !='undefined'){
 									return (
-										<Menu.SubMenu index={index} title={val.cnName}>
+										<Menu.SubMenu index={index} title={<div><Icon iconName={val.icon}/><span>{val.cnName}</span></div>}>
 											{val.subMenu.map((v,k)=>{
+												if(!v.isShow){
+													return false;
+												}
 												let childIndex = index+'-'+(k+1);
 												return (<Link to={ global.frameConfig.Root + v.path}><Menu.Item index={childIndex}>{v.cnName}</Menu.Item></Link>)
 											})}
 										</Menu.SubMenu>
 									)
 								}else{
-									return (<Link to={ global.frameConfig.Root + val.path}><Menu.Item index={index}>{val.cnName}</Menu.Item></Link>)
+									return (<Link to={ global.frameConfig.Root + val.path}><Menu.Item index={index}><Icon iconName={val.icon}/><span>{val.cnName}</span></Menu.Item></Link>)
 								}
 							})}
 							{/*<Menu.Item index='1'>导航一</Menu.Item>
