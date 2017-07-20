@@ -1,8 +1,24 @@
 .table{
-	background: #fff;
-	border-radius: 4px;
-	padding: 15px;
-	overflow: hidden;
+    width: 100%;
+    border: 1px solid #dfe6ec;
+}
+
+.table th{
+    border-bottom: 1px solid #dfe6ec;
+    border-right: 1px solid #dfe6ec;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #eef1f6;
+    text-align: left;
+    padding-left: 18px;
+    padding-right: 18px;
+    height: 40px;
+    color: #1f2d3d;
+    font-size: 14px;
+}
+
+.table th:last-child{
+    border-right: none;
 }
 
 .table .page-size{

@@ -25,7 +25,7 @@ var config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'vendor':[APP_PATH+'/Components/Svg']
+    'common':[APP_PATH+'/Components/Svg',APP_PATH+'/Components/Component']
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -165,7 +165,7 @@ else{
   config.plugins.push(extractCss);*/
 }
 //提取多个入口的公共部分
-var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "commons", filename: "js/commons.js"});
+var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.js"});
 config.plugins.push(CommonChunk);
 var extractText = new ExtractTextPlugin({filename:"css/style.css",allChunks: true});  //打包成一个css文件
 config.plugins.push(extractText);
@@ -181,7 +181,7 @@ pages.forEach(function(name) {
     var page = new HtmlwebpackPlugin({
       filename: BUILD_PATH+'/'+name+'.html',
       template: APP_PATH+'/template/'+name+'.hbs',
-      chunks: ["commons",name]
+      chunks: ["common",name]
     });
     config.plugins.push(page);
 });

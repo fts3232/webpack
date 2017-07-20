@@ -4,27 +4,27 @@ import Layout from '../../Components/Layout';
 import Breadcrumb from '../../Components/Breadcrumb';
 import Table from '../../Components/Table';
 import Button from '../../Components/Button';
+import request from 'superagent';
 class Show extends React.Component {
 	constructor(props){
 		super(props);
         this.state = {
-            data:''
+            data:{}
         };
 	}
-    changeData(){
-        
-    }
     componentDidMount(){
         let _this = this;
-        $.ajax({
-            url:this.props.url,
-            dataType:'json',
-            success:function(data){
-                _this.setState({data:data})
-            },
-            error:function(){
-                console.log('getDateError');
-            }
+        new Promise((resolve,reject)=>{
+            request.post(this.props.url)
+                   .end(function(err, res){
+                        if(res.ok){
+                            resolve(JSON.parse(res.text))
+                        }else{
+                            reject(err)
+                        }
+                   })
+        }).then((data)=>{
+            _this.setState({'data':data})
         })
     }
     render() {
@@ -38,7 +38,7 @@ class Show extends React.Component {
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
                         <div className="block">
-                            <Table action={this.props.action} changeData={this.changeData.bind(this)} data={this.state.data} columns={this.props.columns} search={true}  pagination={true} checkBox={true} tools={this.props.tools} pageSize='10'/>
+                            <Table data={this.state.data} columns={this.props.columns} />
                         </div>
                     </Layout.Col>
                 </Layout.Row>
@@ -85,22 +85,20 @@ Show.defaultProps={
     },
     columns:[
         {
-            field:'id',
-            title:'ID',
-            order:'asc'
+            'label':'id',
+            'prop':'id'
         },
         {
-            field:'name',
-            title:'名字'
+            'label':'名字',
+            'prop':'name'
         },
         {
-            field:'age',
-            title:'年龄',
-            order:''
+            'label':'年龄',
+            'prop':'age'
         },
         {
-            field:'address',
-            title:'地址'
+            'label':'地址',
+            'prop':'address'
         }
     ],
     action:[
