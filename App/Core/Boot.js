@@ -1,5 +1,5 @@
 //
-import request from 'superagent';
+const request = superagent;
 //加载模拟数据
 import mock from '../Data/mock.js';
 //加载functions

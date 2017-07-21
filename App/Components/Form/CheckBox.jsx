@@ -36,6 +36,7 @@ class CheckBox extends React.Component {
     }
     render() {
         return(
+            
             <div className="checkbox-group">
                 <div onClick={this.checkAllHandler.bind(this)}>全选</div>
                 {this.props.data.map((val,key)=>{
@@ -65,11 +66,13 @@ class CheckBox extends React.Component {
 
 CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
-    data:React.PropTypes.array
+    data:React.PropTypes.array,
+    indeterminate:React.PropTypes.bool
 }
 CheckBox.defaultProps={
     name:'',
-    data:[]
+    data:[],
+    indeterminate:false,
 };//设置默认属性
 
 //导出组件

@@ -1,24 +1,56 @@
 .table{
     width: 100%;
     border: 1px solid #dfe6ec;
+    border-bottom:none;
+    font-size: 14px;
+    color: #1f2d3d;
 }
 
 .table th{
-    border-bottom: 1px solid #dfe6ec;
-    border-right: 1px solid #dfe6ec;
     white-space: nowrap;
     overflow: hidden;
     background-color: #eef1f6;
     text-align: left;
-    padding-left: 18px;
-    padding-right: 18px;
-    height: 40px;
-    color: #1f2d3d;
-    font-size: 14px;
 }
 
-.table th:last-child{
+.table th:last-child,.table td:last-child{
     border-right: none;
+}
+
+.table td,.table th{
+    height: 40px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-bottom: 1px solid #dfe6ec;
+    border-right: 1px solid #dfe6ec;
+}
+
+.table tr{
+    background: #fff;
+}
+
+.table tr:hover{
+    background-color: #eef1f6;
+}
+
+.table td a{
+    color: #20a0ff;
+    margin-right: 5px;
+}
+.table td a:last-child{
+    margin-right: 0
+}
+
+.table .is-center{
+    text-align: center;
+}
+
+.table .is-left{
+    text-align: left;
+}
+
+.table .is-right{
+    text-align: right;
 }
 
 .table .page-size{
