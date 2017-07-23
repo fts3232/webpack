@@ -1,10 +1,12 @@
 import Component from '../Component';
 import CheckBox from '../CheckBox';
+import Icon from '../Icon';
 class TableHeader extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            allChecked:false
+            allChecked:false,
+            sortStatus:0
         }
 	}
     getTable(){
@@ -14,18 +16,62 @@ class TableHeader extends Component {
         this.setState({allChecked: checked});
         this.getTable().refs.mainBody.selectAll(checked);
     }
+    cancelAllChecked() {
+        this.setState({ allChecked: false });
+    }
+    onSort(column){
+        let {sortStatus} = this.state;
+        let nextStatus;
+        switch(sortStatus){
+            case 0:
+                nextStatus = 1;
+                break;
+            case 1:
+                 nextStatus = 2;
+                break;
+            case 2:
+                 nextStatus = 0;
+                break;
+        }
+        this.setState({
+            sortStatus:nextStatus,
+            sortColumn:column
+        })
+        this.getTable().sortBy(nextStatus,column.prop,column.sortMethod)
+        /*const { sortStatus } = this.state;
+        const { $owerTable } = this.context;
+        let  nextStatus;
+
+        switch(sortStatus){
+          case 0: nextStatus = 1;break;
+          case 1: nextStatus = 2;break;
+          case 2: nextStatus = 0;break;
+        }
+
+        this.setState({
+          sortStatus: nextStatus,
+          sortPropertyName: column.property
+        });
+        $owerTable.sortBy(
+          nextStatus,
+          column.property,
+          column.sortMethod);*/
+      }
     render() {
-        let checked = this.state.allChecked;
+        let {allChecked,sortStatus,sortColumn} = this.state;
+        
         return (
             <thead>
                 <tr >
                     {this.props.columns.map((column)=>{
+                        let style = typeof column.width!='undefined'?{'width':column.width}:{};
                         return (
                             <th 
-                                className={this.classNames({'is-center':column.align=='center','is-left':column.align=='left','is-right':column.align=='right',}) }
-                                width={typeof column.width!='undefined'?column.width:null}
+                                className={this.classNames({'asc':sortStatus==1 && sortColumn==column,'desc':sortStatus==2 && sortColumn==column,'is-checkbox':column.type=='selection','is-center':column.align=='center','is-left':column.align=='left','is-right':column.align=='right',}) }
+                                style={this.style(style)}
                             >
-                                {column.type=='selection'?(<CheckBox name="check" checked={checked} onChange={this.onAllChecked.bind(this)} indeterminate={true}/>):column.label}
+                                    {column.type=='selection'?(<CheckBox name="check" checked={allChecked} onChange={this.onAllChecked.bind(this)} indeterminate={true}/>):column.label}
+                                    {column.sortable?(<span className="sort-wrapper" onClick={this.onSort.bind(this,column)}><Icon iconName="sort-asc"/><Icon iconName="sort-desc"/></span>):null}
                             </th>
                         )
                     })}

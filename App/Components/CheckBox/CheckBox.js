@@ -1,5 +1,6 @@
 import css from './Scss/main.scss';
 import Component from '../Component';
+import Icon from '../Icon';
 class CheckBox extends Component {
 	constructor(props){
 		super(props);
@@ -26,9 +27,10 @@ class CheckBox extends Component {
                 <span className={this.classNames('checkbox-input',{'is-checked': this.state.checked})}>
                     <span className="checkbox-input-inner">
                         <input type="checkbox" checked={this.state.checked} name={this.props.name} value={this.props.value} onChange={this.onChange.bind(this)}/>
+                        <Icon iconName={this.state.checked?'check':null} />
                     </span>
                 </span>
-                <span className="checkbox-label">{this.props.children}</span>
+                {typeof this.props.children!='undefined'?(<span className="checkbox-label">{this.props.children}</span>):null}
             </label>
         )
     }

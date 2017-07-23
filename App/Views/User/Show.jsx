@@ -58,8 +58,18 @@ Show.defaultProps={
     url:'/api/getUser',
     columns:[
         {
+            type: 'expand',
+            'width':'48',
+            'expandPannel': function(data){
+                return (
+                    <div>{data.msg}</div>
+                )
+            }
+        },
+        {
             'type':'selection',
-            'align': 'center'
+            'align': 'center',
+            'width':'48'
         },
         {
             'label':'id',
@@ -71,7 +81,8 @@ Show.defaultProps={
         },
         {
             'label':'年龄',
-            'prop':'age'
+            'prop':'age',
+            'sortable': true
         },
         {
             'label':'地址',

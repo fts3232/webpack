@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=development&&webpack-dev-server --hot --inline",
+    "start": "set NODE_ENV=development&&webpack-dev-server --hot --inline --watch",
     "build-test": "set NODE_ENV=test&&webpack",
     "build-pro": "set NODE_ENV=production&&webpack",
     "reg-taobao": "npm install -g cnpm --registry=https://registry.npm.taobao.org",

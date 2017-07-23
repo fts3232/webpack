@@ -9,21 +9,37 @@ import TableFooter from './TableFooter';
 class Table extends Component {
 	constructor(props){
 		super(props);
+        this.state = {
+            sortList:null
+        }
 	}
     getChildContext(){
         return {
           table: this
         };
     }
-    selectAll(){
-        console.log(this.refs)
+    sortBy(sort,prop,sortMethod){
+        if(sort==0){
+            this.setState({sortList:null})
+        }else{
+            const data = this.props.data;
+            const sortList = data.slice(0);
+            const defaultMethod = (a, b)=>{
+                if(sort == 2){ var t = b; b = a; a = t;}
+                return (a[prop] > b[prop] ? 1 : -1);
+            }
+            sortList.sort(sortMethod ? sortMethod : defaultMethod);
+            this.setState({sortList});
+        }
     }
     render() {
+        let {sortList} = this.state;
+        let {data,columns} = this.props;
+        data = sortList || data;
         return (
             <table className="table" cellSpacing="0" cellPadding="0">
-               <TableHeader columns={this.props.columns}/>
-               <TableBody ref="mainBody" columns={this.props.columns} data={this.props.data} />
-
+               <TableHeader ref='header' columns={columns}/>
+               <TableBody ref="mainBody" columns={columns} data={data} />
             </table>
         )
     }

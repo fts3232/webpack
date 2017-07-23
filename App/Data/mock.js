@@ -173,7 +173,8 @@ let userData = Mock.mock({
             'id|+1':1,
             'name':'@first()',
             'age':'@natural(20, 40)',
-            'address':'@region()'
+            'address':'@region()',
+            'msg':'@region()'
         }
     ]
 })

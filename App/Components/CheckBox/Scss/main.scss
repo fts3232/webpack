@@ -24,16 +24,20 @@
             box-sizing: border-box;
         }
         & .checkbox-input-inner .icon{
-            opacity: 0;
-            fill:#fff;
+            color:#fff;
+            transform: scale(0);
+            transition: transform .15s cubic-bezier(.71,-.46,.88,.6) .05s;
         }
+
         &.is-checked .checkbox-input-inner{
             border-color: #20a0ff;
             background: #20a0ff;
         }
+
         &.is-checked .checkbox-input-inner .icon{
-            opacity: 1;
+            transform: scaleY(1);
         }
+
         &.is-disabled .checkbox-input-inner{
             background-color: #eef1f6;
             border-color: #d1dbe5;

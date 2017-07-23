@@ -24,12 +24,20 @@ class TableBody extends Component {
         }
         this.setState({selected:selected})
     }
+    onSelected(checked,data){
+        let {selected} = this.state;
+        let dataList = this.props.data
+        checked = checked ? selected.push(data) : selected.splice(selected.indexOf(data), 1);
+
+        this.getTable().refs.header.setState({allChecked : dataList.length == selected.length});
+        this.setState({ selected });
+    }
     render() {
         return (
             <tbody>
-                {this.props.data.map((data,key)=>{
+                {this.props.data.map((data,index)=>{
                     return (
-                        <TableBodyItem selected={this.state.selected.indexOf(key)>-1} data={data} columns={this.props.columns}/>
+                        <TableBodyItem selected={this.state.selected.indexOf(data)>-1} onSelected={this.onSelected.bind(this)} data={data} columns={this.props.columns}/>
                     )
                 })}
             </tbody>
