@@ -91,7 +91,7 @@ Show.defaultProps={
         {
             'label':'操作',
             'width':100,
-            'render':()=>{
+            'render':(data)=>{
                 return (<div><Link to="/user/edit">修改</Link><Link to="/user/del">删除</Link></div>)
             }
         }
