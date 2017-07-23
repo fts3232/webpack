@@ -52,6 +52,9 @@
     color:#1f2d3d;
 }
 
+.table tr:nth-child(even){
+    background: #fafafa;
+}
 
 .table td.expand .icon{
      cursor: pointer;

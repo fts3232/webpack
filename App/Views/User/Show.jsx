@@ -92,7 +92,9 @@ Show.defaultProps={
             'label':'操作',
             'width':100,
             'render':(data)=>{
-                return (<div><Link to="/user/edit">修改</Link><Link to="/user/del">删除</Link></div>)
+                let editUrl = '/user/edit/'+data.id;
+                let delUrl = '/user/del/'+data.id;
+                return (<div><Link to={editUrl}>修改</Link><Link to={delUrl}>删除</Link></div>)
             }
         }
 
