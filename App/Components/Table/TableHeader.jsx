@@ -38,24 +38,6 @@ class TableHeader extends Component {
             sortColumn:column
         })
         this.getTable().sortBy(nextStatus,column.prop,column.sortMethod)
-        /*const { sortStatus } = this.state;
-        const { $owerTable } = this.context;
-        let  nextStatus;
-
-        switch(sortStatus){
-          case 0: nextStatus = 1;break;
-          case 1: nextStatus = 2;break;
-          case 2: nextStatus = 0;break;
-        }
-
-        this.setState({
-          sortStatus: nextStatus,
-          sortPropertyName: column.property
-        });
-        $owerTable.sortBy(
-          nextStatus,
-          column.property,
-          column.sortMethod);*/
       }
     render() {
         let {allChecked,sortStatus,sortColumn} = this.state;
