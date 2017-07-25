@@ -25,7 +25,7 @@ var config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'common':[APP_PATH+'/Components/Svg',APP_PATH+'/Components/Component',,APP_PATH+'/Components/Component/Breadcrumb']
+    'common':[APP_PATH+'/Components/Svg',APP_PATH+'/Components/Component',APP_PATH+'/Components/Component/Breadcrumb']
   },
   resolve: {
     extensions: ['.js', '.jsx']
