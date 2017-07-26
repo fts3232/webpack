@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Exceptions\CustomException;
 use Carbon\Carbon;
 
 class Controller extends BaseController
@@ -20,6 +21,14 @@ class Controller extends BaseController
     //display view
     public function display($template){
         return view($template);
+    }
+    //display error
+    public function error($msg){
+        return $this->json(['status'=>false,'msg'=>$msg]);
+    }
+    //display success
+    public function success($msg=''){
+        return $this->json(['status'=>true,'msg'=>$msg]);
     }
     //cache get
     public function getCache($key,$default=false){
@@ -128,7 +137,12 @@ class Controller extends BaseController
     public function jsonp($data,$callback='callback'){
         return response()->json($data)->setCallback($callback);
     }
+    //redirect
     public function redirect($path){
         return redirect($path);
+    }
+    //throw exception
+    public function throwCustomException($message){
+        throw new CustomException($message);
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Database\QueryException;
+use App\Exceptions\CustomException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -41,6 +43,7 @@ class Handler extends ExceptionHandler
             'code' => $e->getCode(),
             'url' => Request::url(),
         );
+        
         $this->log->error($array);
         //parent::report($e);
     }
@@ -54,6 +57,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof CustomException){
+            if($request->ajax()){
+                return response()->json(['status' => 'false', 'msg'=>$e->getMessage()]);
+            }elseif($request->isMethod('post')){
+                return redirect()->back()->withErrors(['exception'=>$e->getMessage()]);
+            }else{
+                return $e->getMessage();
+            }
+        }elseif($e instanceof QueryException){
+            return parent::render($request, $e);
+        }
         return parent::render($request, $e);
     }
 }

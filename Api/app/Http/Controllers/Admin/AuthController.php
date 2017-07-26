@@ -69,12 +69,16 @@ class AuthController extends BaseAuthController
      */
     protected function create(array $data)
     {
-        $result = Users::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'created_at'=>'NOW()'
-        ]);
-        return $result;
+        try{
+            $result = Users::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'created_at'=>'NOW()'
+            ]);
+            return $result;
+        }catch(\Exception $e){
+            $this->throwCustomException('注册失败');
+        }
     }
 }

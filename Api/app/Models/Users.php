@@ -14,7 +14,7 @@ class Users extends AuthModel
     protected $fillable = [
         'name', 'email', 'password',
     ];
-    protected $table = 'users_copy2';
+    protected $table = 'users_copy';
     
     /**
      * The attributes excluded from the model's JSON form.
@@ -24,4 +24,5 @@ class Users extends AuthModel
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
 }
