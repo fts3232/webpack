@@ -1,0 +1,120 @@
+*{
+	padding: 0;
+	margin:0;
+}
+
+a{
+    text-decoration: none;
+    color:inherit;
+}
+
+.letter-space-5{
+    letter-spacing: 5px;
+}
+
+.letter-space-8{
+	letter-spacing: 8px;
+}
+
+.letter-space-16{
+    letter-spacing: 16px;
+}
+
+.input-group{
+	margin-bottom: 5px;
+	position: relative;
+}
+
+.input-group input{
+	appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #bfcbd9;
+    box-sizing: border-box;
+    color: #1f2d3d;
+    display: inline-block;
+    font-size: inherit;
+    height: 36px;
+    line-height: 1;
+    outline: none;
+    padding: 3px 10px;
+}
+
+.button{
+	display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #bfcbd9;
+    border-color: #c4c4c4;
+    color: #1f2d3d;
+    appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    user-select: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.login-form{
+	margin:0 auto;
+	width: 290px;
+	margin-top: 15%;
+	position: relative;
+}
+
+.login-form .title{
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.login-form label{
+	width:85px;
+	display: inline-block;
+}
+
+.login-form .button{
+	margin-left: 0;
+}
+
+.login-form img.verficode{
+	position: absolute;
+    right: -125px;
+    top:0;
+}
+
+.login-form .error{
+	font-size: 12px;
+    color: red;
+    margin-left: 75px;
+    margin-top: 5px;
+}
+
+.header{
+    height: 60px;
+    background-color: #324157;
+}
+
+.nav{
+    background: #e5e9f2;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+}
+
+.nav .menu{
+    list-style: none;
+    margin-top: 20px;
+}
+
+.nav .menu .item{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}

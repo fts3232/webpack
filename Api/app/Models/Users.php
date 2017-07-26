@@ -2,12 +2,26 @@
 
 namespace App\Models;
 
-use App\Models\Model;
-use Illuminate\Support\Facades\Auth;
+use App\Models\AuthModel;
 
-class Users extends Model
+class Users extends AuthModel
 {
-    function __construct(){
-        var_dump(Auth::check());
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+    protected $table = 'users_copy2';
+    
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

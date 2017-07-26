@@ -14,21 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-Route::get('/aa',function(){
-    $csrf_field = csrf_field();
-    $html = <<<GET
-        <form method="POST" action="/laravel-master/public/bb">
-            {$csrf_field}
-            <input type="submit" value="Test"/>
-        </form>
-GET;
-                return $html;
-});
-Route::get('/bb', function(){
-    return 'Success!';
-});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -42,13 +27,18 @@ Route::get('/bb', function(){
 
 Route::group(['middleware' => ['web']], function () {
     // Authentication Routes...
-    $this->get('/admin/login', 'AdminController@showLoginForm');
-    $this->post('/admin/login', 'AdminController@login');
-    $this->get('/admin/logout', 'AdminController@logout');
-    Route::get('/admin','AppController@index');
+    $this->get('/admin/login', 'Admin\AuthController@showLoginForm');
+    $this->post('/admin/login', 'Admin\AuthController@login');
+    $this->get('/admin/logout', 'Admin\AuthController@logout');
     
-    $this->get('/admin/register', 'AdminController@showRegistrationForm');
-    $this->post('/admin/register', 'AdminController@register');
+    $this->get('/admin/register', 'Admin\AuthController@showRegistrationForm');
+    $this->post('/admin/register', 'Admin\AuthController@register');
+    
+    $this->get('/admin/user', 'Admin\UserController@logout');
+    Route::any('/admin','Admin\HomeController@index');
+    
+    //$this->get('/admin/register', 'AdminController@showRegistrationForm');
+    //$this->post('/admin/register', 'AdminController@register');
     //Route::get('/admin/login','AppController@login');
     //Route::get('/admin/logout','AppController@logout');
     //

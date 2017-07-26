@@ -14,7 +14,7 @@ class Cache{
     //
     public function set($key,$value,$expire=false){
         if($expire==0){
-            LaravelCache::forver($key,$value);
+            LaravelCache::forever($key,$value);
         }else{
             $expiresAt = Carbon::now()->addMinutes($expire);
             LaravelCache::put('key', 'value', $expireAt);

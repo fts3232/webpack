@@ -5,13 +5,14 @@ class Model
 {
     protected $connection;
     protected $instace;
+    protected $table;
     //
-    protected function __construct(){
+    public function __construct(){
         $this->instace = DB::connection($this->connection);
     }
     //
-    protected function select(){
-        
+    protected function select($sql,$param=[]){
+        return $this->instace->select($sql,$param);
     }
     //
     protected function find(){
@@ -22,8 +23,8 @@ class Model
         
     }
     //
-    protected function insert(){
-        
+    protected function insert($sql,$param){
+        return $this->instace->insert($sql,$param);
     }
     //
     protected function delete(){
