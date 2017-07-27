@@ -13,29 +13,32 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Exceptions\CustomException;
+use Illuminate\Support\Facades\Auth;
+use Gate;
+use Mail;
 use Carbon\Carbon;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     //display view
-    public function display($template){
+    protected function display($template){
         return view($template);
     }
     //display error
-    public function error($msg){
+   protected function error($msg){
         return $this->json(['status'=>false,'msg'=>$msg]);
     }
     //display success
-    public function success($msg=''){
+    protected function success($msg=''){
         return $this->json(['status'=>true,'msg'=>$msg]);
     }
     //cache get
-    public function getCache($key,$default=false){
+    protected function getCache($key,$default=false){
         return Cache::get($key,$default);
     }
     //cache set
-    public function setCache($key,$value,$expire=0){
+    protected function setCache($key,$value,$expire=0){
         if($expire==0){
            Cache::forever($key,$value);
         }else{
@@ -44,72 +47,84 @@ class Controller extends BaseController
         }
     }
     //cache del
-    public function delCache($key){
+    protected function delCache($key){
         return Cache::forget($key);
     }
     //write log
-    public function writeLog($record,$level='info'){
+    protected function writeLog($record,$level='info'){
         forward_static_call(array('Log',$level),$record);
     }
     //is login
-    public function isLogin($guard=''){
+    protected function isLogin($guard=''){
         return Auth::guard($guard)->check();
     }
+    protected function getLoginUser($guard=''){
+        return Auth::guard($guard)->user();
+    }
     //request method
-    public function isGet(){
+    protected function isGet(){
         return Request::isMethod('get');
     }
-    public function isPut(){
+    protected function isPut(){
         return Request::isMethod('put');
     }
-    public function isPost(){
+    protected function isPost(){
         return Request::isMethod('post');
     }
-    public function isDel(){
+    protected function isDel(){
         return Request::isMethod('del');
     }
-    public function isAjax(){
+    protected function isAjax(){
         return Request::ajax();
     }
-    //get input
-    public function getInput($key,$default=false){
-        return Request::input($key,$default);
+    //get Request Param
+    protected function getRequestParam($key,$default=false,$type=false){
+        $typeMap = array(
+            'number'=>'numeric',
+            'string'=>'string'
+        );
+        $value = Request::input($key,$default);
+        if($type && array_key_exists($type,$typeMap)){
+            $validator =  Validator::make(array('value'=>$value),['value'=>'required|'.$typeMap[$type]]);
+            return !$validator->fails()?$value:$default;
+        }
+        return $value;
     }
     // input is num
-    public function isNum($value){
+    protected function isNum($value){
         $validator =  Validator::make(array('value'=>$value),['value'=>'required|numeric']);
         return !$validator->fails();
     }
     //cookie get
-    public function getCookie($key){
+    protected function getCookie($key){
         return Cookie::get($key);
     }
     //cookie set
-    public function setCookie($key,$value,$minute){
+    protected function setCookie($key,$value,$minute){
         return Cookie::queue($key, $value, $minute);
     }
     //cookie del
-    public function delCookie($key){
+    protected function delCookie($key){
         return Cookie::queue(Cookie::forget($key));
     }
     //session get
-    public function getSession($key){
+    protected function getSession($key){
         return Session::get($key);
     }
     //session has
-    public function hasSession($key){
+    protected function hasSession($key){
         return Session::has($key);
     }
     //session set
-    public function setSession($key,$value){
+    protected function setSession($key,$value){
         return Session::put($key,$value);
     }
     //session del
-    public function delSession($key){
+    protected function delSession($key){
         return Session::forget($key);
     }
     //upload
-    public function upload($key){
+    protected function upload($key){
         $result = false;
         $file = Request::file($key);
         if(Request::hasFile($key) &&  $file->isValid()){
@@ -126,23 +141,43 @@ class Controller extends BaseController
         return $result;
     }
     //download
-    public function download($file){
+    protected function download($file){
         return response()->download($file);
     }
     //json
-    public function json($data){
+    protected function json($data){
         return response()->json($data);
     }
     //jsonp
-    public function jsonp($data,$callback='callback'){
+    protected function jsonp($data,$callback='callback'){
         return response()->json($data)->setCallback($callback);
     }
     //redirect
-    public function redirect($path){
+    protected function redirect($path){
         return redirect($path);
     }
     //throw exception
-    public function throwCustomException($message){
+    protected function throwCustomException($message){
         throw new CustomException($message);
+    }
+    //send mail
+    protected function sendMail($to,$title,$view,$viewData=[]){
+        Mail::send($view,$viewData,function($m){
+            $m->to($to)->subject($title);
+        });
+    }
+    //check auth
+    protected function checkAuth($auth,$user){
+        if(1==1){
+            abort(403);
+        }
+    }
+    //debug
+    public function debug($record){
+        return $this->writeLog($record,'debug');
+    }
+    //lang
+    public function lang($key){
+        return trans($key);
     }
 }

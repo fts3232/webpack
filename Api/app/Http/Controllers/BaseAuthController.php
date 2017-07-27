@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -68,5 +69,19 @@ class BaseAuthController extends Controller{
     protected function validateLogin(Request $request)
     {
         $this->validate($request, $this->validateLoginRule,$this->validateLoginErrorMsg);
+    }
+    //登录
+    protected function register(Request $request){
+        $validator = $this->validator($request->all());
+        
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        
+        Auth::guard($this->getGuard())->loginUsingId($this->create($request->all()));
+        
+        return redirect($this->redirectPath());
     }
 }

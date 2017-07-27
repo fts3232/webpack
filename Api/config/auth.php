@@ -74,8 +74,8 @@ return [
             'model' => App\User::class,
         ],
         'admin'=>[
-            'driver' => 'eloquent',
-            'model' => App\Admin::class,
+            'driver' => 'database',
+            'table' => 'users_copy',
         ]
 
         // 'users' => [

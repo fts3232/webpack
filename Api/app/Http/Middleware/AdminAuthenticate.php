@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Role;
 
 class AdminAuthenticate
 {
@@ -23,6 +24,11 @@ class AdminAuthenticate
             } else {
                 return redirect()->guest('/admin/login');
             }
+        }else{
+            $user = Auth::guard($guard)->user();
+            $path = $request->path();
+            if(!Role::permission($user,$path))
+                return view('errors.403');
         }
 
         return $next($request);

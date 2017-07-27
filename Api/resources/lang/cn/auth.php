@@ -13,7 +13,7 @@ return [
     |
     */
     'login'=>[
-        'fail'=>'login fail',
+        'fail'=>'用户名或密码不正确',
         'success'=>'登录成功'
     ],
     'register'=>[
@@ -21,7 +21,7 @@ return [
         'success'=>'注册成功'
     ],
     'name'=>[
-        'required'=>'name is empty'
+        'required'=>'用户名不能为空'
     ],
     'password'=>[
         'required'=>'密码不能为空',

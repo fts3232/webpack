@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\AuthModel;
+use App\Models\Model;
 
-class Users extends AuthModel
+class Users extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -24,5 +24,9 @@ class Users extends AuthModel
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+    protected function getTotal(){
+        $sql = 'SELECT COUNT(*) AS TOTAL FROM USERS_COPYss';
+        $result = $this->select($sql);
+        return $result?$result[0]->TOTAL:false;
+    }
 }

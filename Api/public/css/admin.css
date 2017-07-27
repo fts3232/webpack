@@ -102,6 +102,16 @@ a{
     background-color: #324157;
 }
 
+.header>.user{
+    float: right;
+    line-height: 60px;
+    margin-right: 10px;
+    color:#bfcbd9;
+}
+.header>.user .name{
+    margin-right: 10px;
+}
+
 .nav{
     background: #e5e9f2;
     width: 200px;
@@ -117,4 +127,9 @@ a{
 .nav .menu .item{
     margin-left: 20px;
     margin-bottom: 10px;
+}
+
+.content-container{
+    margin-left: 200px;
+    padding:20px;
 }

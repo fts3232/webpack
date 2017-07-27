@@ -1,34 +1,56 @@
 <?php
 namespace App\Models;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 class Model
 {
     protected $connection;
-    protected $instace;
     protected $table;
+    protected static $instace = [];
+    protected $db;
     //
     public function __construct(){
-        $this->instace = $this->instace->connection($this->connection);
+        $this->db = DB::connection($this->connection);
+    }
+    //
+    public static function __callstatic($funcName, $arguments){
+        try{
+            $className = static::class;
+            if(! array_key_exists($className,self::$instace))
+                self::$instace[$className] = new $className();
+            return call_user_func_array(array(self::$instace[$className],$funcName), $arguments);
+        }catch(\Exception $e){
+            $array = array(
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'code' => $e->getCode(),
+                'url' => Request::url(),
+                'level'=>'error'
+            );
+            Log::error($array);
+            return false;
+        }
     }
     //select
     protected function select($sql,$param=[]){
-        return $this->instace->select($sql,$param);
+        return $this->db->select($sql,$param);
     }
     //find
     protected function find(){
-        $result = $this->instace->select($sql,$param);
+        $result = $this->db->select($sql,$param);
         return ($result && count($result)>0)?$result[0]:false;
     }
     //update
-    public function update($sql,$param=[]){
-        return $this->instace->update($sql,$param);
+    protected function update($sql,$param=[]){
+        return $this->db->update($sql,$param);
     } 
     //insert
     protected function insert($sql,$param=[]){
-        var_dump($this->table);
-        $result = $this->instace->insert($sql,$param);
-        $pdo = $this->instace->getPdo();
-        return $result?$pdo->lastInsertId:false;
+        $result = $this->db->insert($sql,$param);
+        $pdo = $this->db->getPdo();
+        return $result?$pdo->lastInsertId():false;
     }
     //delete
     protected function delete($sql,$param=[]){
@@ -36,14 +58,14 @@ class Model
     }
     //beginTransaction
     protected function beginTransaction(){
-        $this->instace->beginTransaction();
+        $this->db->beginTransaction();
     }
     //rollback
     protected function rollback(){
-        return $this->instace->rollBack();
+        return $this->db->rollBack();
     }
     //commit
     protected function commit(){
-        return $this->instace->commit();
+        return $this->db->commit();
     }
 }

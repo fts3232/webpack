@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Model;
 
-class Admin extends Model
+class Role extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -15,12 +15,16 @@ class Admin extends Model
         'name', 'email', 'password',
     ];
     protected $table = 'users_copy';
+    
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
-    */
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected function permission(){
+        return true;
+    }
 }

@@ -1,6 +1,4 @@
 @include('admin.header')
 @include('admin.nav')
-<div class="content">
-    @yield('content')
-</div>
+@yield('content-container')
 @include('admin.footer')

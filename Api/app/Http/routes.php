@@ -26,6 +26,7 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
+    App::setLocale('en');
     // Authentication Routes...
     $this->get('/admin/login', 'Admin\AuthController@showLoginForm');
     $this->post('/admin/login', 'Admin\AuthController@login');
@@ -34,8 +35,9 @@ Route::group(['middleware' => ['web']], function () {
     $this->get('/admin/register', 'Admin\AuthController@showRegistrationForm');
     $this->post('/admin/register', 'Admin\AuthController@register');
     
-    $this->get('/admin/user', 'Admin\UserController@logout');
-    Route::any('/admin','Admin\HomeController@index');
+    $this->get('/admin','Admin\HomeController@index');
+    $this->get('/admin/user', 'Admin\UserController@index');
+    
     
     //$this->get('/admin/register', 'AdminController@showRegistrationForm');
     //$this->post('/admin/register', 'AdminController@register');
