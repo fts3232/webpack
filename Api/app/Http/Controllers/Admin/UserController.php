@@ -14,6 +14,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
          $this->middleware('auth.admin:admin');
     }
 
@@ -26,7 +27,7 @@ class UserController extends Controller
     {
         $size = 5;
         $count = Users::getTotal();
-        $page = $this->getRequestParam('page',1,'number');
+        $page = $this->request->getParam('page',1,'number');
         $totalPage = ceil($count/$size);
         $offset = ($page - 1) * $size;
         $users = Users::select("select id,name,email,password,created_at,updated_at from users_copy limit {$offset},{$size}");

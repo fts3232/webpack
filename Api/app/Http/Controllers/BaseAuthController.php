@@ -37,7 +37,6 @@ class BaseAuthController extends Controller{
     public function __construct(){
         //中间件跳过logout方法
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-        $this->loginRequest = [];
     }
     //验证数据
     protected function validator(array $data){

@@ -3,26 +3,22 @@ namespace App\Services;
 use Illuminate\Support\Facades\Cache as LaravelCache;
 use Carbon\Carbon;
 class Cache{
-    //
-    public function __construct(){
-        
-    }
-    //
+//cache get
     public function get($key,$default=false){
-        LaravelCache::get($key,$default);
+        return LaravelCache::get($key,$default);
     }
-    //
-    public function set($key,$value,$expire=false){
+    //cache set
+    public function set($key,$value,$expire=0){
         if($expire==0){
-            LaravelCache::forever($key,$value);
+           LaravelCache::forever($key,$value);
         }else{
-            $expiresAt = Carbon::now()->addMinutes($expire);
-            LaravelCache::put('key', 'value', $expireAt);
+            $expireAt = Carbon::now()->addMinutes($expire);
+            LaravelCache::put($key, $value, $expireAt);
         }
     }
-    //
-    public function del($key){
-        LaravelCache::forget($key);
+    //cache del
+    public function delete($key){
+        return LaravelCache::forget($key);
     }
 }
 ?>

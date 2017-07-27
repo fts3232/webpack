@@ -54,7 +54,6 @@ class Handler extends ExceptionHandler
                 $this->log->error($array);
                 //call_user_func(array($this->log,$level),$array);
             }else{
-               
                 $level = 'ERROR';
                 $array['level'] = $level ;
                 $this->log->error($array);
@@ -91,13 +90,8 @@ class Handler extends ExceptionHandler
             }elseif($e instanceof ValidationException){
                 return parent::render($request, $e);
             }else{
-                if(config('app.debug')){
-                    return parent::render($request, $e);
-                }else{
-                    return response()->view('errors.common');
-                }
+                return response()->view('errors.common');
             }
         }
-        //return parent::render($request, $e);
     }
 }
