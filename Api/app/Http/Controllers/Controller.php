@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Exceptions\CustomException;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use Crypt;
 
 class Controller extends BaseController
 {
@@ -45,18 +46,31 @@ class Controller extends BaseController
     }
     //upload
     protected function upload($key){
-        $result = false;
-        $file = Request::file($key);
-        if(Request::hasFile($key) &&  $file->isValid()){
-            $destPath = public_path('upload');
-            $extension = $file->extension();
-           if(!file_exists($destPath))
-                mkdir($destPath,0755,true);
-            $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
-            $file->move($destPath,$filename);
-            if($file->getError()===0){
-                $result = true;
+        $result =true;
+        try{
+            $file = Request::file($key);
+            if(Request::hasFile($key) &&  $file->isValid()){
+                $destPath = public_path('upload');
+                $extension = $file->extension();
+                if(!file_exists($destPath))
+                    mkdir($destPath,0755,true);
+                $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
+                $file->move($destPath,$filename);
+                if($file->getError()!==0){
+                    $result = false;
+                }
             }
+        }catch(\Exception $e){
+            $array = array(
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'code' => $e->getCode(),
+                'url' => Request::url(),
+                'level'=>'error'
+            );
+            $this->log->writeLog($array,'error');
+            $result = false;
         }
         return $result;
     }
@@ -82,9 +96,24 @@ class Controller extends BaseController
     }
     //send mail
     protected function sendMail($to,$title,$view,$viewData=[]){
-        Mail::send($view,$viewData,function($m){
-            $m->to($to)->subject($title);
-        });
+        $result = true;
+        try{
+            $result =  Mail::send($view,$viewData,function($m) use ($to,$title){
+                $m->to($to)->subject($title);
+            });
+        }catch(Exception $e){
+            $array = array(
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'code' => $e->getCode(),
+                'url' => Request::url(),
+                'level'=>'error'
+            );
+            $this->log->writeLog($array,'error');
+            $result = false;
+        }
+        return $result;
     }
     //debug
     public function debug($record){
@@ -93,5 +122,18 @@ class Controller extends BaseController
     //lang
     public function lang($key){
         return trans($key);
+    }
+    //encrypt
+    public function encrypt($value){
+        return Crypt::encrypt($value);
+    }
+    //decrypt
+    public function decrypt($value){
+        try {
+            $decrypted = Crypt::decrypt($value);
+        } catch (\Exception $e) {
+            $decrypted = false;
+        }
+       return  $decrypted;
     }
 }

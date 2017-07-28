@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  'Home\IndexController@index');
+Route::get('/api/user',  ['middleware' => 'api', function() {
+    // 只有认证过的用户可以进入...
+    
+}]);
 /*
 |--------------------------------------------------------------------------
 | Application Routes

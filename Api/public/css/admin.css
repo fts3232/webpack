@@ -133,3 +133,11 @@ a{
     margin-left: 200px;
     padding:20px;
 }
+
+.content-container .el-breadcrumb{
+    margin-bottom: 20px;
+}
+.content-container .paginator{
+    margin-top:20px;
+    text-align: right;
+}

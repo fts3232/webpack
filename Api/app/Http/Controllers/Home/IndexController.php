@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users;
-use App\Admin;
-class UserController extends Controller
+
+class IndexController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,7 +15,6 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
-         $this->middleware('auth.admin:admin');
     }
 
     /**
@@ -30,7 +29,7 @@ class UserController extends Controller
         $page = $this->request->getParam('page',1,'number');
         $totalPage = ceil($count/$size);
         $offset = ($page - 1) * $size;
-        $users = Users::select("select id,name,email,created_at,updated_at from users_copy limit {$offset},{$size}");
-        return view('admin.user',['users'=>$users,'totalPage'=>$totalPage]);
+        $users = Users::select("select id,name,email,password,created_at,updated_at from users_copy limit {$offset},{$size}");
+        return view('home');
     }
 }

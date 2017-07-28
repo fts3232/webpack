@@ -39,7 +39,6 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-       
         $array = array(
             'message' => $e->getMessage(),
             'file' => $e->getFile(),

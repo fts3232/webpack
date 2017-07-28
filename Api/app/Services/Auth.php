@@ -10,5 +10,13 @@ class Auth {
     public function getLoginUser($guard=''){
         return LaravelAuth::guard($guard)->user();
     }
+    //login
+    public function login($user,$guard=''){
+        return LaravelAuth::guard($guard)->login();
+    }
+    //logout
+    public function logout($guard=''){
+        return LaravelAuth::guard($guard)->logout();
+    }
 }
 ?>

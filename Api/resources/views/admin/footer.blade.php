@@ -1,3 +1,10 @@
-	<script src="//cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+	</div>	
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script>
+	   new Vue({
+	      el: '#app'
+	    })
+	</script>
 </body>
 </html>

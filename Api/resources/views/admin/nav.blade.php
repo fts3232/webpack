@@ -1,11 +1,6 @@
 <div class="nav">
-    <ul class="menu">
-        <li class="item">
-            <a href="{{url('/admin')}}"><div class="title">首页</div></a>
-        </li>
-        <li class="item">
-            <a href="{{url('/admin/user')}}"><div class="title">用户管理</div></a>
-        </li>
-    </ul>
-
+	<el-menu default-active="0" class="el-menu-vertical-demo" >
+	  <a href="{{ url('admin/user') }}"><el-menu-item index="1">用户管理</el-menu-item></a>
+	  <a href="{{ url('admin/article') }}"><el-menu-item index="2">文章管理</el-menu-item></a>
+	</el-menu>
 </div>
