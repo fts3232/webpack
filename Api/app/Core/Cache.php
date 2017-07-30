@@ -1,23 +1,23 @@
 <?php 
-namespace App\Services;
+namespace App\Core;
 use Illuminate\Support\Facades\Cache as LaravelCache;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Log as LaravelLog;
 use Carbon\Carbon;
 class Cache{
     public function __call($methodName,$args){
+        $log = \App::make('\App\Core\Log');
         try{
             call_user_func_array(array(Cache::class,$methodName),$args);
         }catch(\Exception $e){
             $array = array(
-                'message' => $e->getMessage(),
+                'message' => iconv("GB2312","UTF-8",$e->getMessage()),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'code' => $e->getCode(),
                 'url' => Request::url(),
                 'level'=>'error',
             );
-            LaravelLog::error($array);
+            $log->write($array,'error');
             return false;
         }
     }

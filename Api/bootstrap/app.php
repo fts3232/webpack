@@ -1,5 +1,6 @@
 <?php
-use App\Services\Log;
+use Monolog\Handler\MongoDBHandler;
+use Monolog\Handler\RotatingFileHandler;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -42,8 +43,25 @@ $app->singleton(
 );
 
 $app->configureMonologUsing(function ($monolog) {
-    $log = new Log();
-    $log->setHandler($monolog);
+    $writeMongoDB = true;
+
+    if(config('database.connections.mongodb')){
+        
+        try{
+            $host = config('database.connections.mongodb.host');
+            $port = config('database.connections.mongodb.port');
+            $mongodb = new MongoDBHandler(new \MongoClient("mongodb://{$host}:{$port}"),'log','me');
+            $monolog->pushHandler($mongodb);
+        }catch(\Exception $e){
+            $writeMongoDB = false;
+        }
+    }else{
+        $writeMongoDB = false;
+    }
+    if(!$writeMongoDB){
+        $filename = '../storage/logs/log.log';
+        $monolog->pushHandler(new RotatingFileHandler($filename));
+    }
 });
 
 

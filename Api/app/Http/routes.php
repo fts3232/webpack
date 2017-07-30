@@ -27,25 +27,23 @@ Route::get('/api/user',  ['middleware' => 'api', function() {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    App::setLocale('en');
+Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
+    App::setLocale('cn');
     // Authentication Routes...
-    $this->get('/admin/login', 'Admin\AuthController@showLoginForm');
-    $this->post('/admin/login', 'Admin\AuthController@login');
-    $this->get('/admin/logout', 'Admin\AuthController@logout');
+    $this->get('login', 'Admin\AuthController@showLoginForm');
+    $this->post('login', 'Admin\AuthController@login');
+    $this->get('logout', 'Admin\AuthController@logout');
     
-    $this->get('/admin/register', 'Admin\AuthController@showRegistrationForm');
-    $this->post('/admin/register', 'Admin\AuthController@register');
+    $this->get('register', 'Admin\AuthController@showRegistrationForm');
+    $this->post('register', 'Admin\AuthController@register');
     
-    $this->get('/admin','Admin\HomeController@index');
-    $this->get('/admin/user', 'Admin\UserController@index');
-    
-    
-    //$this->get('/admin/register', 'AdminController@showRegistrationForm');
-    //$this->post('/admin/register', 'AdminController@register');
-    //Route::get('/admin/login','AppController@login');
-    //Route::get('/admin/logout','AppController@logout');
-    //
+    $this->get('/','Admin\HomeController@index');
+    $this->get('user', 'Admin\UserController@index');
+    $this->get('user/add', 'Admin\UserController@add');
+    $this->post('user/add', 'Admin\UserController@add');
+    $this->get('user/edit/{id}', 'Admin\UserController@edit')->where('id', '[0-9]+');
+    $this->put('user/edit', 'Admin\UserController@edit');
+    $this->delete('user/del', 'Admin\UserController@delete');
 });
 
 Route::group(['middleware' => 'web'], function () {

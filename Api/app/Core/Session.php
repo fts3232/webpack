@@ -1,9 +1,9 @@
 <?php 
-namespace App\Services;
+namespace App\Core;
 use Illuminate\Support\Facades\Session as LaravelSession;
-use Illuminate\Support\Facades\Log as LaravelLog;
 class Session {   
     public function __call($methodName,$args){
+        $log = \App::make('\App\Core\Log');
         try{
             call_user_func_array(array(Session::class,$methodName),$args);
         }catch(\Exception $e){
@@ -15,7 +15,7 @@ class Session {
                 'url' => Request::url(),
                 'level'=>'error',
             );
-            LaravelLog::error($array);
+            $log->write($array,'error');
             return false;
         }
     }

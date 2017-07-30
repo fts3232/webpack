@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
     <link rel="stylesheet" href="{{ URL::asset('css/admin.css') }}">
 </head>
-<body id="login-page">
-    
-    <form action="{{url('/admin/login')}}" method="post" class="login-form">
-        <div class="title">登录</div>
-        <div class="input-group">
-            <label for="username">用户名：</label>
-            <input id="name" type="text" name="name" value='{{old('name')}}'/>
-            @if ($errors->has('name'))
-                <p class="error">{{$errors->first('name')}}</p>
-            @endif
-        </div>
-        <div class="input-group">
-            <label for="password"><span class="letter-space-8">密码</span>：</label>
-            <input id="password" type="password" name="password" value="{{old('password')}}"/>
-            @if ($errors->has('password'))
-                <p class="error">{{$errors->first('password')}}</p>
-            @endif
-        </div>
-        <div class="input-group">
-            <label for="verficode">验证码：</label>
-            <input id="verficode" type="text" name="verficode" value="{{old('verficode')}}"/>
-            <img src="{{captcha_src()}}" class="verficode"/>
-            @if ($errors->has('verficode'))
-                <p class="error">{{$errors->first('verficode')}}</p>
-            @endif
-        </div>
-        {{ csrf_field() }}
-        <div class="input-group">
-            <button class="button">登录</button>
-        </div>
-    </form>
-    <script src="//cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+<body class="login-page">
+    <div id="app">
+        <el-form ref="form" action="{{ url('/admin/login') }}" method="post" label-width="80px">
+            <el-form-item>
+                <h3 class="title">登陆</h3>
+            </el-form-item>
+            <el-form-item label="用户名">
+                <el-input name="name"></el-input>
+                @if ($errors->has('name'))
+                    <p class="error">{{$errors->first('name')}}</p>
+                @endif
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input name="password" type="password"></el-input>
+                @if ($errors->has('password'))
+                    <p class="error">{{$errors->first('password')}}</p>
+                @endif
+            </el-form-item>
+            <el-form-item label="验证码">
+                <el-input name="verficode"  class="verficode"></el-input>
+                <img src="{{captcha_src()}}" class="verficode"/>
+                @if ($errors->has('verficode'))
+                    <p class="error">{{$errors->first('verficode')}}</p>
+                @endif
+            </el-form-item>
+            <el-form-item>
+                <el-button native-type="submit">登陆</el-button>
+            </el-form-item>
+            {{ csrf_field() }}
+        </el-form>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            mounted: function(){  
+                document.getElementById('app').style.display='block';            
+            } 
+        })
+    </script>
 </body>
 </html>

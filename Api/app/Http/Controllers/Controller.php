@@ -7,7 +7,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Exceptions\CustomException;
-use Illuminate\Support\Facades\Validator;
 use Mail;
 use Crypt;
 
@@ -16,18 +15,19 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected $cache;
     protected $log;
+    protected $auth;
     protected $cookie;
     protected $session;
     protected $request;
-    protected $validator;
     public function __construct(){
-        $this->cache = \App::make('\App\Services\Cache');
-        $this->log = \App::make('\App\Services\Log');
-        $this->cookie = \App::make('\App\Services\Cookie');
-        $this->session = \App::make('\App\Services\Session');
-        $this->request = \App::make('\App\Services\Request');
-        $this->auth = \App::make('\App\Services\Auth');
+        $this->cache = \App::make('\App\Core\Cache');
+        $this->request = \App::make('\App\Core\Request');
+        $this->cookie = \App::make('\App\Core\Cookie');
+        $this->session = \App::make('\App\Core\Session');
+        $this->auth = \App::make('\App\Core\Auth');
+        $this->log = \App::make('\App\Core\Log');
     }
+    
     //display view
     protected function display($template){
         return view($template);
@@ -39,10 +39,6 @@ class Controller extends BaseController
     //display success
     protected function success($msg=''){
         return $this->json(['status'=>true,'msg'=>$msg]);
-    }
-    protected function validator($value,$rule,$default=false){
-        $validator =  Validator::make($value,$rule);
-        return !$validator->fails()?$value:$default;
     }
     //upload
     protected function upload($key){

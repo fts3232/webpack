@@ -1,5 +1,5 @@
 <?php 
-namespace App\Services;
+namespace App\Core;
 use Illuminate\Support\Facades\Request as LaravelRequest;
 use Illuminate\Support\Facades\Validator;
 class Request{

@@ -1,5 +1,5 @@
 <?php 
-namespace App\Services;
+namespace App\Core;
 use Illuminate\Support\Facades\Auth as LaravelAuth;
 class Auth {   
     //is login

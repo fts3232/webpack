@@ -1,5 +1,5 @@
 <?php 
-namespace App\Services;
+namespace App\Core;
 use Illuminate\Support\Facades\Cookie as LaravelCookie;
 class Cookie {   
     //cookie get

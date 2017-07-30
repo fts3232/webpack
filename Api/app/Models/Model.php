@@ -38,7 +38,7 @@ class Model
         return $this->db->select($sql,$param);
     }
     //find
-    protected function find(){
+    protected function find($sql,$param=[]){
         $result = $this->db->select($sql,$param);
         return ($result && count($result)>0)?$result[0]:false;
     }
@@ -54,7 +54,7 @@ class Model
     }
     //delete
     protected function delete($sql,$param=[]){
-         return $this->instace->delete($sql,$param);
+         return $this->db->delete($sql,$param);
     }
     //beginTransaction
     protected function beginTransaction(){
