@@ -1,7 +1,6 @@
 <?php 
 namespace App\Core;
 use Illuminate\Support\Facades\Cache as LaravelCache;
-use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
 class Cache{
     public function __call($methodName,$args){
@@ -9,15 +8,7 @@ class Cache{
         try{
             call_user_func_array(array(Cache::class,$methodName),$args);
         }catch(\Exception $e){
-            $array = array(
-                'message' => iconv("GB2312","UTF-8",$e->getMessage()),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'code' => $e->getCode(),
-                'url' => Request::url(),
-                'level'=>'error',
-            );
-            $log->write($array,'error');
+            $log->write($e,'error');
             return false;
         }
     }

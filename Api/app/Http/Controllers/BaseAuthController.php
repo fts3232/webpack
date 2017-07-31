@@ -22,7 +22,7 @@ class BaseAuthController extends Controller{
     protected $username='name';
     //guard
     protected $guard;
-    //最多登录次数
+    //限制登录次数
     protected $maxLoginAttempts = 5;
     //锁定秒数
     protected $lockoutTime = 60;
@@ -34,6 +34,10 @@ class BaseAuthController extends Controller{
     protected $validateLoginErrorMsg = [];
     protected $loginFailMsg = [];
     protected $loginFailReturn = [];
+    //注册请求数组
+    protected $validateRegisterErrorMsg = [];
+    protected $registerFailMsg = [];
+    protected $registerFailReturn = [];
     public function __construct(){
         //中间件跳过logout方法
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
@@ -70,6 +74,38 @@ class BaseAuthController extends Controller{
         $this->validate($request, $this->validateLoginRule,$this->validateLoginErrorMsg);
     }
     //登录
+    public function login(Request $request){
+        $this->validateLogin($request);
+    
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+    
+        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+    
+            return $this->sendLockoutResponse($request);
+        }
+    
+        $credentials = $this->getCredentials($request);
+        $auth = \App::make('App\Core\Auth');
+        if ($auth->attempt($credentials, $request->has('remember'),$this->getGuard())) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }else{
+            return $this->sendFailedLoginResponse($request);
+        }
+    
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        if ($throttles && ! $lockedOut) {
+            $this->incrementLoginAttempts($request);
+        }
+    
+        return $this->sendFailedLoginResponse($request);
+    }
+    //注册
     protected function register(Request $request){
         $validator = $this->validator($request->all());
         
@@ -78,9 +114,17 @@ class BaseAuthController extends Controller{
                 $request, $validator
             );
         }
+        $auth = \App::make('App\Core\Auth');
+        $result = $auth->login($this->create($request->all()),$this->getGuard());
+        if($auth->login($this->create($request->all()),$this->getGuard())){
+            return redirect($this->redirectPath());
+        }else{
+            return redirect()->back()
+            ->withInput($request->only($this->registerFailReturn))
+            ->withErrors($this->registerFailMsg);
+        }
         
-        Auth::guard($this->getGuard())->loginUsingId($this->create($request->all()));
         
-        return redirect($this->redirectPath());
+       // return redirect($this->redirectPath());
     }
 }

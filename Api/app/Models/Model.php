@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
 class Model
 {
     protected $connection;
@@ -15,21 +13,14 @@ class Model
     }
     //
     public static function __callstatic($funcName, $arguments){
+        $log = \App::make('\App\Core\Log');
         try{
             $className = static::class;
             if(! array_key_exists($className,self::$instace))
                 self::$instace[$className] = new $className();
             return call_user_func_array(array(self::$instace[$className],$funcName), $arguments);
         }catch(\Exception $e){
-            $array = array(
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'code' => $e->getCode(),
-                'url' => Request::url(),
-                'level'=>'error'
-            );
-            Log::error($array);
+            $log->write($e,'error');
             return false;
         }
     }

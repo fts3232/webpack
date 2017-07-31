@@ -78,10 +78,12 @@ return [
             'schema' => 'public',
         ],
         'mongodb'=>[
-            'host' => env('MONGODB_HOST', 'localhost'),
+            'host' => env('MONGODB_HOST', 'location'),
             'port' => env('MONGODB_PORT', '27017'),
             'username' => env('MONGODB_USERNAME', ''),
             'password' => env('MONGODB_PASSWORD', ''),
+            'database'=> env('MONGODB_DATABASE', ''),
+            'collection'=> env('MONGODB_COLLECTION', ''),
         ]
 
     ],

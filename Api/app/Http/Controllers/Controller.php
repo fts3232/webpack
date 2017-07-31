@@ -19,6 +19,7 @@ class Controller extends BaseController
     protected $cookie;
     protected $session;
     protected $request;
+    protected $mail;
     public function __construct(){
         $this->cache = \App::make('\App\Core\Cache');
         $this->request = \App::make('\App\Core\Request');
@@ -26,6 +27,7 @@ class Controller extends BaseController
         $this->session = \App::make('\App\Core\Session');
         $this->auth = \App::make('\App\Core\Auth');
         $this->log = \App::make('\App\Core\Log');
+        $this->mail =  \App::make('\App\Core\Mail');
     }
     
     //display view
@@ -90,30 +92,9 @@ class Controller extends BaseController
     protected function throwCustomException($message,$code=0){
         throw new CustomException($message,$code);
     }
-    //send mail
-    protected function sendMail($to,$title,$view,$viewData=[]){
-        $result = true;
-        try{
-            $result =  Mail::send($view,$viewData,function($m) use ($to,$title){
-                $m->to($to)->subject($title);
-            });
-        }catch(Exception $e){
-            $array = array(
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'code' => $e->getCode(),
-                'url' => Request::url(),
-                'level'=>'error'
-            );
-            $this->log->writeLog($array,'error');
-            $result = false;
-        }
-        return $result;
-    }
     //debug
-    public function debug($record){
-        return $this->log->writeLog($record,'debug');
+    public function debug($record,$context=[]){
+        return $this->log->write($record,'debug',$context);
     }
     //lang
     public function lang($key){

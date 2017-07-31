@@ -29,12 +29,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Core\Cache', Cache::class);
-        $this->app->bind('App\Core\Cookie', Cookie::class);
-        $this->app->bind('App\Core\Session', Session::class);
-        $this->app->bind('App\Core\Log', Log::class);
-        $this->app->bind('App\Core\Request', Request::class);
-        $this->app->bind('App\Core\Auth', Auth::class);
+        $this->app->singleton('App\Core\Cache', Cache::class);
+        $this->app->singleton('App\Core\Cookie', Cookie::class);
+        $this->app->singleton('App\Core\Session', Session::class);
+        $this->app->singleton('App\Core\Log', Log::class);
+        $this->app->singleton('App\Core\Request', Request::class);
+        $this->app->singleton('App\Core\Auth', Auth::class);
+        $this->app->singleton('App\Core\Mail', Mail::class);
         //
     }
 }

@@ -51,6 +51,9 @@ class AuthController extends BaseAuthController
     protected $loginFailMsg = [
         'name'=>'用户名或密码不正确'
     ];
+    protected $registerFailMsg = [
+        'exception'=>'注册失败'
+    ];
     protected $loginFailReturn = ['name','verficode'];
     protected $registerFailReturn = ['name','email','verficode'];
     /**
@@ -62,6 +65,9 @@ class AuthController extends BaseAuthController
     {
         $this->loginFailMsg = [
             'name'=>$this->lang('auth.login.fail')
+        ];
+        $this->registerFailMsg = [
+            'exception'=>$this->lang('auth.login.fail')
         ];
         $this->validateRegisterErrorMsg =  [
             'name.required'=>$this->lang('auth.name.required'),
@@ -82,45 +88,6 @@ class AuthController extends BaseAuthController
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    public function login(Request $request){
-        $this->validateLogin($request);
-        
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        $throttles = $this->isUsingThrottlesLoginsTrait();
-        
-        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-        
-            return $this->sendLockoutResponse($request);
-        }
-        
-        $credentials = $this->getCredentials($request);
-        try{
-            if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-                return $this->handleUserWasAuthenticated($request, $throttles);
-            }
-        }catch(\Exception $e){
-            return $this->sendFailedLoginResponse($request);
-        }
-        
-        
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        if ($throttles && ! $lockedOut) {
-            $this->incrementLoginAttempts($request);
-        }
-        
-        return $this->sendFailedLoginResponse($request);
-    }
     protected function create(array $data)
     {
         try{

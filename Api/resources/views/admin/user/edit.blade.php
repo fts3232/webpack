@@ -22,7 +22,7 @@
         <el-form-item label="密码">
            <el-input type='password' v-model="form.password"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item label-width="80px">
           @if ($action=='add')
           <el-button type="primary" @click="add" v-loading.fullscreen.lock="fullscreenLoading">立即添加</el-button>
           @else
@@ -43,6 +43,7 @@
 @@parent
 <script>
   var vueData = {
+        navActiveIndex:'1',
         form: {
           name: '{{ isset($user)?$user->name:'' }}',
           email:'{{ isset($user)?$user->email:'' }}',

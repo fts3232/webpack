@@ -88,6 +88,7 @@
 @@parent
 <script>
   var vueData = {
+        navActiveIndex:'2',
         user:{!! json_encode($users) !!},
         multipleSelection: [],
         input:'',
@@ -99,12 +100,12 @@
         handleSizeChange(val) {
           this.currentLimit = val;
           location.href=location.origin+location.pathname+'?'+query({'pageSize':val,page:1});
-          console.log(`每页 ${val} 条`);
+          //console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
           this.currentPage = val;
           location.href=location.origin+location.pathname+'?'+query({pageSize:this.currentLimit,'page':val});
-          console.log(`当前页: ${val}`);
+          //console.log(`当前页: ${val}`);
         },
         handleSelectionChange(val) {
           this.multipleSelection =val;

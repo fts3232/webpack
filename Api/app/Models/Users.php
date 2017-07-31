@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use DB;
 
 class Users extends Model
 {
@@ -28,7 +29,6 @@ class Users extends Model
     protected function getResult($page,$limit,$search=[]){
         $where = '';
         $whereData = [];
-        $sql = 'select id,name,email,created_at,updated_at from users_copy';
         if(!empty($search)){
             $key =  $search['key']==1?'name':'email';
             $value = $search['value'];
@@ -36,9 +36,12 @@ class Users extends Model
             $whereData = ["%{$value}%"];
         }
         $total = $this->find("SELECT COUNT(*) AS TOTAL FROM USERS_COPY {$where}",$whereData);
+
         $offset = ($page - 1) * $limit;
+
         $result = $this->select("select id,name,email,created_at,updated_at from users_copy {$where} limit {$offset},{$limit}",$whereData);
-        return ['result'=>$result,'total'=>$total->TOTAL];
+      
+        return ['result'=>$result,'total'=>$total?$total->TOTAL:0];
     }
     protected function create($name,$email,$password){
         return $this->insert("insert into users_copy(name,email,password,created_at) values(?,?,?,NOW())",[$name,$email,bcrypt($password)]);

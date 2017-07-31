@@ -2,20 +2,32 @@
 namespace App\Core;
 use Illuminate\Support\Facades\Auth as LaravelAuth;
 class Auth {   
+    public function __call($methodName,$args){
+        $log = \App::make('\App\Core\Log');
+        try{
+            return call_user_func_array(array(Auth::class,$methodName),$args);
+        }catch(\Exception $e){
+            $log->write($e,'alert');
+            return false;
+        }
+    }
+    protected function attempt($user,$remember=false,$guard=''){
+        return LaravelAuth::guard($guard)->attempt($user, $remember);
+    }
     //is login
-    public function isLogin($guard=''){
+    protected function isLogin($guard=''){
         return LaravelAuth::guard($guard)->check();
     }
     //get login user
-    public function getLoginUser($guard=''){
+    protected function getLoginUser($guard=''){
         return LaravelAuth::guard($guard)->user();
     }
     //login
-    public function login($user,$guard=''){
-        return LaravelAuth::guard($guard)->login();
+    protected function login($id,$guard=''){
+        return LaravelAuth::guard($guard)->loginUsingId();
     }
     //logout
-    public function logout($guard=''){
+    protected function logout($guard=''){
         return LaravelAuth::guard($guard)->logout();
     }
 }

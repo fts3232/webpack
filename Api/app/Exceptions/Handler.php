@@ -3,8 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-use Request;
-use Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -41,22 +39,14 @@ class Handler extends ExceptionHandler
     public function report(Exception $e)
     {
         $log = \App::make('\App\Core\Log');
-        $array = array(
-            'message' =>iconv("GB2312","UTF-8",$e->getMessage()),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'code' => $e->getCode(),
-            'url' => Request::url(),
-        );
+        
          if ($this->shouldReport($e)) {
              if($e instanceof \PDOException || $e instanceof FatalErrorException){
                 $level = 'ALERT';
-                $array['level'] = $level ;
             }else{
                 $level = 'ERROR';
-                $array['level'] = $level ;
             } 
-            $log->write($array,$level);
+            $log->write($e,$level);
         } 
         
         //parent::report($e);

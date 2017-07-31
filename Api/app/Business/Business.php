@@ -1,32 +1,30 @@
 <?php 
 namespace App\Business;
-class{
-    protected $app;
+class Business {   
     protected $log;
-    protected $cookie;
-    protected $session;
-    protected $request;
-    protected $auth;
-    public function __construct(){
-        $this->app = \App::make('\App\Services\App');
+    public __construct(){
+        $this->log = \App::make('App\Core\Log');
     }
-    public function getCache(){
-        return $this->app->cache;
+    //lang
+    protected function lang($key){
+        return trans($key);
     }
-    public function getLog(){
-        return $this->app->log;
+    //encrypt
+    public function encrypt($value){
+        return Crypt::encrypt($value);
     }
-    public function getCookie(){
-        return $this->app->cookie;
+    //decrypt
+    public function decrypt($value){
+        try {
+            $decrypted = Crypt::decrypt($value);
+        } catch (\Exception $e) {
+            $decrypted = false;
+        }
+        return  $decrypted;
     }
-    public function getSession(){
-        return $this->app->session;
-    }
-    public function getRequest(){
-        return $this->app->request;
-    }
-    public function getAuth(){
-        return $this->app->auth;
+    //debug
+    public function debug($record,$context=[]){
+        return $this->log->write($record,'debug',$context,);
     }
 }
 ?>
