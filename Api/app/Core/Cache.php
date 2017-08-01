@@ -6,7 +6,7 @@ class Cache{
     public function __call($methodName,$args){
         $log = \App::make('\App\Core\Log');
         try{
-            call_user_func_array(array(Cache::class,$methodName),$args);
+            return call_user_func_array(array(Cache::class,$methodName),$args);
         }catch(\Exception $e){
             $log->write($e,'error');
             return false;

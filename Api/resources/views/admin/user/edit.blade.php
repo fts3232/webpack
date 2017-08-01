@@ -22,6 +22,18 @@
         <el-form-item label="密码">
            <el-input type='password' v-model="form.password"></el-input>
         </el-form-item>
+        <el-form-item label="身份证">
+          <el-upload
+            class="file-uploader"
+            action="{{ url('admin/user/uploadPic') }}"
+            :show-file-list="false"
+            :data = 'uploadParam'
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="form.idPic" :src="form.idPic" class="file">
+            <i v-else class="el-icon-plus file-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item label-width="80px">
           @if ($action=='add')
           <el-button type="primary" @click="add" v-loading.fullscreen.lock="fullscreenLoading">立即添加</el-button>
@@ -44,13 +56,19 @@
 <script>
   var vueData = {
         navActiveIndex:'1',
+        
         form: {
           name: '{{ isset($user)?$user->name:'' }}',
           email:'{{ isset($user)?$user->email:'' }}',
           password: '',
+          idPic: '',
           @if ($action=='edit')
           id:'{{ $user->id }}',
           @endif
+          _method:'{{ $action=='add'?'POST':'PUT' }}',
+          _token:'{{ csrf_token() }}'
+        },
+        uploadParam:{
           _method:'{{ $action=='add'?'POST':'PUT' }}',
           _token:'{{ csrf_token() }}'
         },
@@ -127,6 +145,21 @@
               _this.fullscreenLoading = false;
             }
           })
+        },
+        handleAvatarSuccess(res, file) {
+          this.form.idPic = res.msg;
+        },
+        beforeAvatarUpload(file) {
+          const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+
+          if (!isJPG) {
+            this.$message.error('上传头像图片只能是 JPG 格式!');
+          }
+          if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 2MB!');
+          }
+          return isJPG && isLt2M;
         }
       }
 </script>

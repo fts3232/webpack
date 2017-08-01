@@ -33,17 +33,43 @@ class Request{
         if($key==''){
             $value = LaravelRequest::input();
         }else{
-            $typeMap = array(
-                'number'=>'numeric',
-                'string'=>'string'
-            );
             $value = LaravelRequest::input($key,$default);
-            if($type && array_key_exists($type,$typeMap)){
-                $validator =  Validator::make(array('value'=>$value),['value'=>'required|'.$typeMap[$type]]);
-                return !$validator->fails()?$value:$default;
-            }
         }
         return $value;
+    }
+    //validator
+    public function validator($value,$rule,$msg){
+        $validator =  Validator::make($value,$rule,$msg);
+        return !$validator->fails()?true:$validator->errors();
+    }
+    //upload
+    public function upload($key,$uploadDir='upload'){
+        $data = array('status'=>true);
+        try{
+            $file = LaravelRequest::file($key);
+            if(!$file->isValid() || !LaravelRequest::hasFile($key))
+                throw new Exception(trans('upload.error.6001'),6001);
+            if(LaravelRequest::hasFile($key) &&  $file->isValid()){
+                $destPath = public_path($uploadDir);
+                $extension = $file->extension();
+                if(!file_exists($destPath)){
+                    $result = mkdir($destPath,0755,true);
+                    if(!$result)
+                        throw new \Exception('upload.error.6002',6002);
+                }
+                if(!is_writable($destPath))
+                    throw new \Exception('upload.error.6003',6003);
+                $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
+                $file->move($destPath,$filename);
+                if($file->getError()!==0){
+                    throw new \Exception(trans('upload.error.6000'),6000);
+                }
+                $data['file'] = url($uploadDir.'\\'.$filename);
+            }
+        }catch(\Exception $e){
+            $data = array('status'=>false,'msg'=>$e->getMessage());
+        }
+        return $data;
     }
 }
 ?>

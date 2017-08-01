@@ -24,5 +24,8 @@ class Log {
        $message = iconv("GB2312","UTF-8",$message);
        forward_static_call(array(LaravelLog::class,$level),$message,$context);
     }
+    public function debug($record,$context=[]){
+        $this->write($record,'debug',$context);
+    }
 }
 ?>

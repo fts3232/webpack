@@ -43,6 +43,7 @@ Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     $this->post('user/add', 'Admin\UserController@add');
     $this->get('user/edit/{id}', 'Admin\UserController@edit')->where('id', '[0-9]+');
     $this->put('user/edit', 'Admin\UserController@edit');
+    $this->match(['put', 'post'],'user/uploadPic', 'Admin\UserController@uploadPic');
     $this->delete('user/del', 'Admin\UserController@delete');
 });
 

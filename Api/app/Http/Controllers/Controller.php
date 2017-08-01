@@ -42,36 +42,7 @@ class Controller extends BaseController
     protected function success($msg=''){
         return $this->json(['status'=>true,'msg'=>$msg]);
     }
-    //upload
-    protected function upload($key){
-        $result =true;
-        try{
-            $file = Request::file($key);
-            if(Request::hasFile($key) &&  $file->isValid()){
-                $destPath = public_path('upload');
-                $extension = $file->extension();
-                if(!file_exists($destPath))
-                    mkdir($destPath,0755,true);
-                $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
-                $file->move($destPath,$filename);
-                if($file->getError()!==0){
-                    $result = false;
-                }
-            }
-        }catch(\Exception $e){
-            $array = array(
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'code' => $e->getCode(),
-                'url' => Request::url(),
-                'level'=>'error'
-            );
-            $this->log->writeLog($array,'error');
-            $result = false;
-        }
-        return $result;
-    }
+    
     //download
     protected function download($file){
         return response()->download($file);
@@ -91,26 +62,5 @@ class Controller extends BaseController
     //throw exception
     protected function throwCustomException($message,$code=0){
         throw new CustomException($message,$code);
-    }
-    //debug
-    public function debug($record,$context=[]){
-        return $this->log->write($record,'debug',$context);
-    }
-    //lang
-    public function lang($key){
-        return trans($key);
-    }
-    //encrypt
-    public function encrypt($value){
-        return Crypt::encrypt($value);
-    }
-    //decrypt
-    public function decrypt($value){
-        try {
-            $decrypted = Crypt::decrypt($value);
-        } catch (\Exception $e) {
-            $decrypted = false;
-        }
-       return  $decrypted;
     }
 }

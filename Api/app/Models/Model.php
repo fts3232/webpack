@@ -5,22 +5,23 @@ class Model
 {
     protected $connection;
     protected $table;
-    protected static $instace = [];
+    protected static $instance = [];
     protected $db;
+    protected static $log;
     //
     public function __construct(){
         $this->db = DB::connection($this->connection);
     }
     //
     public static function __callstatic($funcName, $arguments){
-        $log = \App::make('\App\Core\Log');
+        self::$log = \App::make('\App\Core\Log');
         try{
             $className = static::class;
-            if(! array_key_exists($className,self::$instace))
-                self::$instace[$className] = new $className();
-            return call_user_func_array(array(self::$instace[$className],$funcName), $arguments);
+            if(! array_key_exists($className,self::$instance))
+                self::$instance[$className] = new $className();
+            return call_user_func_array(array(self::$instance[$className],$funcName), $arguments);
         }catch(\Exception $e){
-            $log->write($e,'error');
+            self::$log->write($e,'error');
             return false;
         }
     }

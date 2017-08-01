@@ -13,26 +13,26 @@ return [
     |
     */
     'name'=>[
-        'required':'name is empty',
-        'max':'',
-        'min':'',
+        'required'=>'name is empty',
+        'max'=>'',
+        'min'=>'',
         'reg'=>'',
     ],
     'password'=>[
-        'required':'password is empty',
-        'confirmed':'',
-        'max':'',
-        'min':'',
+        'required'=>'password is empty',
+        'confirmed'=>'',
+        'max'=>'',
+        'min'=>'',
     ],//注册失败
     'password_confirmation'=>[
-        'required':'password is empty',
+        'required'=>'password is empty',
     ],
     'email'=>[
-        'required':'email is empty',
-        'email':'',
+        'required'=>'email is empty',
+        'email'=>'',
     ],
     'verficode'=>[
-        'size':'',
-        'captcha':''
+        'size'=>'',
+        'captcha'=>''
     ]
 ];

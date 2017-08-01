@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users;
-use App\Admin;
+use App\Business\Home\Account;
 class UserController extends Controller
 {
     /**
@@ -15,7 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
-         $this->middleware('auth.admin:admin');
+        $this->middleware('auth.admin:admin');
     }
 
     /**
@@ -25,6 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        
         $size = $this->request->getParam('pageSize',10,'number');
         $page = $this->request->getParam('page',1,'number');
         $searchKey = $this->request->getParam('searchKey','');
@@ -94,5 +95,13 @@ class UserController extends Controller
             return $this->error($e->getMessage());
         }
         
+    }
+    public function uploadPic(){
+        try{
+            $result = $this->request->upload('file','upload\user');
+            return $this->success($result);
+        }catch(Exception $e){
+            return $this->error('上传成功');
+        }
     }
 }

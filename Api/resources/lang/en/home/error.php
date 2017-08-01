@@ -12,7 +12,11 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    '10000'=>'login fail',//登录失败
-    '10001'=>'register fail',//注册失败
-    '10002'=>'upload fail',//上传失败失败
+    '1000'=>'login fail',//登录失败
+    '2000'=>'register fail',//注册失败
+    '4000'=>'upload fail',//上传失败失败
+    '5000'=>'upload fail',//上传失败失败
+    '5001'=>'upload fail',//上传失败失败
+    '5002'=>'upload fail',//上传失败失败
+    '5003'=>'upload fail',//上传失败失败
 ];
