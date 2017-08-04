@@ -45,6 +45,14 @@ Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     $this->put('user/edit', 'Admin\UserController@edit');
     $this->match(['put', 'post'],'user/uploadPic', 'Admin\UserController@uploadPic');
     $this->delete('user/del', 'Admin\UserController@delete');
+    
+    $this->get('article', 'Admin\ArticleController@index');
+    $this->get('article/add', 'Admin\ArticleController@add');
+    $this->post('articler/add', 'Admin\ArticleController@add');
+    $this->get('article/edit/{id}', 'Admin\ArticleController@edit')->where('id', '[0-9]+');
+    $this->put('article/edit', 'Admin\ArticleController@edit');
+    $this->match(['put', 'post'],'article/uploadPic', 'Admin\ArticleController@uploadPic');
+    $this->delete('article/del', 'Admin\ArticleController@delete');
 });
 
 Route::group(['middleware' => 'web'], function () {

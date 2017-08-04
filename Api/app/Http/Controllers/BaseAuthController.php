@@ -89,8 +89,9 @@ class BaseAuthController extends Controller{
         }
     
         $credentials = $this->getCredentials($request);
-        $auth = \App::make('App\Core\Auth');
-        if ($auth->attempt($credentials, $request->has('remember'),$this->getGuard())) {
+        $auth = \App::make('\App\Core\Auth');
+        
+        if ($auth->attempt($credentials,$this->getGuard(), $request->has('remember'))) {
             return $this->handleUserWasAuthenticated($request, $throttles);
         }else{
             return $this->sendFailedLoginResponse($request);

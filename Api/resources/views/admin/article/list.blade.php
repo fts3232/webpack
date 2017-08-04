@@ -3,7 +3,7 @@
 @section('content-container')
 <div class="content-container">
     <el-breadcrumb separator="/">
-        <el-breadcrumb-item >用户管理</el-breadcrumb-item>
+        <el-breadcrumb-item >文章管理</el-breadcrumb-item>
     </el-breadcrumb>
     <hr/>
     <div class="content" >
@@ -11,13 +11,13 @@
           <div class="search">
             <el-input placeholder="请输入内容" v-model="input">
               <el-select v-model="select" slot="prepend" placeholder="请选择">
-                <el-option label="用户名" value="1"></el-option>
-                <el-option label="邮箱" value="2"></el-option>
+                <el-option label="标题" value="1"></el-option>
+                <el-option label="创建人" value="2"></el-option>
               </el-select>
               <el-button slot="append" icon="search" @click='search'></el-button>
             </el-input>
           </div>
-          <a href="{{ url('/admin/user/add') }}"><el-button type="primary">添加</el-button></a>
+          <a href="{{ url('/admin/article/add') }}"><el-button type="primary">添加</el-button></a>
           <el-button type="danger" @click='multiDel'>删除</el-button>
         </div>
         <div class="table">
@@ -88,7 +88,7 @@
 @@parent
 <script>
   var vueData = {
-        navActiveIndex:'2',
+        navActiveIndex:'3',
         data:{!! json_encode($users) !!},
         multipleSelection: [],
         input:'',

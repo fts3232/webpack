@@ -13,23 +13,6 @@ use Crypt;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    protected $cache;
-    protected $log;
-    protected $auth;
-    protected $cookie;
-    protected $session;
-    protected $request;
-    protected $mail;
-    public function __construct(){
-        $this->cache = \App::make('\App\Core\Cache');
-        $this->request = \App::make('\App\Core\Request');
-        $this->cookie = \App::make('\App\Core\Cookie');
-        $this->session = \App::make('\App\Core\Session');
-        $this->auth = \App::make('\App\Core\Auth');
-        $this->log = \App::make('\App\Core\Log');
-        $this->mail =  \App::make('\App\Core\Mail');
-    }
-    
     //display view
     protected function display($template){
         return view($template);
@@ -62,5 +45,8 @@ class Controller extends BaseController
     //throw exception
     protected function throwCustomException($message,$code=0){
         throw new CustomException($message,$code);
+    }
+    protected function lang($key){
+        return trans($key);
     }
 }

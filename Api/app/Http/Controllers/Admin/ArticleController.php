@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Users;
 use App\Business\Home\Account;
-class UserController extends Controller
+class ArticleController extends Controller
 {
     protected $request;
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
         $searchValue = $this->request->getParam('searchValue','');
         $users = Users::getResult($page,$size,['key'=> $searchKey,'value'=>$searchValue]);
         $users = $users?$users:array('result'=>[],'total'=>0);
-        return view('admin.user.list',['users'=>$users['result'],'total'=>$users['total'],'pageSize'=>$size,'page'=>$page]);
+        return view('admin.article.list',['users'=>$users['result'],'total'=>$users['total'],'pageSize'=>$size,'page'=>$page]);
     }
     public function add(){
         if($this->request->isPost()){
@@ -55,7 +55,7 @@ class UserController extends Controller
                 return $this->error($e->getMessage());
             }
         }else{
-            return view('admin.user.edit',['action'=>'add']);
+            return view('admin.article.edit',['action'=>'add']);
         }
     }
     public function edit($id=''){
@@ -80,7 +80,7 @@ class UserController extends Controller
             }
         }else{
             $user = Users::find("select id,name,email from users_copy where id = ?",[$id]);
-            return view('admin.user.edit',['user'=>$user,'action'=>'edit']);
+            return view('admin.article.edit',['user'=>$user,'action'=>'edit']);
         }
     }
     public function delete(){
