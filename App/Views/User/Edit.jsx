@@ -10,12 +10,15 @@ class Edit extends React.Component {
         return (
             <div className="content-block">
                 <Form>
-                    <div className="form-item">
+                    <Form.Item>
+                        <Form.Input/>
+                    </Form.Item>
+                    {/*<div className="form-item">
                         <label>Email address</label>
                         <div className="form-content">
                             <input type="text" className="form-input" />
                         </div>
-                    </div>
+                    </div>*/}
                 </Form>
             </div>
         )
@@ -23,10 +26,7 @@ class Edit extends React.Component {
 }
 
 Edit.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    url: React.PropTypes.string,
-    columns:React.PropTypes.array,
-    action:React.PropTypes.array,
-    tools:React.PropTypes.array
+
 }
 Edit.defaultProps={
     url:'/api/getUser'

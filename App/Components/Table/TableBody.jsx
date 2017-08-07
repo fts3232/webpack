@@ -17,7 +17,7 @@ class TableBody extends Component {
         let selected = [];
         if(checked){
             data.map((val,key)=>{
-                selected.push(key)
+                selected.push(val)
             })
         }else{
             selected = [];

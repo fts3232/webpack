@@ -1,5 +1,5 @@
 import css from './Scss/Main.scss';
-import Link from 'react-router-dom/Link.js';
+const Link = ReactRouterDOM.Link;
 import Component from '../Component';
 class Breadcrumb extends Component {
 	constructor(props){

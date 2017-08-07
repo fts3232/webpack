@@ -1,5 +1,4 @@
 import css from './Scss/Main.scss';
-import Svg from '../Svg';
 class Form extends React.Component {
 	constructor(props){
 		super(props);

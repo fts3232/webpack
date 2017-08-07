@@ -25,7 +25,7 @@ var config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'common':[APP_PATH+'/Components/Svg',APP_PATH+'/Components/Component',APP_PATH+'/Components/Component/Breadcrumb']
+    'common':[APP_PATH+'/Components/Svg',APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb']
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -167,7 +167,7 @@ else{
 //提取多个入口的公共部分
 var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.js"});
 config.plugins.push(CommonChunk);
-var extractText = new ExtractTextPlugin({filename:"css/style.css",allChunks: true});  //打包成一个css文件
+var extractText = new ExtractTextPlugin({filename:"css/[name].css",allChunks: true});  //打包成一个css文件
 config.plugins.push(extractText);
 //动态加载
 /*var CommonAsyncChunk = new webpack.optimize.CommonsChunkPlugin({

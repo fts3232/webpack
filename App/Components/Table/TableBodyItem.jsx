@@ -7,7 +7,8 @@ class TableBodyItem extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            expand:false
+            expand:false,
+            selected:this.props.selected
         }
 	}
     getTable(){
@@ -30,6 +31,9 @@ class TableBodyItem extends Component {
         }
         this.setState({expand:!expand})
     }
+    componentWillReceiveProps(props){
+        this.setState({selected:props.selected})
+    }
     render() {
         return (
             <tr ref="root">
@@ -39,7 +43,7 @@ class TableBodyItem extends Component {
                             className={this.classNames({'is-checkbox':column.type=='selection','expand':column.type=='expand','is-expand':this.state.expand,'is-center':column.align=='center','is-left':column.align=='left','is-right':column.align=='right',})} 
                             width={column.type=='selection'?'48px':typeof column.width!='undefined'?column.width:null}
                         >
-                            {column.type=='expand'?(<Icon iconName="angle-right" onClick={this.onExpand.bind(this,column.expandPannel)}/>):column.type=='selection'?(<CheckBox checked={this.props.selected}  onChange={checked => this.props.onSelected(checked,this.props.data)}  name="check"/>):typeof column.render!='undefined'?column.render(this.props.data):this.props.data[column.prop]}
+                            {column.type=='expand'?(<Icon iconName="angle-right" onClick={this.onExpand.bind(this,column.expandPannel)}/>):column.type=='selection'?(<CheckBox checked={this.state.selected}  onChange={checked => this.props.onSelected(checked,this.props.data)}  name="check"/>):typeof column.render!='undefined'?column.render(this.props.data):this.props.data[column.prop]}
                         </td>
                     )
                 })}
