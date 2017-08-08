@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     @include('admin.commonCss')
+    @yield('pageCss')
 </head>
 <body>
 	<div id="app">
@@ -12,13 +13,14 @@
 		@yield('content-container')
 	</div>
 	@include('admin.commonJs')
-	@yield('js')
+	@yield('pageJs')
 	<script>
 	    new Vue({
 	        el: '#app',
 	        mounted: function(){  
 	            document.getElementById('app').style.display='block';            
 	        } ,
+	        components:typeof vueComponents!='undefined'?vueComponents:{},
 	        methods:typeof vueMethods!='undefined'?vueMethods:{},
 	        data:typeof vueData!='undefined'?vueData:{}
 	    })

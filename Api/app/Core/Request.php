@@ -28,14 +28,23 @@ class Request{
     public function getFullUrl(){
         return LaravelRequest::FullUrl();
     }
+    public function ip(){
+        return LaravelRequest::ip();
+    }
     //get Request Param
-    public function getParam($key='',$default=false,$type=false){
+    public function getParam($key='',$default=false){
         if($key==''){
             $value = LaravelRequest::input();
         }else{
             $value = LaravelRequest::input($key,$default);
         }
         return $value;
+    }
+    public function has($key){
+        return LaravelRequest::has($key);
+    }
+    public function only($keys){
+        return LaravelRequest::only($keys);
     }
     //validator
     public function validator($value,$rule,$msg){

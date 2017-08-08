@@ -2,7 +2,7 @@
 namespace App\Business;
 use App\Business\Business;
 class MT4 extends Business{   
-    public function login($login,$password){
+    public function check($login,$password){
         $master = config('app.L_PLUGIN_MASTER');
         $command="CHKACCPASS MASTER=".L_PLUGIN_MASTER."|IP=$_SERVER[SERVER_ADDR]|LOGIN=$login|PASSWORD=$password";
         $ret = $this->exec($command);

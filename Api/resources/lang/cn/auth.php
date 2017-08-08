@@ -14,7 +14,8 @@ return [
     */
     'login'=>[
         'fail'=>'用户名或密码不正确',
-        'success'=>'登录成功'
+        'success'=>'登录成功',
+        'lock'=>'用户已被锁定,请等待:seconds'
     ],
     'register'=>[
         'fail'=>'注册失败',

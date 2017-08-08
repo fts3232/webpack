@@ -16,6 +16,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->request = \App::make('\App\Core\Request');
+        $session = \App::make('\App\Core\Session');
         $this->middleware('auth.admin:admin');
     }
 
@@ -26,7 +27,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        
         $size = $this->request->getParam('pageSize',10,'number');
         $page = $this->request->getParam('page',1,'number');
         $searchKey = $this->request->getParam('searchKey','');

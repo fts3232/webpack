@@ -43,25 +43,18 @@ $app->singleton(
 );
 
 $app->configureMonologUsing(function ($monolog) {
-    $writeMongoDB = true;
-
-    if(config('database.connections.mongodb')){
-        try{
-            $host = config('database.connections.mongodb.host');
-            $port = config('database.connections.mongodb.port');
-            $username = config('database.connections.mongodb.username');
-            $password =  config('database.connections.mongodb.password');
-            $database = config('database.connections.mongodb.database');
-            $collection = config('database.connections.mongodb.collection');
-            $mongodb = new MongoDBHandler(new \MongoClient("mongodb://{$username}:{$password}@{$host}:{$port}"),$database,$collection);
-            $monolog->pushHandler($mongodb);
-        }catch(\Exception $e){
-            $writeMongoDB = false;
-        }
-    }else{
-        $writeMongoDB = false;
-    }
-    if(!$writeMongoDB){
+    try{
+        if(!config('database.connections.mongodb'))
+            throw new Exception('monogodb not set');
+        $host = config('database.connections.mongodb.host');
+        $port = config('database.connections.mongodb.port');
+        $username = config('database.connections.mongodb.username');
+        $password =  config('database.connections.mongodb.password');
+        $database = config('database.connections.mongodb.database');
+        $collection = config('database.connections.mongodb.collection');
+        $mongodb = new MongoDBHandler(new \MongoClient("mongodb://{$username}:{$password}@{$host}:{$port}"),$database,$collection);
+        $monolog->pushHandler($mongodb);
+    }catch(\Exception $e){
         $filename = '../storage/logs/log.log';
         $monolog->pushHandler(new RotatingFileHandler($filename));
     }

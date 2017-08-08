@@ -10,12 +10,25 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['prefix'=>'/'],function(){
+    $this->get('/',  'Home\IndexController@index');
+    $this->get('/productDetails',  'Home\IndexController@productDetails');
+    $this->get('/aboutUs',  'Home\IndexController@aboutUs');
+});
 
-Route::get('/',  'Home\IndexController@index');
-Route::get('/api/user',  ['middleware' => 'api', function() {
-    // 只有认证过的用户可以进入...
-    
-}]);
+Route::group(['prefix'=>'/account'],function(){
+    $this->get('/tradingAccounts',  'Home\IndexController@tradingAccounts');
+    $this->get('/demoAccounts',  'Home\IndexController@demoAccounts');
+    $this->get('/cidtMT4',  'Home\IndexController@cidtMT4');
+});
+
+Route::group(['prefix'=>'/member'],function(){
+    $this->get('/login',  'Home\IndexController@login');
+    $this->get('/personalInfo',  'Home\IndexController@personalInfo');
+    $this->get('/onlineDeposit',  'Home\IndexController@onlineDeposit');
+    $this->get('/injection',  'Home\IndexController@injection');
+    $this->get('/withdrawal',  'Home\IndexController@withdrawal');
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -34,7 +47,7 @@ Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     $this->post('login', 'Admin\AuthController@login');
     $this->get('logout', 'Admin\AuthController@logout');
     
-    $this->get('register', 'Admin\AuthController@showRegistrationForm');
+    $this->get('register', 'Admin\AuthController@showRegisterForm');
     $this->post('register', 'Admin\AuthController@register');
     
     $this->get('/','Admin\HomeController@index');
@@ -54,21 +67,3 @@ Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     $this->match(['put', 'post'],'article/uploadPic', 'Admin\ArticleController@uploadPic');
     $this->delete('article/del', 'Admin\ArticleController@delete');
 });
-
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-    /* // Registration Routes...
-    $this->get('register', 'Auth\AuthController@showRegistrationForm');
-    $this->post('register', 'Auth\AuthController@register');
-    
-    // Password Reset Routes...
-    $this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-    $this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-    $this->post('password/reset', 'Auth\PasswordController@reset'); */
-
-    Route::get('/home', 'HomeController@index');
-});
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');

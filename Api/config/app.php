@@ -107,7 +107,7 @@ return [
     | Available Settings: "single", "daily", "syslog", "errorlog"
     |
     */
-
+    'CDN_PATH'=>'',
     'log' => env('APP_LOG', 'single'),
 
     /*

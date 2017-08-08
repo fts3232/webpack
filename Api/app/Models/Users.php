@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Model;
 use DB;
-
+use Hash;
 class Users extends Model
 {
     /**
@@ -25,6 +25,15 @@ class Users extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    protected function check($name,$password){
+        $sql = 'SELECT ID,NAME,PASSWORD FROM USERS_COPY WHERE name = ? ';
+        $user = $this->find($sql,[$name]) ;
+        if($user){
+            return Hash::check($password, $user->PASSWORD)?$user->ID:false;
+        }
+        return false;
+    }
     
     protected function getResult($page,$limit,$search=[]){
         $where = '';

@@ -7,15 +7,16 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Exceptions\CustomException;
-use Mail;
-use Crypt;
+use Validator;
+use Illuminate\Support\Facades\Lang;;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     //display view
-    protected function display($template){
-        return view($template);
+    protected function display($template,$param=[]){
+        $param = array_merge($param,['cdnPath'=>config('app.CDN_PATH')]);
+        return view($template,$param);
     }
     //display error
    protected function error($msg){
@@ -39,14 +40,26 @@ class Controller extends BaseController
         return response()->json($data)->setCallback($callback);
     }
     //redirect
-    protected function redirect($path){
+    protected function redirect($path=false){
         return redirect($path);
+    }
+    protected function back(){
+        return back();
     }
     //throw exception
     protected function throwCustomException($message,$code=0){
         throw new CustomException($message,$code);
     }
-    protected function lang($key){
-        return trans($key);
+    //lang
+    protected function lang($key,$param=[]){
+        return Lang::get($key,$param);
+    }
+    //validator
+    protected function validator($data,$rules,$msg=[]){
+        $result = true;
+        $validator = Validator::make($data, $rules, $msg);
+        if($validator->fails())
+            $result = $validator->errors();
+        return $result;
     }
 }

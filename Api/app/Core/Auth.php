@@ -11,9 +11,6 @@ class Auth {
             return false;
         }
     }
-    protected function attempt($user,$guard='',$remember=false){
-        return LaravelAuth::guard($guard)->attempt($user, $remember);
-    }
     //is login
     protected function isLogin($guard=''){
         return LaravelAuth::guard($guard)->check();
@@ -23,8 +20,8 @@ class Auth {
         return LaravelAuth::guard($guard)->user();
     }
     //login
-    protected function login($id,$guard=''){
-        return LaravelAuth::guard($guard)->loginUsingId($id);
+    protected function login($id,$guard='',$remember=false){
+        return LaravelAuth::guard($guard)->loginUsingId($id, $remember);
     }
     //logout
     protected function logout($guard=''){

@@ -26,7 +26,6 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        
         $size = $this->request->getParam('pageSize',10,'number');
         $page = $this->request->getParam('page',1,'number');
         $searchKey = $this->request->getParam('searchKey','');

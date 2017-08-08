@@ -51,7 +51,7 @@
 </div>
 
 @endsection
-@section('js')
+@section('pageJs')
 @@parent
 <script>
   var vueData = {

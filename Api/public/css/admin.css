@@ -130,7 +130,7 @@ a{
 }
 
 .content .el-form{
-    width: 500px;
+    width: 650px;
 }
 
 .file-uploader .el-upload {
@@ -156,3 +156,9 @@ a{
     height: 178px;
     display: block;
 }
+
+
+.ql-editor {
+    min-height: 200px;
+    max-height: 300px;
+  }

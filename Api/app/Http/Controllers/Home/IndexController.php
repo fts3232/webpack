@@ -7,29 +7,49 @@ use App\Models\Users;
 
 class IndexController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $size = 5;
-        $count = Users::getTotal();
-        $page = $this->request->getParam('page',1,'number');
-        $totalPage = ceil($count/$size);
-        $offset = ($page - 1) * $size;
-        $users = Users::select("select id,name,email,password,created_at,updated_at from users_copy limit {$offset},{$size}");
-        return view('home');
+    public function index(){
+        return $this->display('home.index');
+    }
+    public function tradingAccounts(){
+        return $this->display('home.account.tradingAccounts');
+    }
+    public function demoAccounts(){
+        return $this->display('home.account.demoAccounts');
+    }
+    public function cidtMT4(){
+        return $this->display('home.account.cidtMT4');
+    }
+    public function productDetails(){
+        return $this->display('home.productDetails');
+    }
+    public function aboutUs(){
+        return $this->display('home.aboutUs');
+    }
+    //auth
+    public function login(){
+        return $this->display('home.auth.login');
+    }
+    public function register(){
+        return $this->display('home.auth.register');
+    }
+    
+    //member
+    public function personalInfo(){
+        return $this->display('home.member.personalInfo');
+    }
+    public function onlineDeposit(){
+        return $this->display('home.member.onlineDeposit');
+    }
+    public function injection(){
+        return $this->display('home.member.injection');
+    }
+    public function withdrawal(){
+        return $this->display('home.member.withdrawal');
     }
 }

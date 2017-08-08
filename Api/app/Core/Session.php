@@ -27,5 +27,9 @@ class Session {
     protected function delete($key){
         return LaravelSession::forget($key);
     }
+    //session all del
+    protected function flush(){
+        return LaravelSession::flush();
+    }
 }
 ?>

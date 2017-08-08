@@ -22,6 +22,10 @@
         <el-form-item label="关键字">
            <el-input type='email' v-model="form.email"></el-input>
         </el-form-item>
+        <el-form-item label="内容">
+          <quill-editor v-model="form.content">
+          </quill-editor>
+        </el-form-item>
         <el-form-item label-width="80px">
           @if ($action=='add')
           <el-button type="primary" @click="add" v-loading.fullscreen.lock="fullscreenLoading">立即添加</el-button>
@@ -37,18 +41,25 @@
         
     </div>
 </div>
-
 @endsection
-@section('js')
+
+@section('pageCss')
 @@parent
+<link href="https://cdn.bootcss.com/quill/1.3.0/quill.snow.min.css" rel="stylesheet">
+@endsection
+
+@section('pageJs')
+@@parent
+<script src="{{ URL::asset('js/vue-quill-editor.min.js') }}"></script>
 <script>
+  var vueComponents = {'quill-editor': VueQuillEditor.quillEditor}
   var vueData = {
         navActiveIndex:'3',
-        
         form: {
           name: '{{ isset($user)?$user->name:'' }}',
           email:'{{ isset($user)?$user->email:'' }}',
           password: '',
+          content: '<h2>I am Example</h2>',
           idPic: '',
           @if ($action=='edit')
           id:'{{ $user->id }}',

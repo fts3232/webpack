@@ -1,6 +1,8 @@
 <?php 
 namespace App\Business;
 use Validator;
+use Crypt;
+use Lang;
 class Business {   
     protected static $instance = [];
     protected static $log;
@@ -16,16 +18,12 @@ class Business {
             return false;
         }
     }
-    protected function validator($data,$rule,$msg){
+    protected function validator($data,$rules,$msg=[]){
         $result = true;
-        $validator = Validator::make($data, $rules, $messages);
+        $validator = Validator::make($data, $rules, $msg);
         if($validator->fails())
            $result = $validator->errors();
         return $result;
-    }
-    //lang
-    protected function lang($key){
-        return trans($key);
     }
     //encrypt
      protected function encrypt($value){
@@ -39,6 +37,10 @@ class Business {
             $decrypted = false;
         }
         return  $decrypted;
+    }
+    //lang
+    protected function lang($key,$param=[]){
+        return Lang::get($key,$param);
     }
 }
 ?>
