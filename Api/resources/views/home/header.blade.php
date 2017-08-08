@@ -21,26 +21,26 @@
 		</div>
 		<div class="nav">
 			<ul class="menu">
-				<li {{ $path=='/'?'class=curr':null }}><a href="{{ url('/') }}">CIDT GLOBAL</a></li>
-				<li {{ $path=='/member'?'class=curr':null }}>
+				<li {{ $index=='1'?'class=curr':null }}><a href="{{ url('/') }}">CIDT GLOBAL</a></li>
+				<li {{ $index=='2'?'class=curr':null }}>
 					<a href="javascript:;">Customer Center</a>
 					<ul class="subMenu">
-						<li><a href="{{ url('/personalInfo') }}">Personal Data</a></li>
-						<li><a href="{{ url('/onlineDeposit') }}">Online Deposit</a></li>
-						<li><a href="{{ url('/injection') }}">Bank Injection</a></li>
-						<li><a href="{{ url('/withdrawal') }}">Account Withdrawals</a></li>
+						<li><a href="{{ url('/member/personalInfo') }}">Personal Data</a></li>
+						<li><a href="{{ url('/member/onlineDeposit') }}">Online Deposit</a></li>
+						<li><a href="{{ url('/member/injection') }}">Bank Injection</a></li>
+						<li><a href="{{ url('/member/withdrawal') }}">Account Withdrawals</a></li>
 					</ul>
 				</li>
-				<li {{ $path=='/account'?'class=curr':null }}>
+				<li {{ $index=='3'?'class=curr':null }}>
 					<a href="javascript:;">Online Trading</a>
 					<ul class="subMenu">
-						<li><a href="{{ url('/tradingAccounts') }}">Trading Accounts</a></li>
-						<li><a href="{{ url('/demoAccounts') }}">Demo Accounts</a></li>
-						<li><a href="{{ url('/cidtMT4') }}">CIDT MT4</a></li>
+						<li><a href="{{ url('/account/tradingAccounts') }}">Trading Accounts</a></li>
+						<li><a href="{{ url('/account/demoAccounts') }}">Demo Accounts</a></li>
+						<li><a href="{{ url('/account/cidtMT4') }}">CIDT MT4</a></li>
 					</ul>
 				</li>
-				<li {{ $path=='/productDetails'?'class=curr':null }}><a href="{{ url('/productDetails') }}">Product Details</a></li>
-				<li {{ $path=='/aboutUs'?'class=curr':null }}><a href="{{ url('/aboutUs') }}">About Us</a></li>
+				<li {{ $index=='4'?'class=curr':null }}><a href="{{ url('/productDetails') }}">Product Details</a></li>
+				<li {{ $index=='5'?'class=curr':null }}><a href="{{ url('/aboutUs') }}">About Us</a></li>
 				<li><a href="#">Help Center</a></li>
 			</ul>
 			<span class="underline"></span>

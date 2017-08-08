@@ -23,11 +23,11 @@ Route::group(['prefix'=>'/account'],function(){
 });
 
 Route::group(['prefix'=>'/member'],function(){
-    $this->get('/login',  'Home\IndexController@login');
-    $this->get('/personalInfo',  'Home\IndexController@personalInfo');
-    $this->get('/onlineDeposit',  'Home\IndexController@onlineDeposit');
-    $this->get('/injection',  'Home\IndexController@injection');
-    $this->get('/withdrawal',  'Home\IndexController@withdrawal');
+    $this->get('/login',  'Home\IndexController@login')->middleware('guest');
+    $this->get('/personalInfo',  'Home\IndexController@personalInfo')->middleware('auth');
+    $this->get('/onlineDeposit',  'Home\IndexController@onlineDeposit')->middleware('auth');
+    $this->get('/injection',  'Home\IndexController@injection')->middleware('auth');
+    $this->get('/withdrawal',  'Home\IndexController@withdrawal')->middleware('auth');
 });
 /*
 |--------------------------------------------------------------------------

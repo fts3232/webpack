@@ -2,8 +2,8 @@
 
 @section('content-container')
 @component('home.header')
-@slot('path')
-    /account
+@slot('index')
+    3
 @endslot
 @endcomponent
 <div class="cntbox">

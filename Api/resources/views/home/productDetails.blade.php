@@ -2,8 +2,8 @@
 
 @section('content-container')
 @component('home.header')
-@slot('path')
-    /productDetails
+@slot('index')
+    4
 @endslot
 @endcomponent
 <div class="home_mt4">

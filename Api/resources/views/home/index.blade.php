@@ -2,8 +2,8 @@
 
 @section('content-container')
 @component('home.header')
-@slot('path')
-    /
+@slot('index')
+    1
 @endslot
 @endcomponent
 @component('home.banner')

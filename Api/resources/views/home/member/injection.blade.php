@@ -1,8 +1,8 @@
 @extends('home.app')
 @section('content-container')
 @component('home.header')
-@slot('path')
-    /member
+@slot('index')
+    2
 @endslot
 @endcomponent
 <div class="cntbox per_info">
