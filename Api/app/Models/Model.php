@@ -14,7 +14,7 @@ class Model
     }
     //
     public static function __callstatic($funcName, $arguments){
-        self::$log = \App::make('\App\Core\Log');
+        self::$log = \App::make('\App\Lib\Log');
         try{
             $className = static::class;
             if(! array_key_exists($className,self::$instance))

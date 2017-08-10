@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->request = \App::make('\App\Core\Request');
+        $this->request = \App::make('\App\Lib\Request');
         $this->middleware('auth.admin:admin');
     }
 

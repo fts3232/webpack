@@ -107,7 +107,7 @@ return [
     | Available Settings: "single", "daily", "syslog", "errorlog"
     |
     */
-    'CDN_PATH'=>'',
+    
     'log' => env('APP_LOG', 'single'),
 
     /*
@@ -120,10 +120,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
-    'L_PLUGIN_MASTER'=>env('L_PLUGIN_MASTER', ''),
-    'L_MT4_HOST'=>env('L_MT4_HOST', ''),
-    'L_MT4_PORT'=>env('L_MT4_PORT', ''),
+   
     
     'providers' => [
 
@@ -207,5 +204,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
-
+    //
+    'CDN_PATH'=>'',
+    'L_PLUGIN_MASTER'=>env('L_PLUGIN_MASTER', ''),
+    'L_MT4_HOST'=>env('L_MT4_HOST', ''),
+    'L_MT4_PORT'=>env('L_MT4_PORT', ''),
+    'PAY_DOMAIN'=>env('PAY_DOMAIN',''),
 ];

@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
             if($guard=='admin'){
                 return redirect('/admin');
             }else{
-                return redirect('/');
+                return redirect('/member/personalInfo');
             }
         }
 

@@ -15,8 +15,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->request = \App::make('\App\Core\Request');
-        $session = \App::make('\App\Core\Session');
+        $this->request = \App::make('\App\Lib\Request');
         $this->middleware('auth.admin:admin');
     }
 

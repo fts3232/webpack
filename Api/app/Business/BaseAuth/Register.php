@@ -1,14 +1,19 @@
 <?php 
 namespace App\Business\BaseAuth;
-use App\Business\Business;
-class Register extends Business {   
-    //验证规则
+trait Register {   
+    /* //验证规则
     protected $validateRule = [];
     protected $validateErrorMsg = [];
     //guard
-    protected $guard;
+    protected $guard; */
     protected function getRequest(){
-        return  \App::make('\App\Core\Request');
+        return  \App::make('\App\Lib\Request');
+    }
+    protected function getValidateRule(){
+        return property_exists($this, 'validateRule') ? $this->validateRule : [];
+    }
+    protected function getValidateErrorMsg(){
+        return property_exists($this, 'validateErrorMsg') ? $this->validateErrorMsg : [];
     }
     protected function register(){
         $result = array('status'=>true,'msg'=>$this->lang('auth.register.success'));
@@ -17,13 +22,13 @@ class Register extends Business {
             
             $validator = $this->validate($data);
             if($validator!==true)
-                throw new \Exception($this->lang('validate.error'),1000);
+                throw new \Exception($this->lang('errors.validate'),1001);
             if (!$this->create()) 
-                throw new \Exception($this->lang('auth.register.fail'),1003);
+                throw new \Exception($this->lang('auth.register.fail'),1004);
             $this->registered();
         }catch(\Exception $e){
             $code = $e->getCode();
-            if($code==1000)
+            if($code==1001)
                 $result['validator'] = $validator;
             $result['status']=false;
             $result['msg'] = $e->getMessage();
@@ -31,8 +36,13 @@ class Register extends Business {
         }
         return $result;
     }
+    protected function create(){
+        
+    }
     protected function validate($data){
-        $validator = $this->validator($data, $this->validateRule,$this->validateErrorMsg);
+        $rule =  $this->getValidateRule();
+        $msg = $this->getValidateErrorMsg();
+        $validator = $this->validator($data, $rule,$msg);
         return $validator;
     }
     protected function registered(){

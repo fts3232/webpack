@@ -12,6 +12,7 @@ use Illuminate\Database\QueryException;
 use App\Exceptions\CustomException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\Debug\Exception\FatalErrorException;
+use Illuminate\Session\TokenMismatchException;
 
 class Handler extends ExceptionHandler
 {
@@ -38,7 +39,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        $log = \App::make('\App\Core\Log');
+        $log = \App::make('\App\Lib\Log');
         
          if ($this->shouldReport($e)) {
              if($e instanceof \PDOException || $e instanceof FatalErrorException){
@@ -61,23 +62,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if(config('app.debug')){
-            return parent::render($request, $e);
+        if($e instanceof NotFoundHttpException ){
+            return response()->view('errors.404',['cdnPath'=>config('app.CDN_PATH')]);
         }else{
-            if($e instanceof CustomException){
-                if($request->ajax()){
-                    return response()->json(['status' => 'false', 'msg'=>$e->getMessage()]);
-                }elseif($request->isMethod('post')){
-                    return redirect()->back()->withErrors(['exception'=>$e->getMessage()]);
-                }else{
-                    return $e->getMessage();
-                }
-            }elseif($e instanceof NotFoundHttpException ){
-                return response()->view('errors.404');
-            }elseif($e instanceof  HttpException){
-                return response()->view('errors.'.$e->getStatusCode());
-            }elseif($e instanceof ValidationException){
-                return parent::render($request, $e);
+            if($request->ajax() && $e instanceof TokenMismatchException){
+                return response()->json(['status' => 'false', 'msg'=>'csrf token is invalid','code'=>1000]);
+            }
+            elseif($request->isMethod('post') && $e instanceof TokenMismatchException){
+                return redirect()->back()->withErrors(['exception'=>'csrf token is invalid','code'=>1000]);
+            }
+            elseif(config('app.debug')){
+                    return parent::render($request, $e);
             }else{
                 return response()->view('errors.common');
             }

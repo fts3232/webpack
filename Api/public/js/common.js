@@ -1,8 +1,10 @@
 //滑动导航
 function sliderMenu(){
+	var def = $('.menu > li.curr').index();
+	var liW = $('.menu > li').width();
+	$('.underline').css('left',def * liW);
 	$('.menu > li').mouseenter(function(){
 		var index = $(this).index();
-		var liW = $(this).width();
 		$('.underline').stop(true,false).animate({
 			left: index * liW
 		},200,function(){
@@ -17,9 +19,9 @@ function sliderMenu(){
 	$('.menu > li').mouseleave(function(){
 		$(this).removeAttr('style');
 		$('.underline').stop(true,false).animate({
-			left: 0
+			left: def * liW
 		},200);
-		$('.menu > li').first().addClass('curr').siblings().removeClass('curr');
+		$('.menu > li').eq(def).addClass('curr').siblings().removeClass('curr');
 		$(this).find('.subMenu').fadeOut(220);
 	});
 }
@@ -143,7 +145,7 @@ function nextStep(){
 			}
 		});
 		if(flag){
-			//邮箱格式是否正确
+			/*//邮箱格式是否正确
 			if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($('input[name="email"]').val()))){
 				$('input[name="email"]').next().find('.icon').addClass('error').removeClass('success');
 				isDisabled(stepcnt_0,false,'Complete the information');
@@ -188,12 +190,24 @@ function nextStep(){
 						})
 					}
 				}
+			}*/
+			$('.checkbox').click(function(){
+				if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
+					isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
+				}else{
+					isDisabled(stepcnt_0,false,'Complete the information');
+				}
+			})
+			if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
+				isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
+			}else{
+				isDisabled(stepcnt_0,false,'Complete the information');
 			}
 		}else{
 			isDisabled(stepcnt_0,false,'Complete the information');
 		}
 	});
-	stepcnt_0.find('.btn').on('click',function(){
+	/*stepcnt_0.find('.btn').on('click',function(){
 		stepcnt_1.show().siblings().hide();
 		divBox.eq(1).addClass('curr').siblings().removeClass('curr');
 		stepcnt_1.find('input[type="text"]').on('keyup',function(){
@@ -209,8 +223,8 @@ function nextStep(){
 				isDisabled(stepcnt_1,false,'Next Step');
 			}
 		});
-	});
-	stepcnt_1.find('.btn').on('click',function(){
+	});*/
+	/*stepcnt_1.find('.btn').on('click',function(){
 		stepcnt_2.show().siblings().hide();
 		divBox.eq(2).addClass('curr').siblings().removeClass('curr');
 		$('.infomation .td_pf').text($('input[name="platform"]').val());
@@ -230,17 +244,19 @@ function nextStep(){
 		$('.infomation .acc_bch_bk').text($('input[name="acct_bran_bank"]').val());
 		$('.infomation .acc_ty').text($('input[name="cart_type"]').val());
 		$('.infomation .acc_currcy').text($('input[name="cart_currency"]').val());
-	});
-	stepcnt_2.find('.btn').on('click',function(){
-		alert('表单已提交');
+	});*/
+	/*stepcnt_2.find('.btn').on('click',function(){
 		return false;
-	})
+	})*/
 }
 function isDisabled(obj,isTrue,btnText){
+	if(btnText!=undefined){
+		obj.find('.nextStep').val(btnText)
+	}
 	if(isTrue){
-		obj.find('.nextStep').val(btnText).attr('disabled',false).removeClass('disabled').addClass('bg');
+		obj.find('.nextStep').attr('disabled',false).removeClass('disabled').addClass('bg');
 	}else{
-		obj.find('.nextStep').val(btnText).attr('disabled',true).addClass('disabled').removeClass('bg');
+		obj.find('.nextStep').attr('disabled',true).addClass('disabled').removeClass('bg');
 	}
 }
 //模拟账户
@@ -253,7 +269,7 @@ function demo_account(){
 			}
 		});
 		if(flag){
-			if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($('input[name="email"]').val()))){
+			/*if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($('input[name="email"]').val()))){
 				$('input[name="email"]').next().find('.icon').addClass('error').removeClass('success');
 				isClick(0);
 			}else{
@@ -277,22 +293,18 @@ function demo_account(){
 					$('.codebox i').addClass('success').removeClass('error');
 					isClick(1);
 				}
-			}
-			
+			}*/
+			isClick(1);
 		}else{
 			isClick(0);
 		}
 	});
-	//提交表单
-	$('form input[type="submit"]').on('click',function(){
-		$('#shadow').fadeIn();
-		return false;
-	});
+	
 	reset();
 }
 //真实账户（同意协议）
 function agreement(){
-	$('.agree_check label').on('click',function(){
+	$('.ckbox').on('click',function(){
 		if($(this).find('.icon').hasClass('checked')){
 			$(this).siblings('.checkbox').attr('checked',false);
 			$(this).find('.icon').removeClass('checked');
@@ -304,11 +316,13 @@ function agreement(){
 }
 //在线支付
 function online_deposit(){
-	$('input[name="dep_amount"],form .rk').keyup(function(){
-		var dep_amt = $.trim($('form input[name="dep_amount"]').val());
-		var rk = $.trim($('form .rk').val());
-		if(dep_amt !== '' && rk !== ''){
-			isClick(1);
+	var dep_amt = $('form input[name="dep_amount"]');
+	var rk = $('form .rk');
+	$('form .rk,form input[name="dep_amount"]').keyup(function(){
+		var val = $.trim(dep_amt.val());
+		var rk_val = $.trim(rk.val());
+		if(val !== ''){
+			$('form input[type="submit"]').removeClass('disabled').addClass('bg').attr('disabled',false)
 		}else{
 			isClick(0);
 		}
@@ -320,9 +334,9 @@ function online_deposit(){
 function injection(){
 	//文件上传
 	upload_file();
-	$('form input[name="bk_acct_num"],form .rk').on('keyup',function(){
+	$('.inject input[name="bk_acct_num"],.inject .rk').on('keyup',function(){
 		var bk_acct_num = $.trim($('form input[name="bk_acct_num"]').val());
-		var rk = $.trim($('form .rk').val());
+		var rk = $.trim($('.inject .rk').val());
 		if(bk_acct_num !== '' && rk !== ''){
 			if($('.filebox .upload-url').text() !== ''){
 				isClick(1);
@@ -338,12 +352,23 @@ function injection(){
 }
 //账户取款
 function withdrawal(){
-	$('input[name="withd_amot"]').on('keyup',function(){
+	var atm = $('input[name="withd_amot"]');
+	atm.on('keyup',function(){
 		var thisVal = $(this).val();
-		thisVal !== '' ? isClick(1) : isClick(0);
+		if(thisVal !== '' && $('.ckbox').siblings('.checkbox').attr('checked')){
+			isClick(1);
+		}else{
+			isClick(0);
+		}
 	});
+	$('.ckbox').on('click',function(){
+		if($(this).siblings('.checkbox').attr('checked') && atm.val() !== ''){
+			isClick(1);
+		}else{
+			isClick(0);
+		}
+	})
 	$('input[type="submit"]').on('click',function(){
-		alert('表单已提交');
 		isClick(0);
 		return false;
 	});
@@ -362,25 +387,22 @@ function isClick(isTrue){
 	isTrue ? $('form input[type="submit"]').removeClass('disabled').addClass('bg').attr('disabled',false) : $('form input[type="submit"]').removeClass('bg').addClass('disabled').attr('disabled',true);
 }
 function disableScroll(){
-	$('form input[type="submit"]').on('click',function(){
+	/*$('form input[type="submit"]').on('click',function(){
 		$('#shadow').fadeIn();
+		$('html,body').css('overflow','hidden');
 		return false;
-	});
+	});*/
 	$('#shadow .btn').on('click',function(){
 		$(this).parents('#shadow').fadeOut(function(){
 			$('form').hide().siblings('.congratulate').show();
 		});
+		$('html,body').css({'overflow-x':'hidden','overflow-y': 'auto'});
 	});
 	$('.congratulate .carry').on('click',function(){
 		$(this).parents('.congratulate').fadeOut().siblings('form').fadeIn().find('input[type="text"],textarea').val('');
 		$('form .filebox .upload-url').text('');
 	});
-	/*//禁止遮盖层后页面滚动
-	$(window).bind('mousewheel DOMMouseScroll',function(){
-		if($('#shadow').css("display")!="none"){
-			return false;
-		}
-	});*/
+	
 }
 //银行注资上传文件
 function upload_file(){
@@ -413,6 +435,7 @@ function DateTime(){
 	var thisMonth = date.getMonth() + 1;	//当前月份
 	var thisDay = date.getDate();			//当前天数
 	this.init = function(){
+		var _this = this;
 		var year = $('<div class="year"><div class="thisVal"></div><ul></ul></div><span class="dt">Y</span>');		
 		var month = $('<div class="month"><div class="thisVal"></div><ul></ul></div><span class="dt">M</span>');
 		var day = $('<div class="day"><div class="thisVal"></div><ul></ul></div><span class="dt">D</span>');
@@ -476,6 +499,7 @@ function DateTime(){
 			}
 			$(this).parent().siblings('.thisVal').text(thisYear);
 			$(this).parents('.year').siblings('input[name="year"]').val(thisYear);
+			$(this).parents('.year').siblings('input[name="birthday"]').val(_this.result());
 		});
 		$('.month ul>li').on('click',function(){
 			_thisVal = $(this).text();
@@ -487,12 +511,17 @@ function DateTime(){
 			}
 			$(this).parent().siblings('.thisVal').text(thisMonth);
 			$(this).parents('.month').siblings('input[name="month"]').val(thisMonth);
+			$(this).parents('.month').siblings('input[name="birthday"]').val(_this.result());
 			datetime.dayLi($('.day ul>li'));
 		});
+		$('input[name="birthday"]').val(this.result());
 		datetime.dayLi($('.day ul>li'));
 	};
 	this.result = function(){
-		console.log(thisYear + '/' + thisMonth + '/' + thisDay);
+		thisMonth = parseInt(thisMonth)<10?'0'+parseInt(thisMonth):thisMonth;
+		thisDay = parseInt(thisDay)<10?'0'+parseInt(thisDay):thisDay;
+		return thisYear + '-' + thisMonth + '-' + thisDay;
+		//console.log(thisYear + '/' + thisMonth + '/' + thisDay);
 	};
 	this.toggle = function(obj){	//是否展开下拉菜单
 		if(obj.hasClass('toggle')){
@@ -502,11 +531,13 @@ function DateTime(){
 		}
 	};
 	this.dayLi = function(obj){
+		var _this = this;
 		obj.on('click',function(){
 			_thisVal = $(this).text();
 			thisDay = _thisVal;
 			$(this).parent().siblings('.thisVal').text(thisDay);
 			$(this).parent().parent().siblings('input[name="day"]').val(thisDay);
+			$(this).parent().parent().siblings('input[name="birthday"]').val(_this.result());
 		})
 	};
 	$(document).click(function(){
@@ -621,5 +652,3 @@ scrollBar($('.customer_notice'));
 online_deposit();
 injection();
 withdrawal();
-
-

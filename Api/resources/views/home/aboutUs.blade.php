@@ -5,6 +5,9 @@
 @slot('index')
     5
 @endslot
+@slot('isLogin')
+    {{ $isLogin }}
+@endslot
 @endcomponent
 @component('home.banner')
 @slot('cdnPath')

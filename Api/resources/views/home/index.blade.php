@@ -5,6 +5,9 @@
 @slot('index')
     1
 @endslot
+@slot('isLogin')
+    {{ $isLogin }}
+@endslot
 @endcomponent
 @component('home.banner')
 @slot('cdnPath')
@@ -133,7 +136,7 @@
 <div class="cid_intro">
 	<img src="{{ asset($cdnPath.'/img/cid_logo.png') }}" alt="" class="cid_logo wow fadeInDown">
 	<p class="wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="1.2s">CIDT Global Investment Group since its establishment<br/>we have focused on providing professional, stable, standardized and multi transaction electronic trading platform for global investors<br/>Now operated by a senior financial team<br/>the company continues to provide customers with the tools and services they need to meet the needs of customers in the global marketplace</p>
-	<a href="trading_accounts.php" target="_blank" class="btn btn_r wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="1s">Start Trading Now</a>
+	<a href="{{ url('/account/trading') }}" target="_blank" class="btn btn_r wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="1s">Start Trading Now</a>
 </div>
 <div class="advanges step">
 	<div class="container">
@@ -160,7 +163,7 @@
 				<p>Start Trading, and Choose<br/>From 50+ Instruments</p>
 			</div>
 		</div>
-		<a href="trading_accounts.php" target="_blank" class="btn red wow fadeInUp" data-wow-delay="1.2s">Get Started</a>
+		<a href="{{ url('/account/trading') }}" target="_blank" class="btn red wow fadeInUp" data-wow-delay="1.2s">Get Started</a>
 	</div>
 </div>
 <div class="home_mt4">
@@ -179,7 +182,7 @@
 					<li>MT4 perfect backstage management function</li>
 					<li>Provide detailed reports</li>
 				</ul>
-				<a href="trading_accounts.php" target="_blank" class="btn btn_r wow slideInLeft">Start Trading Now</a>
+				<a href="{{ url('/account/trading') }}" target="_blank" class="btn btn_r wow slideInLeft">Start Trading Now</a>
 				<h3 class="h_h3 wow slideInLeft"><i class="icon"></i>MT4 Download</h3>
 				<div class="download clearfix">
 					<a href="javascript:;" class="wow fadeInUpBig" data-wow-delay="0.25s"><i class="wins"></i>Windows</a>

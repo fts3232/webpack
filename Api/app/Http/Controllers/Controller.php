@@ -8,14 +8,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Exceptions\CustomException;
 use Validator;
-use Illuminate\Support\Facades\Lang;;
+use Illuminate\Support\Facades\Lang;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     //display view
     protected function display($template,$param=[]){
-        $param = array_merge($param,['cdnPath'=>config('app.CDN_PATH')]);
+        $auth = \App::make('App\Lib\Auth');
+        $param = array_merge($param,['cdnPath'=>config('app.CDN_PATH'),'isLogin'=>$auth->isLogin()]);
         return view($template,$param);
     }
     //display error

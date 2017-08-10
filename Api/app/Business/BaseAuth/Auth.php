@@ -12,10 +12,10 @@ class Auth extends Business {
     protected $guard;
     
     protected function getRequest(){
-       return  \App::make('\App\Core\Request');
+       return  \App::make('\App\Lib\Request');
     }
     protected function getAuth(){
-        return  \App::make('\App\Core\Auth');
+        return  \App::make('\App\Lib\Auth');
     }
     //登录
     protected function login(){
@@ -24,18 +24,18 @@ class Auth extends Business {
             $data = $this->getRequest()->getParam();
             $validator = $this->validate($data);
             if($validator!==true)
-                throw new \Exception($this->lang('validate.error'),1000);
+                throw new \Exception($this->lang('errors.validate'),1001);
             if ($this->hasTooManyLoginAttempts()) {
                 $seconds = $this->limiter()->availableIn( $this->throttleKey() );
-                throw new \Exception($this->lang('auth.lock',['seconds'=>$seconds]),1001);
+                throw new \Exception($this->lang('auth.login.lock',['seconds'=>$seconds]),1002);
             }
             if (!$this->attemptLogin()) 
-                throw new \Exception($this->lang('auth.login.fail'),1002);
+                throw new \Exception($this->lang('auth.login.fail'),1003);
             $this->clearLoginAttempts();
         }catch(\Exception $e){
             $this->incrementLoginAttempts();
             $code = $e->getCode();
-            if($code==1000)
+            if($code==1001)
                 $result['validator'] = $validator;
             $result['status']=false;
             $result['msg'] = $e->getMessage();
@@ -54,7 +54,7 @@ class Auth extends Business {
     //登出
     protected function logout(){
         try{
-            $session = \App::make('\App\Core\Session');
+            $session = \App::make('\App\Lib\Session');
             $this->getAuth()->logout($this->guard);
             $session->flush();
             return true;

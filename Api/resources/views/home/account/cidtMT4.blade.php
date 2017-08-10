@@ -5,6 +5,9 @@
 @slot('index')
     3
 @endslot
+@slot('isLogin')
+    {{ $isLogin }}
+@endslot
 @endcomponent
 <div class="home_mt4 cdt">
 	<div class="container">

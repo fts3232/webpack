@@ -24,7 +24,7 @@ class AuthController extends Controller
     }
     
     public function login(){
-        $request = \App::make('App\Core\Request');
+        $request = \App::make('App\Lib\Request');
         $result = Auth::login();
         if($result['status']){
             return $this->redirect('/admin');

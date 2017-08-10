@@ -69,19 +69,18 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        /* 'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
+            'model' => 'users_copy',
+        ], */
         'admin'=>[
             'driver' => 'database',
             'table' => 'users_copy',
-        ]
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        ],
+        'users' => [
+             'driver' => 'database',
+             'table' => 'users_copy',
+        ],
     ],
 
     /*

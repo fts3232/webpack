@@ -15,8 +15,13 @@
 				<span class="siteName">Foreign Exchange <br/> Investment Expert</span>
 			</div>
 			<div class="head_r">
+			    @if($isLogin=='1')
+			    <a href="{{ url('/user/personalInfo') }}" class="btn" target="_blank">Customer Center</a>
+				<a href="{{ url('/user/onlineDeposit') }}" class="btn btn_r" target="_blank">Fund</a>
+				@else
 				<a href="{{ url('/login') }}" class="btn" target="_blank">Login</a>
-				<a href="{{ url('/tradingAccounts') }}" class="btn btn_r" target="_blank">Registered</a>
+				<a href="{{ url('/account/trading') }}" class="btn btn_r" target="_blank">Registered</a>
+				@endif
 			</div>
 		</div>
 		<div class="nav">
@@ -25,17 +30,17 @@
 				<li {{ $index=='2'?'class=curr':null }}>
 					<a href="javascript:;">Customer Center</a>
 					<ul class="subMenu">
-						<li><a href="{{ url('/member/personalInfo') }}">Personal Data</a></li>
-						<li><a href="{{ url('/member/onlineDeposit') }}">Online Deposit</a></li>
-						<li><a href="{{ url('/member/injection') }}">Bank Injection</a></li>
-						<li><a href="{{ url('/member/withdrawal') }}">Account Withdrawals</a></li>
+						<li><a href="{{ url('/user/personalInfo') }}">Personal Data</a></li>
+						<li><a href="{{ url('/user/onlineDeposit') }}">Online Deposit</a></li>
+						<li><a href="{{ url('/user/injection') }}">Bank Injection</a></li>
+						<li><a href="{{ url('/user/withdrawal') }}">Account Withdrawals</a></li>
 					</ul>
 				</li>
 				<li {{ $index=='3'?'class=curr':null }}>
 					<a href="javascript:;">Online Trading</a>
 					<ul class="subMenu">
-						<li><a href="{{ url('/account/tradingAccounts') }}">Trading Accounts</a></li>
-						<li><a href="{{ url('/account/demoAccounts') }}">Demo Accounts</a></li>
+						<li><a href="{{ url('/account/trading') }}">Trading Accounts</a></li>
+						<li><a href="{{ url('/account/demo') }}">Demo Accounts</a></li>
 						<li><a href="{{ url('/account/cidtMT4') }}">CIDT MT4</a></li>
 					</ul>
 				</li>

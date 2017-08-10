@@ -13,29 +13,12 @@ return [
     |
     */
     'login'=>[
-        'fail'=>'login fail',
-        'success'=>'登录成功'
+        'fail'=>'Landing failed!',
+        'success'=>'Login successful!',
+        'lock'=>'The user has been locked! Please wait for :seconds seconds!'
     ],
     'register'=>[
-        'fail'=>'注册失败',
-        'success'=>'注册成功'
-    ],
-    'name'=>[
-        'required'=>'name is empty'
-    ],
-    'password'=>[
-        'required'=>'密码不能为空',
-        'confirmed'=>'密码不一致'
-    ],
-    'password__confirmation'=>[
-        'requrired'=>'确认密码不能为空'
-    ],
-    'email'=>[
-        'required'=>'邮箱不能为空',
-        'email'=>'邮箱格式不正确'
-    ],
-    'verficode'=>[
-        'required'=>'验证码不能为空',
-        'captcha'=>'验证码错误'
-    ],
+        'fail'=>'Registration failed!',
+        'success'=>'Successful registration!'
+    ]
 ];

@@ -130,7 +130,7 @@ var uploadPreview = function(setting) {
                 } else {
                     document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
                 }
-                _self.Setting.callback();
+                _self.Setting.callback(document.getElementById(_self.Setting.UpBtn));
             }
         }
     }
@@ -148,8 +148,10 @@ var uploadPreview = function(setting) {
 function file_click(){
     var stepbox = document.getElementsByClassName('stepbox')[0];
     var item = stepbox.getElementsByClassName('item');
+    var callback = typeof uploadCB !='undefined'?uploadCB:function(){};
+    var ErrMsg = typeof uploadErrMsg !='undefined'?uploadErrMsg:null;
     for(var i = 0; i < item.length;i++){
-        new uploadPreview({ UpBtn: "upload_img_" + i, ImgShow: "showPic_" + i});        
+        new uploadPreview({ UpBtn: "upload_img_" + i,ErrMsg:ErrMsg, ImgShow: "showPic_" + i,callback:callback});        
     }
 }
 window.onload = file_click;
