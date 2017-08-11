@@ -17,7 +17,7 @@
 <div class="aboutus">
 	<div class="container">
 		<h3 class="home_title wow fadeInDown">about us</h3>
-		<p class="text-indent wow fadeInDown"><strong class="yellow">CIDT GLOBAL</strong> is committed to providing customers with a wide range of financial services. Since its establishment, the company has focused on providing professional, standard and diversified electronic trading platform for global inve</p>
+		<p class="text-indent wow fadeInDown"><strong class="yellow">CIDT GLobal Financial Iimited</strong> is committed to providing customers with a wide range of financial services. Since its establishment, the company has focused on providing professional, standard and diversified electronic trading platform for global inve</p>
 		<br/>
 		<br/>
 		<p class="text-indent wow fadeInDown">The company is operated by experienced financial team, and actively explore the international market. By virtue of good faith and professional innovation, we have won the trust and support of our clients.</p>
@@ -66,28 +66,28 @@
 				<img src="{{ asset($cdnPath.'img/service24.png') }}" alt="">
 				<dl>
 					<dt>24 Hours<br/>Customer Service Hotline</dt>
-					<dd>852-8205-6188</dd>
+					<dd>+64 9 309 9925</dd>
 				</dl>
 			</div>
 			<div class="item wow fadeInDown">
 				<img src="{{ asset($cdnPath.'img/fax.png') }}" alt="">
 				<dl>
 					<dt>Fax</dt>
-					<dd>852-8343-2180</dd>
+					<dd>+64 9 309 9926</dd>
 				</dl>
 			</div>
 			<div class="item wow fadeInDown">
 				<img src="{{ asset($cdnPath.'img/email.png') }}" alt="">
 				<dl>
 					<dt>Mailbox</dt>
-					<dd>cs@202.hk</dd>
+					<dd>info@202fx.com</dd>
 				</dl>
 			</div>
 			<div class="item wow bounceInRight">
 				<img src="{{ asset($cdnPath.'img/location.png') }}" alt="">
 				<dl>
 					<dt>Address</dt>
-					<dd>1 / F, Fu Wei Financial Center,<br/>308 Des Voeux Road Central,<br/>Hong Kong</dd>
+					<dd>Level 6, 63 Albert Street, Auckland, 1010；</dd>
 				</dl>
 			</div>
 		</div>

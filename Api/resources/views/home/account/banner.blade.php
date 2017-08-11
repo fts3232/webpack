@@ -3,7 +3,7 @@
 		<div class="clearfix">
 			<div class="tbox">
 				<h3 class="ptit yellow">online trading<br/>
-					<a href="{{ url('account/trading') }}" target="_blank" class="link">trading accounts</a>
+					<a href="{{ url('account/standard') }}" target="_blank" class="link">standard accounts</a>
 					<a href="{{ url('account/demo') }}" target="_blank" class="link">deom accounts</a>
 				</h3>
 			</div>

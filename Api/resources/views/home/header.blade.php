@@ -20,7 +20,7 @@
 				<a href="{{ url('/user/onlineDeposit') }}" class="btn btn_r" target="_blank">Fund</a>
 				@else
 				<a href="{{ url('/login') }}" class="btn" target="_blank">Login</a>
-				<a href="{{ url('/account/trading') }}" class="btn btn_r" target="_blank">Registered</a>
+				<a href="{{ url('/account/standard') }}" class="btn btn_r" target="_blank">Registered</a>
 				@endif
 			</div>
 		</div>
@@ -39,14 +39,14 @@
 				<li {{ $index=='3'?'class=curr':null }}>
 					<a href="javascript:;">Online Trading</a>
 					<ul class="subMenu">
-						<li><a href="{{ url('/account/trading') }}">Trading Accounts</a></li>
+						<li><a href="{{ url('/account/standard') }}">Standard Accounts</a></li>
 						<li><a href="{{ url('/account/demo') }}">Demo Accounts</a></li>
 						<li><a href="{{ url('/account/cidtMT4') }}">CIDT MT4</a></li>
 					</ul>
 				</li>
 				<li {{ $index=='4'?'class=curr':null }}><a href="{{ url('/productDetails') }}">Product Details</a></li>
 				<li {{ $index=='5'?'class=curr':null }}><a href="{{ url('/aboutUs') }}">About Us</a></li>
-				<li><a href="#">Help Center</a></li>
+				<!-- <li><a href="#">Help Center</a></li> -->
 			</ul>
 			<span class="underline"></span>
 		</div>

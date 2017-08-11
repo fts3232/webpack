@@ -1,3 +1,7 @@
 <script>
-alert('{{ $result['msg'] }}');
+if({{$result['status']}}){
+	 window.parent.registerSuccess();
+}else{
+	alert('{{ $result['msg'] }}');
+}
 </script>

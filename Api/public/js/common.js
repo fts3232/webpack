@@ -68,6 +68,8 @@ function keyWordSearch(){
 		searchInput.val('');
 		searchKey('');
 		$(this).hide().siblings().removeClass('active');
+		$('.foreign_pro .table .more').text('More');
+		showMore();
 	});
 	//关键字查找
 	function searchKey(str){
@@ -98,11 +100,48 @@ function keyWordSearch(){
 				}
 			})
 			if(!flag){
+				//没找到
 				$('.nothing').show();
 				$('.more').hide();
+			}else{
+				//找到
+				var num = 0;
+				var n = 1;
+				$('.table table tbody tr').each(function(){
+					if($(this).attr('data-value')){
+						num++;
+						$(this).attr('data-value',num);
+					}
+				});
+				if(num <= 12){
+					$('.more').hide();
+				}else{
+				}
 			}
 		}
 	}
+	//显示更多
+	function showMore(){
+		var tr = $('.foreign_pro table tbody tr');
+		var show_len = 10;		//默认显示12条
+		var len = tr.length;	//tr总长度
+		var n = 1;
+		if(len > show_len){
+			$('.foreign_pro table tbody tr:gt('+ (show_len - 1) +')').hide();
+			$('.foreign_pro .table .more').css('display','block');
+		}
+		//点击按钮查看更多
+		$('.foreign_pro .table .more').on('click',function(){
+			n++;
+			var thisShow = $('.foreign_pro table tbody tr:lt('+ (show_len * n) +')').filter(':gt('+ (show_len - 1) +')').show();	//每次显示的条数
+			var lens = thisShow.length;
+			if(lens % show_len !== 0){
+				$('.foreign_pro .table .more').text('no more');
+				return false;
+			}
+		});
+	}
+	showMore();
 }
 //下拉选项
 function selectBox(){
@@ -145,59 +184,13 @@ function nextStep(){
 			}
 		});
 		if(flag){
-			/*//邮箱格式是否正确
-			if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($('input[name="email"]').val()))){
-				$('input[name="email"]').next().find('.icon').addClass('error').removeClass('success');
-				isDisabled(stepcnt_0,false,'Complete the information');
-			}else{
-				$('input[name="email"]').next().find('.icon').addClass('success').removeClass('error');
-				//判断验证码是否正确
-				var code_val = $('input[name="code"]').val().toLowerCase();
-				var code = $('.code').text().toLowerCase();
-				if(code_val !== code){
-					//验证码错误
-					$('.codebox i').addClass('error').removeClass('success');
-					$('input[name="code"]').change(function(){
-						var thisVal = $(this).val().toUpperCase();
-						var nowCode = $('.code').text().toUpperCase();
-						if(thisVal !== nowCode){
-							isDisabled(stepcnt_0,false,'Complete the information');
-							$('.codebox i').addClass('error').removeClass('success');
-						}else{
-							$('.codebox i').addClass('success').removeClass('error');
-						}
-					});
-				}else{
-					//验证码正确,判断是否选中协议书
-					if($('.agree_check>div').eq(0).find('.checkbox').is(':checked') && $('.agree_check>div').eq(1).find('.checkbox').is(':checked')){
-						isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
-					}else{
-						if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
-							isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
-						}
-						$('.checkbox').click(function(){
-							//再次判断验证码正确的情况下判断协议书是否被选中
-							if($('input[name="code"]').val().toUpperCase() !== $('.code').text().toUpperCase()){
-								return false;
-							}else{
-								if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
-									isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
-								}else{
-									isDisabled(stepcnt_0,false,'Complete the information');
-								}
-							}
-							
-						})
-					}
-				}
-			}*/
 			$('.checkbox').click(function(){
 				if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
 					isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
 				}else{
 					isDisabled(stepcnt_0,false,'Complete the information');
 				}
-			})
+			});
 			if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
 				isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
 			}else{
@@ -207,50 +200,9 @@ function nextStep(){
 			isDisabled(stepcnt_0,false,'Complete the information');
 		}
 	});
-	/*stepcnt_0.find('.btn').on('click',function(){
-		stepcnt_1.show().siblings().hide();
-		divBox.eq(1).addClass('curr').siblings().removeClass('curr');
-		stepcnt_1.find('input[type="text"]').on('keyup',function(){
-			var aaa = true;
-			stepcnt_1.find('input[type="text"]').each(function(i,obj){
-				if(obj.value == ''){
-					aaa = false;
-				}
-			});
-			if(aaa){
-				isDisabled(stepcnt_1,true,'Next Step');
-			}else{
-				isDisabled(stepcnt_1,false,'Next Step');
-			}
-		});
-	});*/
-	/*stepcnt_1.find('.btn').on('click',function(){
-		stepcnt_2.show().siblings().hide();
-		divBox.eq(2).addClass('curr').siblings().removeClass('curr');
-		$('.infomation .td_pf').text($('input[name="platform"]').val());
-		$('.infomation .acc_ty').text($('input[name="account_type"]').val());
-		$('.infomation .acc_curr').text($('input[name="account_currency"]').val());
-		$('.infomation .yr_nm').text($('input[name="uname"]').val());
-		$('.infomation .ty_of_cf').text($('input[name="certificate_type"]').val());
-		$('.infomation .dt_nb').text($('input[name="document_number"]').val());
-		$('.infomation .rdt_addr').text($('input[name="resid_addr"]').val());
-		$('.infomation .cell_num').text($('input[name="call_number"]').val());
-		$('.infomation .email_addr').text($('input[name="email"]').val());
-		$('.infomation .acc_hd_nm').text($('input[name="account_name"]').val());
-		$('.infomation .bk').text($('input[name="bank_name"]').val());
-		$('.infomation .bk_acc').text($('input[name="bank_account"]').val());
-		$('.infomation .bk_addr').text($('input[name="bank_address"]').val());
-		$('.infomation .area').text($('input[name="area"]').val());
-		$('.infomation .acc_bch_bk').text($('input[name="acct_bran_bank"]').val());
-		$('.infomation .acc_ty').text($('input[name="cart_type"]').val());
-		$('.infomation .acc_currcy').text($('input[name="cart_currency"]').val());
-	});*/
-	/*stepcnt_2.find('.btn').on('click',function(){
-		return false;
-	})*/
 }
 function isDisabled(obj,isTrue,btnText){
-	if(btnText!=undefined){
+	if(btnText != undefined){
 		obj.find('.nextStep').val(btnText)
 	}
 	if(isTrue){
@@ -574,6 +526,7 @@ function scrollBar(obj){
 	var bar = $('#scrollbar span');			//滚动条槽块
 	var content_box = $('.content_box');	//内容区高度
 	var oparent = content_box.parent();		//内容区父类高度
+	var size = 2;	//滑轮每次滑动的高度
 	bar.bind('mousedown',function(e){
 		var ev = e || window.event;
 		e.preventDefault = e.preventDefault ? e.preventDefault() : e.returnValue = false;		//阻止默认事件
@@ -597,22 +550,22 @@ function scrollBar(obj){
 				//chrome浏览器下
 				if(ev.originalEvent.wheelDelta > 0){
 					//向上
-					var t = bar.position().top - 20;
+					var t = bar.position().top - size;
 					common(t);
 				}else{
 					//向下
-					var t = bar.position().top + 20;
+					var t = bar.position().top + size;
 					common(t);
 				}
 			}else{
 				//firefox
 				if(e.originalEvent.detail < 0){
 					//向上
-					var t = bar.position().top - 20;
+					var t = bar.position().top - size;
 					common(t);
 				}else{
 					//向下
-					var t = bar.position().top + 20;
+					var t = bar.position().top + size;
 					common(t);
 				}
 			}

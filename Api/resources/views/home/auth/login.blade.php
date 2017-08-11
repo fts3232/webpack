@@ -9,9 +9,9 @@
     {{ $isLogin }}
 @endslot
 @endcomponent
-<div class="login_body">
+<div class="login_body clearfix">
 	<div class="container">
-		<img src="{{ asset($cdnPath.'/img/log_bg.png') }}" alt="" class="log_bg">
+		<img src="{{ asset($cdnPath.'/img/log_bg.jpg') }}" alt="" class="log_bg">
 		<div class="login_box">
 			<h3 class="log_tit yellow">cidt global</h3>
 			<form class="login_form clearfix">
@@ -25,7 +25,7 @@
 				</div>
 				<div class="log_state_tip log_error password"></div>
 				<div class="inputbox checkcode">
-					<input type="password" class="lft" name="verficode">
+					<input type="text" class="lft" name="verficode">
 					<i></i>
 				</div>
 				<img src="{{captcha_src()}}" class="code red ref_code"/>
@@ -48,6 +48,9 @@
 </div>
 <!--footer-->
 @component('home.footer')
+@slot('isLoginPage')
+    1
+@endslot
 @endcomponent
 <script>
 $(function(){

@@ -26,8 +26,8 @@
 			<h3 class="home_title">CFDs on Forex Trading Products</h3>
 			<p class="text-center">CIDT offers the hottest currency pairs for trading.<br/>The first currency in the currency pair is called the base currency, and the second is called the relative currency".<br/>When you buy or sell a currency, you take action with the underlying currency.</p>
 			<div class="group_btn">
-				<a href="#" class="btn"><i class="icon"></i>Open Demo Account</a>
-				<a href="#" class="btn"><i class="icon"></i>Create Live Account</a>
+				<a href="{{ url('/account/demo') }}" class="btn"><i class="icon"></i>Open Demo Account</a>
+				<a href="{{ url('/account/standard') }}" class="btn"><i class="icon"></i>Create Live Account</a>
 			</div>
 		</div>
 		<div class="foreign_pro">

@@ -64,18 +64,17 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof NotFoundHttpException ){
             return response()->view('errors.404',['cdnPath'=>config('app.CDN_PATH')]);
-        }else{
-            if($request->ajax() && $e instanceof TokenMismatchException){
-                return response()->json(['status' => 'false', 'msg'=>'csrf token is invalid','code'=>1000]);
-            }
-            elseif($request->isMethod('post') && $e instanceof TokenMismatchException){
-                return redirect()->back()->withErrors(['exception'=>'csrf token is invalid','code'=>1000]);
-            }
-            elseif(config('app.debug')){
-                    return parent::render($request, $e);
-            }else{
-                return response()->view('errors.common');
-            }
+        }elseif($request->ajax() && $e instanceof TokenMismatchException){
+            return response()->json(['status' => 'false', 'msg'=>'csrf token is invalid','code'=>1000]);
         }
+        elseif($request->isMethod('post') && $e instanceof TokenMismatchException){
+            return redirect()->back()->withErrors(['exception'=>'csrf token is invalid','code'=>1000]);
+        }
+        elseif(config('app.debug')){
+                return parent::render($request, $e);
+        }else{
+            return response()->view('errors.common');
+        }
+        die();
     }
 }

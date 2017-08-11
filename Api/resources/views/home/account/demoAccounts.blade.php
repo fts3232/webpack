@@ -40,8 +40,8 @@
 							<div class="selectbox">
 								<div class="thisVal"></div>
 								<ul>
-									<li>模拟账户</li>
-									<li>真实账户</li>
+									<li>standard accounts</li>
+									<li>demo accounts</li>
 								</ul>
 								<input type="hidden" name="account_type" />
 							</div>
@@ -121,10 +121,42 @@ $(function(){
 	$('.ref_code').on('click',function(){
 		$('img.ref_code').attr('src',$('img.ref_code').attr('src')+Math.random())
 	});
+	$('input[name="name"],input[name="email"],input[name="mobile"],input[name="verficode"]').on('change',function(){
+		var val = $(this).val();
+		var name = $(this).attr('name');
+		var postData =  new Object(); 
+		postData[name] = val;
+		postData['_token'] = $('input[name="_token"]').val();
+		$.ajax({
+			'url':"{{ url('/account/demo/validator') }}"+'/'+name,
+			'type':'post',
+			'data':postData,
+			'dataType':'json',
+			'timeout':5000,
+			'success':function(data){
+				if(data.status){
+					if(name=='verficode'){
+						$('input[name="'+name+'"]').next('i').removeClass('error');
+					}else{
+						$('input[name="'+name+'"]').removeClass('log_error');
+						$('input[name="'+name+'"]').next('.tip').removeClass('log_error').html('');
+					}
+				}else{
+					if(name=='verficode'){
+						$('input[name="'+name+'"]').next('i').addClass('error');
+						$('input[name="'+name+'"]').html('')
+					}else{
+						$('input[name="'+name+'"]').addClass('log_error');
+						$('input[name="'+name+'"]').next('.tip').addClass('log_error').html(data.validator[name][0]);
+					}
+				}
+			}
+		})
+	})
 	//提交表单
 	$('.accounts_form input[type="submit"]').on('click',function(){
 		$.ajax({
-			'url':"{{ url('/account/registerDemo') }}",
+			'url':"{{ url('/account/demo/register') }}",
 			'type':'post',
 			'data':$('form').serialize(),
 			'dataType':'json',
@@ -134,17 +166,20 @@ $(function(){
 			},
 			'success':function(data){
 				var inputMap = {
-    						'name':{input:$("input[name='name']"),tip:$("input[name='name']").next('.tip')},
-    						'email':{input:$("input[name='email']"),tip:$("input[name='email']").next('.tip')},
-    						'mobile':{input:$("input[name='mobile']"),tip:$("input[name='mobile']").next('.tip')},
-    						'verficode':{input:$("input[name='verficode']")}
+						'account_type':{input:$('input[name="account_type"]').parent('.selectbox')},
+						'name':{input:$("input[name='name']"),tip:$("input[name='name']").next('.tip')},
+						'email':{input:$("input[name='email']"),tip:$("input[name='email']").next('.tip')},
+						'mobile':{input:$("input[name='mobile']"),tip:$("input[name='mobile']").next('.tip')},
+						'verficode':{input:$("input[name='verficode']")}
     			};
     			for(k in inputMap){
     				var v = inputMap[k];
    				 	if(typeof data.validator !='undefined'  && typeof data.validator[k]!='undefined'){
    	   				 	if(k=='verficode'){
    							v.input.next('i').addClass('error');
-   							v.input.html('')
+   							v.input.val('')
+   	   				 	}else if(k=='account_type'){
+   							v.input.addClass('log_error');
    						}else{
    							v.input.addClass('log_error');
    							v.tip.addClass('log_error').html(data.validator[k][0]);
@@ -152,6 +187,8 @@ $(function(){
      	   			}else{
          	   			if(k=='verficode'){
         					v.input.next('i').removeClass('error');
+             	   		}else if(k=='account_type'){
+                 	   		v.input.removeClass('log_error');
         				}else{
         					v.input.removeClass('log_error');
         					v.tip.removeClass('log_error').html('');
@@ -161,14 +198,15 @@ $(function(){
 				if(data.status){
 					$('#shadow').fadeIn();
 					$('html,body').css('overflow','hidden');
-				}else if(data.status==false && typeof data.validator =='undefined'){
+				}else{
 					alert(data.msg);
-					$("input[name='verficode']").next('i').removeClass('error');
+					$("input[name='verficode']").val('')
+					$('.ref_code').attr('src',$('.ref_code').attr('src')+Math.random())
 				}
-				$('.ref_code').attr('src',$('.ref_code').attr('src')+Math.random())
 			},
 			'error':function(){
 				alert("{{ __('errors.ajaxSendFail') }}")
+				$('.ref_code').attr('src',$('.ref_code').attr('src')+Math.random())
 				$('.ref_code').attr('src',$('.ref_code').attr('src')+Math.random())
 			},
 			'complete':function(){

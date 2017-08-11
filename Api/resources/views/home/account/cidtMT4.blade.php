@@ -22,7 +22,7 @@
 			<li>can carry out orders, limit orders, stop, open, </li>
 			<li>only to win and view the report and analysis data of different operation.</li>
 		</ul>
-		<a href="#" class="btn bg wow fadeInUp" data-wow-delay="0.2s">Download MT4</a>
+		<a href="javascript:;" class="btn bg wow fadeInUp" data-wow-delay="0.2s">Download MT4</a>
 	</div>
 </div>
 <div class="home_mt4 meta_trader">
@@ -43,7 +43,7 @@
 					<li>MT4 perfect backstage management function</li>
 					<li>Provide detailed reports</li>
 				</ul>
-				<a href="#" class="btn btn_r wow fadeInUp" data-wow-delay="0.2s">Start Trading Now</a>
+				<a href="{{ url('/account/standard') }}" class="btn btn_r wow fadeInUp" data-wow-delay="0.2s">Start Trading Now</a>
 			</div>
 			<div class="pc wow fadeInRight">
 				<img src="{{ asset($cdnPath.'/img/pc-phone.png') }}" alt="" class="pc_phone">
@@ -60,26 +60,37 @@
 					<img src="{{ asset($cdnPath.'/img/wins_88.png') }}" alt="">
 					<span class="name">Windows</span>
 				</div>
-				<a href="#" class="btn dlbtn wow fadeInUpBig">Download</a>
+				<a href="{{ url('/download/MT4ForPC') }}" class="btn dlbtn wow fadeInUpBig">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.2s">
 					<img src="{{ asset($cdnPath.'/img/os_88.png') }}" alt="">
 					<span class="name">Mac OS</span>
 				</div>
-				<a href="#" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.2s">Download</a>
+				<a href="{{ url('/download/MT4ForPC') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.2s">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.4s">
-					<img src="{{ asset($cdnPath.'/img/andr_88.png') }}" alt="">
-					<span class="name">Android</span>
+					<div>
+						<img src="{{ asset($cdnPath.'/img/andr_88.png') }}" alt="">
+						<span class="name">Android</span>
+					</div>
+					<div>
+						<img src="{{ asset($cdnPath.'/img/dwl.png') }}" alt="">
+					</div>
 				</div>
-				<a href="#" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.4s">Download</a>
+				<a href="{{ url('/download/MT4ForAndroid') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.4s">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.6s">
-					<img src="{{ asset($cdnPath.'/img/app_88.png') }}" alt="">
-					<span class="name">Apple</span>
+					<div>
+						<img src="{{ asset($cdnPath.'/img/app_88.png') }}" alt="">
+						<span class="name">Apple</span>
+					</div>
+					<div>
+						<img src="{{ asset($cdnPath.'/img/dwl.png') }}" alt="">
+					</div>
+					
 				</div>
 				<a href="#" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.6s">Download</a>
 			</div>
@@ -90,4 +101,23 @@
 @component('home.footer')
 @endcomponent
 <script src="{{ asset($cdnPath.'/js/wow.min.js') }}"></script>
+<script>
+	$('.download_platform .dlbtn').hover(function(){
+		$(this).siblings().find('div:first-child').animate({
+			'marginTop': '-130px'
+		},200);
+	},function(){
+		$(this).siblings().find('div:first-child').animate({
+			'marginTop': 0
+		},200);
+	});
+	$('.cdt .btn').on('click',function(){
+		var sTop = $('.download_platform').offset().top;
+		var speed = 200;
+		$('body,html').animate({
+			scrollTop: sTop
+		},speed);
+	})
+</script>
 @endsection
+

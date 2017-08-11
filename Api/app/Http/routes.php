@@ -15,19 +15,26 @@ Route::group(['prefix'=>'/','middleware' => ['web']],function(){
     $this->get('/',  'Home\IndexController@index');
     $this->get('/productDetails',  'Home\IndexController@productDetails');
     $this->get('/aboutUs',  'Home\IndexController@aboutUs');
+    $this->group(['prefix'=>'/download'],function(){
+        $this->get('/MT4ForPC',  'Home\DownLoadController@MT4ForPC');
+        $this->get('/MT4ForAndroid',  'Home\DownLoadController@MT4ForAndroid');
+    });
     $this->get('/login',  'Home\AuthController@showLoginForm')->middleware('guest');
     $this->post('/login',  'Home\AuthController@login')->middleware('guest');
     $this->group(['prefix'=>'/account'],function(){
-        $this->get('/trading',  'Home\AccountController@trading');
-        $this->post('/tradingStep1',  'Home\AccountController@tradingStep1');
-        $this->post('/tradingStep2',  'Home\AccountController@tradingStep2');
-        $this->post('/tradingStep3',  'Home\AccountController@tradingStep3');
-        $this->post('/tradingStep4',  'Home\AccountController@tradingStep4');
+        $this->get('/standard',  'Home\AccountController@standard');
+        $this->post('/standard/step1',  'Home\AccountController@standardStep1');
+        $this->post('/standard/step2',  'Home\AccountController@standardStep2');
+        $this->post('/standard/step3',  'Home\AccountController@standardStep3');
+        $this->post('/standard/step4',  'Home\AccountController@standardStep4');
+        $this->post('/standard/validator/{key}',  'Home\AccountController@standardValidator')->where('key', '[name|document_number|resid_addr|mobile|email|verficode|account_name|bank_account|bank_address|acct_bran_bank]+');
         $this->get('/demo',  'Home\AccountController@demo');
-        $this->post('/registerDemo',  'Home\AccountController@registerDemo');
+        $this->post('/demo/validator/{key}',  'Home\AccountController@demoValidator')->where('key', '[name|email|mobile|verficode]+');
+        $this->post('/demo/register',  'Home\AccountController@registerDemo');
         $this->get('/cidtMT4',  'Home\AccountController@cidtMT4');
+        
     });
-   $this->group(['prefix'=>'/user'],function(){
+    $this->group(['prefix'=>'/user'],function(){
        $this->get('/logout',  'Home\AuthController@logout');
        $this->post('/uploadPic',  'Home\UserController@uploadPic')->middleware('auth');
        $this->get('/personalInfo',  'Home\UserController@personalInfo')->middleware('auth');
@@ -48,7 +55,7 @@ Route::group(['prefix'=>'/','middleware' => ['web']],function(){
 |
 */
 
-Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
+/* Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     //\App::setLocale('cn');
     // Authentication Routes...
     $this->get('login', 'Admin\AuthController@showLoginForm');
@@ -74,4 +81,4 @@ Route::group(['prefix'=>'/admin','middleware' => ['web']], function () {
     $this->put('article/edit', 'Admin\ArticleController@edit');
     $this->match(['put', 'post'],'article/uploadPic', 'Admin\ArticleController@uploadPic');
     $this->delete('article/del', 'Admin\ArticleController@delete');
-});
+}); */

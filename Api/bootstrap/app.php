@@ -57,9 +57,9 @@ $app->configureMonologUsing(function ($monolog) {
     }catch(\Exception $e){
         $filename = '../storage/logs/log.log';
         $monolog->pushHandler(new RotatingFileHandler($filename));
+        $monolog->addError($e->getMessage());
     }
 });
-
 
 /*
 |--------------------------------------------------------------------------

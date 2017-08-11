@@ -136,7 +136,7 @@
 <div class="cid_intro">
 	<img src="{{ asset($cdnPath.'/img/cid_logo.png') }}" alt="" class="cid_logo wow fadeInDown">
 	<p class="wow fadeInDown" data-wow-delay="0.5s" data-wow-duration="1.2s">CIDT Global Investment Group since its establishment<br/>we have focused on providing professional, stable, standardized and multi transaction electronic trading platform for global investors<br/>Now operated by a senior financial team<br/>the company continues to provide customers with the tools and services they need to meet the needs of customers in the global marketplace</p>
-	<a href="{{ url('/account/trading') }}" target="_blank" class="btn btn_r wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="1s">Start Trading Now</a>
+	<a href="{{ url('/account/standard') }}" target="_blank" class="btn btn_r wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="1s">Start Trading Now</a>
 </div>
 <div class="advanges step">
 	<div class="container">
@@ -163,7 +163,7 @@
 				<p>Start Trading, and Choose<br/>From 50+ Instruments</p>
 			</div>
 		</div>
-		<a href="{{ url('/account/trading') }}" target="_blank" class="btn red wow fadeInUp" data-wow-delay="1.2s">Get Started</a>
+		<a href="{{ url('/account/standard') }}" target="_blank" class="btn red wow fadeInUp" data-wow-delay="1.2s">Get Started</a>
 	</div>
 </div>
 <div class="home_mt4">
@@ -182,12 +182,12 @@
 					<li>MT4 perfect backstage management function</li>
 					<li>Provide detailed reports</li>
 				</ul>
-				<a href="{{ url('/account/trading') }}" target="_blank" class="btn btn_r wow slideInLeft">Start Trading Now</a>
+				<a href="{{ url('/account/cidtMT4') }}" target="_blank" class="btn btn_r wow slideInLeft">Start Trading Now</a>
 				<h3 class="h_h3 wow slideInLeft"><i class="icon"></i>MT4 Download</h3>
 				<div class="download clearfix">
-					<a href="javascript:;" class="wow fadeInUpBig" data-wow-delay="0.25s"><i class="wins"></i>Windows</a>
-					<a href="javascript:;" class="wow fadeInUpBig" data-wow-delay="0.5s"><i class="os"></i>Mac OS</a>
-					<a href="javascript:;" class="wow fadeInUpBig" data-wow-delay="0.75s"><i class="andr"></i>Android</a>
+					<a href="{{ url('/download/MT4ForPC') }}" class="wow fadeInUpBig" data-wow-delay="0.25s"><i class="wins"></i>Windows</a>
+					<a href="{{ url('/download/MT4ForPC') }}" class="wow fadeInUpBig" data-wow-delay="0.5s"><i class="os"></i>Mac OS</a>
+					<a href="{{ url('/download/MT4ForAndroid') }}" class="wow fadeInUpBig" data-wow-delay="0.75s"><i class="andr"></i>Android</a>
 					<a href="javascript:;" class="wow fadeInUpBig" data-wow-delay="1s"><i class="app"></i>Apple</a>
 				</div>
 			</div>
@@ -207,7 +207,7 @@
 					<dt>About Us</dt>
 					<dd>Adhere to<br/>"Honesty, Credibility First"<br/>Principle</dd>
 				</dl>
-				<a href="#" class="btn readmore">Read More</a>
+				<a href="{{ url('/aboutUs') }}" target="_blank" class="btn readmore">Read More</a>
 			</div>
 			<div class="item wow fadeInDown" data-wow-delay="0.4s">
 				<i class="service24"></i>
@@ -215,7 +215,7 @@
 					<dt>24/5 Customer Support</dt>
 					<dd>Our Dedicated Team of<br/>Customer Support Agents<br/> is on Hand to Provide You with Support.</dd>
 				</dl>
-				<a href="#" class="btn readmore">Read More</a>
+				<a href="{{ url('/aboutUs') }}" target="_blank" class="btn readmore">Read More</a>
 			</div>
 			<div class="item wow fadeInDown" data-wow-delay="0.6s">
 				<i class="coor"></i>
@@ -223,7 +223,7 @@
 					<dt>Help Center</dt>
 					<dd>For account registration, capital injection, <br/>withdrawals and other questions,<br/> you can view the help center</dd>
 				</dl>
-				<a href="#" class="btn readmore">Read More</a>
+				<a href="{{ url('/aboutUs') }}" target="_blank" class="btn readmore">Read More</a>
 			</div>
 		</div>
 	</div>
