@@ -29,8 +29,9 @@ class Auth extends Business {
                 $seconds = $this->limiter()->availableIn( $this->throttleKey() );
                 throw new \Exception($this->lang('auth.login.lock',['seconds'=>$seconds]),1002);
             }
-            if (!$this->attemptLogin()) 
-                throw new \Exception($this->lang('auth.login.fail'),1003);
+            $login = $this->attemptLogin();
+            if (!$login['status']) 
+                throw new \Exception($login['msg'],$login['code']);
             $this->clearLoginAttempts();
         }catch(\Exception $e){
             $this->incrementLoginAttempts();
@@ -54,9 +55,7 @@ class Auth extends Business {
     //登出
     protected function logout(){
         try{
-            $session = \App::make('\App\Lib\Session');
             $this->getAuth()->logout($this->guard);
-            $session->flush();
             return true;
         }catch(\Exception $e){
             return false;

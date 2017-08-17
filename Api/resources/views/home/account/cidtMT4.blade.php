@@ -43,7 +43,7 @@
 					<li>MT4 perfect backstage management function</li>
 					<li>Provide detailed reports</li>
 				</ul>
-				<a href="{{ url('/account/standard') }}" class="btn btn_r wow fadeInUp" data-wow-delay="0.2s">Start Trading Now</a>
+				<a href="{{ route('liveAccount') }}" class="btn btn_r wow fadeInUp" data-wow-delay="0.2s">Start Trading Now</a>
 			</div>
 			<div class="pc wow fadeInRight">
 				<img src="{{ asset($cdnPath.'/img/pc-phone.png') }}" alt="" class="pc_phone">
@@ -57,34 +57,34 @@
 		<div class="common_list clearfix">
 			<div class="item">
 				<div class="wow fadeInUp">
-					<img src="{{ asset($cdnPath.'/img/wins_88.png') }}" alt="">
+					<i class="img"></i>
 					<span class="name">Windows</span>
 				</div>
-				<a href="{{ url('/download/MT4ForPC') }}" class="btn dlbtn wow fadeInUpBig">Download</a>
+				<a href="{{ route('downloadMT4ForPC') }}" class="btn dlbtn wow fadeInUpBig">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.2s">
-					<img src="{{ asset($cdnPath.'/img/os_88.png') }}" alt="">
+					<i class="img"></i>
 					<span class="name">Mac OS</span>
 				</div>
-				<a href="{{ url('/download/MT4ForPC') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.2s">Download</a>
+				<a href="{{ route('downloadMT4ForPC') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.2s">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.4s">
 					<div>
-						<img src="{{ asset($cdnPath.'/img/andr_88.png') }}" alt="">
+						<i class="img"></i>
 						<span class="name">Android</span>
 					</div>
 					<div>
 						<img src="{{ asset($cdnPath.'/img/dwl.png') }}" alt="">
 					</div>
 				</div>
-				<a href="{{ url('/download/MT4ForAndroid') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.4s">Download</a>
+				<a href="{{ route('downloadMT4ForAndroid') }}" class="btn dlbtn wow fadeInUpBig" data-wow-delay="0.4s">Download</a>
 			</div>
 			<div class="item">
 				<div class="wow fadeInUp" data-wow-delay="0.6s">
 					<div>
-						<img src="{{ asset($cdnPath.'/img/app_88.png') }}" alt="">
+						<i class="img"></i>
 						<span class="name">Apple</span>
 					</div>
 					<div>

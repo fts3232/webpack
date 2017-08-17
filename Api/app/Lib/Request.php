@@ -53,7 +53,7 @@ class Request{
         return !$validator->fails()?true:$validator->errors();
     }
     //upload
-    public function upload($key,$uploadDir='upload'){
+    public function upload($key,$uploadDir='upload',$filename=''){
         $data = array('status'=>true,'msg'=>Lang::get('upload.success'));
         $allowTypes=array('image/png','image/jpeg','image/pjpeg','image/jpeg','image/gif');
         try{
@@ -75,14 +75,15 @@ class Request{
             }
             if(!is_writable($destPath))
                 throw new \Exception( Lang::get('upload.error.notWritable'),2003);
-            $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
+            if(!$filename)
+                $filename = date("YmdHis").floor(microtime()*1000).'.'.$extension;
             $file->move($destPath,$filename);
             if($file->getError()!==0){
                 throw new \Exception(Lang::get('upload.fail'),2004);
             }
             $data['file'] = url($uploadDir.'\\'.$filename);
         }catch(\Exception $e){
-            $data = array('status'=>false,'msg'=>Lang::get('upload.fail'),'code'=>$e->getCode());
+            $data = array('status'=>false,'msg'=>$e->getMessage(),'code'=>$e->getCode());
         }
         return $data;
     }

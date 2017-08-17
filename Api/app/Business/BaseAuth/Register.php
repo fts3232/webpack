@@ -19,13 +19,12 @@ trait Register {
         $result = array('status'=>true,'msg'=>$this->lang('auth.register.success'));
         try{
             $data = $this->getRequest()->getParam();
-            
             $validator = $this->validate($data);
             if($validator!==true)
                 throw new \Exception($this->lang('errors.validate'),1001);
-            if (!$this->create()) 
+            if (!$this->create($data)) 
                 throw new \Exception($this->lang('auth.register.fail'),1004);
-            $this->registered();
+            $this->registered($data);
         }catch(\Exception $e){
             $code = $e->getCode();
             if($code==1001)
@@ -36,7 +35,7 @@ trait Register {
         }
         return $result;
     }
-    protected function create(){
+    protected function create($data){
         
     }
     protected function validate($data){
@@ -45,7 +44,7 @@ trait Register {
         $validator = $this->validator($data, $rule,$msg);
         return $validator;
     }
-    protected function registered(){
+    protected function registered($data){
         
     }
 }

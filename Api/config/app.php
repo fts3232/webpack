@@ -210,4 +210,7 @@ return [
     'L_MT4_HOST'=>env('L_MT4_HOST', ''),
     'L_MT4_PORT'=>env('L_MT4_PORT', ''),
     'PAY_DOMAIN'=>env('PAY_DOMAIN',''),
+    'T_PLUGIN_MASTER'=>env('T_PLUGIN_MASTER', ''),
+    'T_MT4_HOST'=>env('T_MT4_HOST', ''),
+    'T_MT4_PORT'=>env('T_MT4_PORT', ''),
 ];

@@ -17,11 +17,12 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (true) {//if (Auth::guard($guard)->guest()) {
+        $auth = \App::make('App\Lib\Auth');
+        if (!$auth->isLogin($guard)) {//if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+                return redirect()->route('login');
             }
         }
 

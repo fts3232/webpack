@@ -9,6 +9,9 @@ use App\Lib\Session;
 use App\Lib\Request;
 use App\Lib\Auth;
 use App\Lib\Log;
+use App\Lib\Mail;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Customer;
 class AppServiceProvider extends ServiceProvider
 {
     //protected $defer = true;
@@ -19,7 +22,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //check password
+        Validator::extend('password', function($attribute, $value, $parameters, $validator) {
+            $reg = "/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/";
+            return preg_match($reg,$value);
+        });
+        //check mobile  is exists
+        Validator::extend('customer_mobile', function($attribute, $value, $parameters, $validator) {
+            $ret = Customer::checkMobile($value);
+            return !$ret;
+        });
+        //check email is exists
+        Validator::extend('customer_email', function($attribute, $value, $parameters, $validator) {
+            $ret = Customer::checkEmail($value);
+            return !$ret;
+        });
+        //check id_number
+        Validator::extend('id_number', function($attribute, $value, $parameters, $validator) {
+            $request = \App::make('App\Lib\Request');
+            $type = $request->getParam('certificate_type');
+            $ret = Customer::checkPersonID($type,$value);
+            return !$ret;
+        });
     }
 
     /**

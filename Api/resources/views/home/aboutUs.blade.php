@@ -29,29 +29,29 @@
 <div class="home_mt4 trading">
 	<div class="container">
 		<h3 class="home_title wow fadeInDown">trading <span class="yellow">advantage</span></h3>
-		<div class="common_list clearfix">
+		<div class="f_list clearfix">
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading1.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">Authority Certification</span>
 			</div>
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading2.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">Very Low Cost</span>
 			</div>
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading3.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">Capital Security</span>
 			</div>
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading4.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">High-Speed Access</span>
 			</div>
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading4.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">Expert Team</span>
 			</div>
 			<div class="item wow zoomIn">
-				<img src="{{ asset($cdnPath.'/img/trading6.png') }}" alt="">
+				<i class="img"></i>
 				<span class="name">Product diversification</span>
 			</div>
 		</div>
@@ -63,31 +63,31 @@
 		<h3 class="home_title wow fadeInDown">contact us</h3>
 		<div class="common_list clearfix">
 			<div class="item wow bounceInLeft">
-				<img src="{{ asset($cdnPath.'img/service24.png') }}" alt="">
+				<i class="img"></i>
 				<dl>
 					<dt>24 Hours<br/>Customer Service Hotline</dt>
 					<dd>+64 9 309 9925</dd>
 				</dl>
 			</div>
 			<div class="item wow fadeInDown">
-				<img src="{{ asset($cdnPath.'img/fax.png') }}" alt="">
+				<i class="img"></i>
 				<dl>
 					<dt>Fax</dt>
 					<dd>+64 9 309 9926</dd>
 				</dl>
 			</div>
 			<div class="item wow fadeInDown">
-				<img src="{{ asset($cdnPath.'img/email.png') }}" alt="">
+				<i class="img"></i>
 				<dl>
 					<dt>Mailbox</dt>
 					<dd>info@202fx.com</dd>
 				</dl>
 			</div>
 			<div class="item wow bounceInRight">
-				<img src="{{ asset($cdnPath.'img/location.png') }}" alt="">
+				<i class="img"></i>
 				<dl>
 					<dt>Address</dt>
-					<dd>Level 6, 63 Albert Street, Auckland, 1010；</dd>
+					<dd>Level 6, 63 Albert Street, Auckland, 1010； 1A, 6 Viaduct Harbour Ave, Auckland, 1010</dd>
 				</dl>
 			</div>
 		</div>

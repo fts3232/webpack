@@ -148,12 +148,13 @@ function selectBox(){
 	$('.selectbox').each(function(){
 		//遍历设置每个的第一个子节点
 		$(this).find('.thisVal').text($(this).find('ul li').first().text());
-		$(this).find('input[type="hidden"]').val($(this).find('ul li').first().text());
+		$(this).find('input[type="hidden"]').val(1);
 		var li = $(this).find('ul li');
 		li.on('click',function(){
 			var _thisVal = $(this).text();
+			var _thisIndex = $(this).index() + 1;		
 			$(this).parent().siblings('.thisVal').text(_thisVal);
-			$(this).parent().siblings('input').val(_thisVal);
+			$(this).parent().siblings('input').val(_thisIndex);
 		});
 		$(this).on('click',function(event){
 			event.stopPropagation();	//阻止事件冒泡
@@ -185,13 +186,13 @@ function nextStep(){
 		});
 		if(flag){
 			$('.checkbox').click(function(){
-				if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
+				if($('.agree_check>div').eq(0).find('.checkbox').attr('checked')){
 					isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
 				}else{
 					isDisabled(stepcnt_0,false,'Complete the information');
 				}
 			});
-			if($('.agree_check>div').eq(0).find('.checkbox').attr('checked') && $('.agree_check>div').eq(1).find('.checkbox').attr('checked')){
+			if($('.agree_check>div').eq(0).find('.checkbox').attr('checked')){
 				isDisabled(stepcnt_0,true,'Agree to the Agreement and Submit');
 			}else{
 				isDisabled(stepcnt_0,false,'Complete the information');
@@ -213,7 +214,7 @@ function isDisabled(obj,isTrue,btnText){
 }
 //模拟账户
 function demo_account(){
-	$('form input[type="text"]').on('keyup',function(){
+	$('.accounts_form input[type="text"]').on('keyup',function(){
 		var flag = true;
 		$('form input[type="text"]').each(function(i,obj){
 			if(obj.value == ''){
@@ -221,31 +222,6 @@ function demo_account(){
 			}
 		});
 		if(flag){
-			/*if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($('input[name="email"]').val()))){
-				$('input[name="email"]').next().find('.icon').addClass('error').removeClass('success');
-				isClick(0);
-			}else{
-				$('input[name="email"]').next().find('.icon').addClass('success').removeClass('error');
-				//判断验证码是否正确
-				var code_val = $('input[name="code"]').val().toLowerCase();
-				var code = $('.code').text().toLowerCase();
-				if(code_val !== code){
-					$('.codebox i').addClass('error').removeClass('success');
-					$('input[name="code"]').change(function(){
-						var thisVal = $(this).val().toUpperCase();
-						var nowCode = $('.code').text().toUpperCase();
-						if(thisVal !== nowCode){
-							isClick(0);
-							$('.codebox i').addClass('error').removeClass('success');
-						}else{
-							$('.codebox i').addClass('success').removeClass('error');
-						}
-					});
-				}else{
-					$('.codebox i').addClass('success').removeClass('error');
-					isClick(1);
-				}
-			}*/
 			isClick(1);
 		}else{
 			isClick(0);
@@ -270,6 +246,13 @@ function agreement(){
 function online_deposit(){
 	var dep_amt = $('form input[name="dep_amount"]');
 	var rk = $('form .rk');
+	$('form input[name="dep_amount"]').on('keydown',function(e){
+		var key = e.keyCode;
+		var thisVal = $(this).val();
+		if(!(key >= 96 && key <= 105) && !(key >= 49 && key <= 57) && key !== 190 && key !== 110 && key !== 8 && key !== 46){
+			return false;
+		}
+	})
 	$('form .rk,form input[name="dep_amount"]').keyup(function(){
 		var val = $.trim(dep_amt.val());
 		var rk_val = $.trim(rk.val());
@@ -305,8 +288,12 @@ function injection(){
 //账户取款
 function withdrawal(){
 	var atm = $('input[name="withd_amot"]');
-	atm.on('keyup',function(){
-		var thisVal = $(this).val();
+	atm.on('keydown',function(e){
+		var thisVal = $.trim($(this).val());
+		var key = e.keyCode;
+		if(!(key >= 96 && key <= 105) && !(key >= 49 && key <= 57) && key !== 190 && key !== 110 && key !== 8 && key !== 46){
+			return false;
+		}
 		if(thisVal !== '' && $('.ckbox').siblings('.checkbox').attr('checked')){
 			isClick(1);
 		}else{
@@ -314,7 +301,7 @@ function withdrawal(){
 		}
 	});
 	$('.ckbox').on('click',function(){
-		if($(this).siblings('.checkbox').attr('checked') && atm.val() !== ''){
+		if($(this).siblings('.checkbox').attr('checked') && atm.val() !== '' && !atm.next().hasClass('log_error')){
 			isClick(1);
 		}else{
 			isClick(0);
@@ -339,14 +326,9 @@ function isClick(isTrue){
 	isTrue ? $('form input[type="submit"]').removeClass('disabled').addClass('bg').attr('disabled',false) : $('form input[type="submit"]').removeClass('bg').addClass('disabled').attr('disabled',true);
 }
 function disableScroll(){
-	/*$('form input[type="submit"]').on('click',function(){
-		$('#shadow').fadeIn();
-		$('html,body').css('overflow','hidden');
-		return false;
-	});*/
 	$('#shadow .btn').on('click',function(){
 		$(this).parents('#shadow').fadeOut(function(){
-			$('form').hide().siblings('.congratulate').show();
+			$('form').not('.login_form').hide().siblings('.congratulate').show();
 		});
 		$('html,body').css({'overflow-x':'hidden','overflow-y': 'auto'});
 	});
@@ -519,12 +501,12 @@ function createCode(minLen,maxLen,isTrue){
 /**
 	滚动条
 **/
-function scrollBar(obj){
+function scrollBar(obj,idx){
 	var oDiv = $('<div id="scrollbar"><span></span></div>');	//创建元素
 	oDiv.appendTo(obj);		//添加到obj后面
 	var scrollbar = $('#scrollbar');		//滚动条
 	var bar = $('#scrollbar span');			//滚动条槽块
-	var content_box = $('.content_box');	//内容区高度
+	var content_box = obj.find('.agree-list').eq(idx).find('.content_box');	//内容区高度
 	var oparent = content_box.parent();		//内容区父类高度
 	var size = 2;	//滑轮每次滑动的高度
 	bar.bind('mousedown',function(e){
@@ -594,6 +576,20 @@ function scrollBar(obj){
 		bar.css('top',t);
 	}
 }
+function switchB(){
+	$('.switch span').on('click',function(){
+		$(this).removeAttr('style').parent().siblings('.tip').html('');
+		$(this).addClass('active').siblings('span').removeClass('active');
+		$(this).parent().siblings('input').val($(this).attr('data-index')).attr('data-text',$(this).text());
+	})
+	$('.switch span').hover(function(){
+		if(!$(this).hasClass('active')){
+			$(this).css({'color': '#dbb76e','borderColor': '#dbb76e'})
+		}
+	},function(){
+		$(this).removeAttr('style');
+	})
+}
 selectBox();
 sliderMenu();
 banner();
@@ -601,7 +597,8 @@ keyWordSearch();
 demo_account();
 nextStep();
 agreement();
-scrollBar($('.customer_notice'));
+scrollBar($('.customer_notice'),0);
 online_deposit();
 injection();
 withdrawal();
+switchB();

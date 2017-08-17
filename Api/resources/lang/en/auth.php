@@ -18,7 +18,7 @@ return [
         'lock'=>'The user has been locked! Please wait for :seconds seconds!'
     ],
     'register'=>[
-        'fail'=>'Registration failed!',
+        'fail'=>'The network is busy. Please resubmit it. If you fail many times, please contact the online customer service.',
         'success'=>'Successful registration!'
     ]
 ];

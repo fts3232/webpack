@@ -79,7 +79,7 @@ return [
         ],
         'users' => [
              'driver' => 'database',
-             'table' => 'users_copy',
+             'table' => 'CUS_ACCOUNT',
         ],
     ],
 

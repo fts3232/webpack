@@ -49,3 +49,4 @@ mochawesome-report/
 *.log
 Build/
 stats.json
+Api/public/upload

@@ -35,55 +35,44 @@
 								<h3 class="yellow">Free Trial & No Risk</h3>
 								<p>Simulated accounts allow you to be familiar with our trading rules and system <br/>operations. If you encounter any problems in the process of simulation, please<br/>contact us for 24 hours online to answer your questions</p>
 							</div>
-
-							<p class="listname">Account Type :</p>
-							<div class="selectbox">
-								<div class="thisVal"></div>
-								<ul>
-									<li>standard accounts</li>
-									<li>demo accounts</li>
-								</ul>
+							
+							<div class="trbox">
+								<span class="listname">Account Type :</span>
+								<div class="switch big">
+									<span data-index="1">standard accounts</span>
+									<span data-index="2">mini accounts</span>
+								</div>
 								<input type="hidden" name="account_type" />
+								<span class="tip">Please select the type of account you need.</span>
 							</div>
-							<span class="tip">Please select the type of account you need.</span>
 
-							<div style="clear: both;"></div>
-							<p class="listname">Your Name :</p>
-							<input type="text" name="name" class="input_p">
-							<span class="tip">Please fill in your real name</span>
-
-							<div style="clear: both;"></div>
-							<p class="listname">E-mail Address :</p>
-							<input type="text" name="email" class="input_p">
-							<span class="tip"><i class="icon"></i>Please fill in the correct E-mail address</span>
-
-							<div style="clear: both;"></div>
-							<p class="listname">Cellphone Number :</p>
-							<input type="text" name="mobile" class="input_p">
-							<span class="tip">Please fill in the correct phone number, Important information will be sent to this number</span>
-
-							<!--  <div style="clear: both;"></div>
-							<p class="listname">Region :</p>
-							<div class="selectbox">
-								<div class="thisVal"></div>
-								<ul>
-									<li>天河区</li>
-									<li>越秀区</li>
-									<li>白云区</li>
-									<li>海珠区</li>
-								</ul>
-								<input type="hidden" name="region" />
+							<div class="trbox">
+								<span class="listname">Your Name :</span>
+								<input type="text" name="name" class="input_p" />
+								<span class="tip">Please fill in your real name</span>
 							</div>
-							<span class="tip">Please select your region</span> -->
 
-							<div style="clear: both;"></div>
-							<p class="listname">PIN :</p>
-							<div class="codebox">
-								<input type="text" name="verficode" class="input_p" style="width: 130px;">
-								<i></i>
+
+							<div class="trbox">
+								<span class="listname">E-mail Address :</span>
+								<input type="text" name="email" class="input_p" />
+								<span class="tip">Please fill in the correct E-mail address</span>
 							</div>
-							     <img src="{{captcha_src()}}" class="code red ref_code"/>
-							<span class="tip"><i class="icon refresh ref_code"></i></span>
+
+							<div class="trbox">
+								<span class="listname">Cellphone Number :</span>
+								<input type="text" name="mobile" class="input_p" />
+								<span class="tip">Please fill in the correct phone number, Important information will be sent to this number</span>
+							</div>
+
+							<div class="trbox">
+								<span class="listname">PIN :</span>
+								<div class="codebox">
+									<input type="text" name="verficode" class="input_p" />
+									<i></i>
+								</div>
+								<img src="{{captcha_src()}}" class="code red ref_code"/>
+							</div>
 
 							<div class="btn_group">
 							     {{ csrf_field() }}
@@ -136,14 +125,14 @@ $(function(){
 			'success':function(data){
 				if(data.status){
 					if(name=='verficode'){
-						$('input[name="'+name+'"]').next('i').removeClass('error');
+						$('input[name="'+name+'"]').next('i').removeClass('error').addClass('success');
 					}else{
 						$('input[name="'+name+'"]').removeClass('log_error');
 						$('input[name="'+name+'"]').next('.tip').removeClass('log_error').html('');
 					}
 				}else{
 					if(name=='verficode'){
-						$('input[name="'+name+'"]').next('i').addClass('error');
+						$('input[name="'+name+'"]').next('i').addClass('error').removeClass('success');
 						$('input[name="'+name+'"]').html('')
 					}else{
 						$('input[name="'+name+'"]').addClass('log_error');
@@ -160,13 +149,13 @@ $(function(){
 			'type':'post',
 			'data':$('form').serialize(),
 			'dataType':'json',
-			'timeout':5000,
+			'timeout':10000,
 			'beforeSend':function(){
 				isClick(0);
 			},
 			'success':function(data){
 				var inputMap = {
-						'account_type':{input:$('input[name="account_type"]').parent('.selectbox')},
+						'account_type':{input:$('input[name="account_type"]'),tip:$("input[name='account_type']").next('.tip')},
 						'name':{input:$("input[name='name']"),tip:$("input[name='name']").next('.tip')},
 						'email':{input:$("input[name='email']"),tip:$("input[name='email']").next('.tip')},
 						'mobile':{input:$("input[name='mobile']"),tip:$("input[name='mobile']").next('.tip')},

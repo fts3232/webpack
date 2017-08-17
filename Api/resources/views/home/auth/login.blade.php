@@ -32,8 +32,8 @@
 				<input type="button" value="Login" class="btn bg login_btn" />
 				 {{ csrf_field() }}
 				<div class="link_group">
-					<a href="#">Forget Password</a>
-					<a href="{{ url('/account/trading') }}" class="red">Registered</a>
+					<a href="javascript:;" class="forgetP">Forget Password</a>
+					<a href="{{ route('liveAccount') }}" class="red">Registered</a>
 				</div>
 			</form>
 		</div>
@@ -43,7 +43,15 @@
 	<div class="correctbox">
 		<span class="corr_bg"></span>
 		<p>Account or password is wrong<br/>if you forget the password please contact customer service</p>
-		<a href="javascript:;" class="btn next_btn bg">Close</a>
+		<a href="javascript:;" class="btn sbtn next_btn bg">Close</a>
+	</div>
+</div>
+<!--登录成功提示-->
+<div id="alertTip">
+	<div class="box">
+		<span class="icon"></span>
+		<p>If you forgot your password<br/>Please contact customer service<br/><span class="yellow">24-hour hotline: +64 9 309 9925</span></p>
+		<span class="btn sbtn bg">Close</span>
 	</div>
 </div>
 <!--footer-->
@@ -59,7 +67,7 @@ $(function(){
 	});
 	$('.login_btn').on('click',function(){
 		$.ajax({
-			'url':"{{ url('/login') }}",
+			'url':"{{ route('login') }}",
 			'type':'post',
 			'data':$('form').serialize(),
 			'dataType':'json',
@@ -91,7 +99,7 @@ $(function(){
              	   	}
     			}
 				if(data.status){
-					location.href="{{ url('/member/personalInfo') }}"
+					location.href="{{ route('person') }}"
 				}else if(data.status==false && typeof data.validator =='undefined'){
 					$('.log_error.username').html(data.msg);
 					$('.inputbox.checkcode i').removeClass('error')
@@ -107,6 +115,12 @@ $(function(){
 			}
 		})
 		return false;
+	});
+	$('.forgetP').on('click',function(){
+		$('#alertTip').fadeIn();
+	});
+	$('#alertTip .btn').on('click',function(){
+		$(this).parents('#alertTip').fadeOut();
 	})
 })
 </script>

@@ -3,11 +3,11 @@
 		<div class="clearfix">
 			<div class="tbox">
 				<h3 class="ptit yellow">online trading<br/>
-					<a href="{{ url('account/standard') }}" target="_blank" class="link">standard accounts</a>
-					<a href="{{ url('account/demo') }}" target="_blank" class="link">deom accounts</a>
+					<a href="{{ route('liveAccount') }}" target="_blank" class="link">Live accounts</a>
+					<a href="{{ route('demoAccount') }}" target="_blank" class="link">Demo accounts</a>
 				</h3>
 			</div>
-			<img src="{{ asset($cdnPath.'/img/tr.png') }}" alt="" class="tr_img">
+			<img src="{{ asset($cdnPath.'/img/tr.jpg') }}" alt="" class="tr_img">
 		</div>
 	</div>
 </div>

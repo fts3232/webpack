@@ -3,9 +3,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }	
-html,body{
-	height: 100%;
-}
 body{font-size: 16px;color: #666;font-family: Arial,"Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;cursor: default;overflow-x: hidden;overflow-y: auto;}
 a,a:link,a:visited,a:hover,a:active{
 	text-decoration: none;
@@ -204,13 +201,13 @@ p{
 	height: 16px;
 }
 .head_t .head_nav .t_nav:first-child .icon{
-	background: url(../img/time-icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat 0 0;
 }
 .head_t .head_nav .t_nav:nth-child(2) .icon{
-	background: url(../img/tel-icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -30px 0;
 }
 .head_t .head_nav .t_nav:nth-child(3) .icon{
-	background: url(../img/lang-icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -61px -1px;
 }
 /**head**/
 .head .head_l,.logo{
@@ -224,7 +221,7 @@ p{
 .logo{
 	width: 172px;
 	height: 60px;
-	background: url(../img/logo.png) no-repeat;
+	background: url(../img/icon2.png) no-repeat 0 0;
 }
 .siteName{
 	font-size: 14px;
@@ -241,7 +238,7 @@ p{
 .head .head_r .btn{
 	width: 160px;
 	height: 36px;
-	line-height: 34px;
+	line-height: 36px;
 	margin-left: 10px;
 	font-size: 16px;
 	font-weight: normal;
@@ -335,6 +332,7 @@ p{
 }
 .banner .banner_thumb{
 	bottom: 90px;
+	margin-left: -28px;
 }
 .banner .banner_thumb span:first-child{
 	margin-left: 0;
@@ -355,12 +353,12 @@ p{
 .banner .banner_thumb,.group_btn{
 	position: absolute;
 	left: 50%;
-    transform: translateX(-50%);
     z-index: 12;
 }
 .group_btn{
 	bottom: 20px;
 	width: 640px;
+	margin-left: -320px;
 }
 .group_btn .btn{
 	width: 300px;
@@ -388,10 +386,10 @@ p{
 	height: 24px;
 }
 .group_btn a:first-child .icon{
-	background: url(../img/mn-icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -96px 0;
 }
 .group_btn a:last-child .icon{
-	background: url(../img/key-icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -145px 0;
 }
 /**cntbox**/
 .aboutus{
@@ -413,7 +411,7 @@ p{
 	color: #888;
 }
 .cntbox .pro_t .icon{
-	background: url(../img/pt.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -269px 0;
 }
 .cntbox .pro_list{
 	padding-bottom: 20px;
@@ -518,6 +516,10 @@ p{
 }
 .cid_logo{
 	margin: 60px 0;
+	display: inline-block;
+	width: 234px;
+	height: 144px;
+	background: url(../img/icon2.png) no-repeat 0 -92px;
 }
 .cid_intro .btn,.advanges .btn,.home_mt4 .btn{
 	width: 300px;
@@ -535,7 +537,7 @@ p{
 }
 /**steps**/
 .step_list .item{
-	width: 300px;
+	width: 25%;
 	text-align: center;
 	float: left;
 }
@@ -548,7 +550,25 @@ p{
 	display: block;
 	margin: 20px 0;
 }
-.step_list .item:last-child img{
+.step_list .item .img{
+	width: 200px;
+	height: 160px;
+	display: inline-block;
+}
+.step_list .item:first-child .img{
+	background: url(../img/icon2.png) no-repeat 0 -292px;
+}
+.step_list .item:nth-child(2) .img{
+	background: url(../img/icon2.png) no-repeat -284px -292px;
+}
+.step_list .item:nth-child(3) .img{
+	background: url(../img/icon2.png) no-repeat -572px -292px;
+}
+.step_list .item:last-child .img{
+	background: url(../img/icon2.png) no-repeat -845px -312px;
+}
+.step_list .item:last-child .img{
+	height: 140px;
 	margin-top: 20px;
 }
 .step .btn{
@@ -567,13 +587,16 @@ p{
 .home_mt4 .container{
 	position: relative;
 }
+.home_mt4 .plat_l{
+	width: 40%;
+}
 .home_mt4 .plat_l,.home_mt4 .pc{
 	float: left;
 }
 .home_mt4 .pc{
 	position: absolute;
 	z-index: 2;
-	right: -100px;
+	right: 0;
 	top: 160px;
 }
 .home_mt4 p.txt{
@@ -581,9 +604,9 @@ p{
 }
 .mt4_list li{
 	line-height: 30px;
-	padding-left: 20px;
 	transition: .3s;
 	position: relative;
+	padding: 0 20px;
 }
 .mt4_list li:before{
 	content: '';
@@ -600,11 +623,21 @@ p{
 .mt4_list li:hover{
 	margin-left: 5px;
 }
+.attr li{
+	padding: 0 20px 20px 15px;
+}
+.withd_att .mt4_list,.withd_att h3{
+	padding-left: 20px !important;
+}
+.withd_att .mt4_list li{
+	line-height: 24px;
+	padding: 0 20px 20px 15px;
+}
 .home_mt4 .h_h3{
 	margin-bottom: 40px;
 }
 .home_mt4 .h_h3 .icon{
-	background: url(../img/mt4logo_24.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -319px 0;
 }
 .home_mt4 .download a{
 	width: 80px;
@@ -641,28 +674,28 @@ p{
 	margin: 5px auto 10px;
 }
 .home_mt4 .download .wins{
-	background: url(../img/wins_24.png) no-repeat;
+	background: url(../img/icon.png) no-repeat 0 -35px;
 }
 .home_mt4 .download .os{
-	background: url(../img/os_24.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -45px -35px;
 }
 .home_mt4 .download .andr{
-	background: url(../img/andr_24.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -92px -35px;
 }
 .home_mt4 .download .app{
-	background: url(../img/app_24.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -141px -35px;
 }
 .home_mt4 .download a:hover .wins{
-	background: url(../img/wins_24-active.png) no-repeat;
+	background: url(../img/icon.png) no-repeat 0 -78px;
 }
 .home_mt4 .download a:hover .os{
-	background: url(../img/os_24-active.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -46px -78px;
 }
 .home_mt4 .download a:hover .andr{
-	background: url(../img/andr_24-active.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -92px -78px;
 }
 .home_mt4 .download a:hover .app{
-	background: url(../img/app_24-active.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -141px -78px;
 }
 /**f_help**/
 .f_help{
@@ -673,24 +706,27 @@ p{
 .f_help .home_title{
 	color: #fff;
 }
-.f_help .item{
+.f_list .item{
 	width: 400px;
 	text-align: center;
 	float: left;
+	margin-bottom: 60px;
 }
 .f_help .item i{
 	width: 88px;
 	height: 88px;
+}
+.f_list .item i,.common_list .item i,.accounts_form .correctbox .corr_bg,.login .correctbox .corr_bg,.online_deposit .correctbox .corr_bg{
 	display: inline-block;
 }
 .f_help .item .about{
-	background: url(../img/about.png) no-repeat;
+	background: url(../img/icon2.png) no-repeat -284px 0;
 }
 .f_help .item .service24{
-	background: url(../img/service24.png) no-repeat;
+	background: url(../img/icon2.png) no-repeat -440px 0;
 }
 .f_help .item .coor{
-	background: url(../img/coor.png) no-repeat;
+	background: url(../img/icon2.png) no-repeat -597px 0;
 }
 .f_help .item dl dt{
 	font-size: 24px;
@@ -732,7 +768,7 @@ p{
 .home_mt4 .mt4logo_24{
 	width: 44px;
 	height: 44px;
-	background: url(../img/mt4logo_44.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -184px -46px;
 }
 .common_list .item{
 	width: 300px;
@@ -740,7 +776,57 @@ p{
 	float: left;
 	margin-bottom: 60px;
 }
-.common_list .name{
+.trading .item .img{
+	width: 128px;
+	height: 128px;
+}
+.common_list .item .img{
+	width: 88px;
+	height: 90px;
+}
+.f_list .item:first-child .img{
+	background: url(../img/icon2.png) no-repeat 0 -505px;
+}
+.f_list .item:nth-child(2) .img{
+	background: url(../img/icon2.png) no-repeat -170px -505px;
+}
+.f_list .item:nth-child(3) .img{
+	background: url(../img/icon2.png) no-repeat -339px -505px;
+}
+.f_list .item:nth-child(4) .img{
+	background: url(../img/icon2.png) no-repeat -508px -505px;
+}
+.f_list .item:nth-child(5) .img{
+	background: url(../img/icon2.png) no-repeat -672px -505px;
+}
+.f_list .item:nth-child(6) .img{
+	background: url(../img/icon2.png) no-repeat -866px -505px;
+}
+.contactus .common_list .item:first-child .img{
+	background: url(../img/icon2.png) no-repeat -440px 0;
+}
+.contactus .common_list .item:nth-child(2) .img{
+	background: url(../img/icon2.png) no-repeat -728px 0;
+}
+.contactus .common_list .item:nth-child(3) .img{
+	background: url(../img/icon2.png) no-repeat -857px 0;
+}
+.contactus .common_list .item:last-child .img{
+	background: url(../img/icon2.png) no-repeat -1001px 0;
+}
+.download_platform .common_list .item:first-child .img{
+	background: url(../img/icon2.png) no-repeat -296px -145px;
+}
+.download_platform .common_list .item:nth-child(2) .img{
+	background: url(../img/icon2.png) no-repeat -612px -146px;
+}
+.download_platform .common_list .item:nth-child(3) .img{
+	background: url(../img/icon2.png) no-repeat -457px -145px;
+}
+.download_platform .common_list .item:last-child .img{
+	background: url(../img/icon2.png) no-repeat -768px -146px;
+}
+.f_list .name,.common_list .item .name{
 	display: block;
 	margin: 20px 0 0;
 }
@@ -822,6 +908,7 @@ p{
 .pro_details .pro_txt{
 	position: relative;
 	min-height: 350px;
+	padding-bottom: 110px;
 }
 .pro_details .group_btn .btn:first-child{
 	background: rgb(71,153,31);
@@ -879,7 +966,7 @@ p{
 	display: inline-block;
 	width: 12px;
 	height: 12px;
-	background: url(../img/clear.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -337px -131px;
 	position: absolute;
 	top: 14px;
 	right: 10px;
@@ -943,10 +1030,9 @@ p{
 /**trading accounts**/
 .cntbox .tr_img{
 	float: right;
-	margin-top: 20px;
 }
 .cntbox .tbox{
-	height: 281px;
+	height: 250px;
 	display: table;
 	float: left;
 }
@@ -977,7 +1063,7 @@ p{
 .location .icon{
 	width: 12px;
 	height: 16px;
-	background: url(../img/loc.png) no-repeat;
+	background: url(../img/icon.png) no-repeat 0 -130px;
 }
 .navbox .lft_nav{
 	width: 250px;
@@ -999,19 +1085,26 @@ p{
 	background: #fafafa;
 	border-bottom: 1px solid #e6e6e6;
 }
+.link:hover,.navbox .lft_nav .nav_link:hover{
+	color: #cc9c3d;
+}
+.navbox .lft_nav .nav_link:nth-child(6):hover{
+	color: #fff;
+}
 .navbox .lft_nav .layout{
 	background: #999;
 	color: #fff;
+	text-align: left;
 }
 .navbox .lft_nav .nav_link .icon,.navbox .rgtcon .this_tit .icon{
 	width: 16px;
 	height: 16px;
 }
 .tr .icon{
-	background: url(../img/nav_tr.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -24px -130px;
 }
 .da .icon{
-	background: url(../img/nav_da.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -53px -130px;
 }
 .user .icon{
 	background: url(../img/user-icon.png) no-repeat;
@@ -1059,7 +1152,7 @@ p{
 	top: 100%;
 }
 .operate_step,.rgtcon .risk{
-	margin: 20px 0 40px;
+	margin: 20px 0;
 }
 .operate_step>div{
 	background: #e6e6e6;
@@ -1098,11 +1191,8 @@ p{
 .operate_step>div.curr:after{
 	border-left: 10px solid #dbb76e;
 }
-.accounts_form .listname,.accounts_form .submit,.accounts_form .comfirm{
+.accounts_form .submit,.accounts_form .comfirm{
 	margin: 28px 0 10px;
-}
-.accounts_form .selectbox{
-	float: left;
 }
 .accounts_form .listname:before{
 	content: '*';
@@ -1112,6 +1202,8 @@ p{
 .selectbox,.accounts_form input[name="uname"],.input_p{
 	width: 260px;
 	height: 30px;
+	display: inline-block;
+	/*vertical-align: middle;*/
 }
 .tip .error,.tip .success{
 	left: -40px;
@@ -1127,21 +1219,22 @@ p{
 	background: url(../img/true.png) no-repeat;
 }
 .error{
-	background: url(../img/false.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -441px -130px;
 }
 .accounts_form .thisVal,.personal_info .thisVal,.datebox .thisVal{
 	height: 20px;
 	line-height: 20px;
 }
 .accounts_form .tip{
-	display: inline-block;
+	display: block;
 	line-height: 30px;
 	font-size: 14px;
-	margin-left: 10px;
+	margin-left: 180px;
 	color: #999;
+	clear: both;
 	position: relative;
 }
-.accounts_form .log_error{
+.log_error{
 	color: #f00;
 	border-color: #f00;
 }
@@ -1151,9 +1244,9 @@ p{
 .accounts_form .tip .refresh{
 	width: 16px;
 	height: 14px;
-	background: url(../img/refresh.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -225px -130px;
 	cursor: pointer;
-	transition: .5s;
+	margin-left: 10px;
 }
 .codebox{
 	width: 130px;
@@ -1195,9 +1288,7 @@ p{
 #checkbox{
 	display: none;
 }
-.agree_check{
-	padding: 20px 0 30px;
-}
+
 .agree_check>div{
 	float: left;
 	margin-right: 40px;
@@ -1209,22 +1300,27 @@ p{
 	width: 16px;
 	height: 16px;
 	margin-right: 5px;
-	background: url(../img/checkbox.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -281px -129px;
 }
 .agree_check .checked,.infomation ul li .tr .checked{
-	background: url(../img/checkbox_active.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -308px -129px;
 }
 .rgtcon .customer_notice{
 	width: 890px;
 	height: 300px;
 	border: 1px solid #ccc;
 	padding: 20px 30px 20px 20px;
+	margin-top: 20px;
 	clear: both;
 	position: relative;
+}
+.rgtcon .customer_notice .agree-list{
+	display: none;
 }
 .rgtcon .customer_notice h3{
 	margin-bottom: 20px;
 	line-height: 20px;
+	font-size: 20px;
 }
 .rgtcon .customer_notice .cnt{
 	height: 220px;
@@ -1242,7 +1338,7 @@ p{
 #scrollbar span{
 	display: block;
 	height: 20px;
-	width: inherit;
+	width: 100%;
 	background: #bb8f32;
 	position: absolute;
 	top: 0;
@@ -1260,10 +1356,17 @@ p{
 }
 .infomation>ul>li,.infomation .caption{
 	line-height: 40px;
-	padding: 10px 20px;
-	min-height: 60px;
 	font-size: 14px;
 	clear: both;
+	padding-left: 20px;
+}
+.infomation ul li .tr,.infomation ul li .td{
+	color: #999;
+}
+.infomation ul li .td small,.infomation ul li .tr small{
+	color: #666;
+	font-size: 14px;
+	margin-left: 10px;
 }
 .infomation ul li .td{
 	width: 50%;
@@ -1272,9 +1375,19 @@ p{
 .infomation ul li .tr{
 	width: 100%;
 }
+.infomation ul li .ch{
+	line-height: 50px;
+}
+.infomation ul li .tr p{
+	line-height: 24px;
+	padding: 10px 0;
+}
 .infomation ul li>div>span{
 	float: left;
 	margin-right: 10px;
+}
+.inj>ul>li{
+	padding: 12px 0;
 }
 .accounts_form .comfirm{
 	display: block;
@@ -1283,15 +1396,6 @@ p{
 }
 .accounts_form .stepcnt,.form2 .stepcnt{
 	display: none;
-}
-.accounts_form .corr_bg{
-	float: left;
-	display: block;
-	width: 88px;
-	height: 88px;
-	margin: 0 20px;
-	background: url(../img/correct.png) no-repeat;
-	background-size: 100% 100%;
 }
 .accounts_form .step_num{
 	margin-top: 60px;
@@ -1307,8 +1411,7 @@ p{
 }
 .stepbox .item span{
 	display: block;
-	float: left;
-	margin-right: 10px;
+	text-align: center;
 }
 .stepbox .cart_tit{
 	color: #b3b3b3;
@@ -1397,10 +1500,8 @@ p{
 	line-height: 22px;
 }
 .rgtcon .risk{
-	width: 890px;
 	height: 170px;
 	background: url(../img/risk_bg.jpg) no-repeat;
-	padding-left: 20px;
 }
 .rgtcon .risk h3{
 	padding: 25px 0 10px;
@@ -1418,17 +1519,15 @@ p{
 .btn_group .btn:last-child{
 	background: #999;
 }
-.accounts_form .correctbox{
-	padding: 100px 0;
-}
-.correctbox p,.congratulate p{
+.congratulate p,.stepcnt .correctbox p{
 	margin: 20px 0;
 }
-.accounts_form .correctbox .corr_bg,.login .correctbox .corr_bg,.online_deposit .correctbox .corr_bg{
-	float: none;
-	display: inline-block;
+#shadow .correctbox{
+	margin: -150px 0 0 -220px;
+	width: 440px;
+	height: 300px;
 }
-#shadow{
+#shadow,#alertTip{
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -1438,7 +1537,7 @@ p{
 	z-index: 999;
 	display: none;
 }
-#shadow .correctbox{
+#shadow .correctbox,#alertTip .box{
 	border: 1px solid #cc9c3d;
 	border-radius: 3px;
 	text-align: center;
@@ -1448,15 +1547,20 @@ p{
 	left: 50%;
 	top: 50%;
 }
-.accounts_form .correctbox{
-	width: 440px;
-	height: 300px;
-	margin-left: -220px;
-	margin-top: -150px;
-}
-.accounts_form .corr_bg,.login .corr_bg,.online_deposit .corr_bg{
+
+.accounts_form .corr_bg,.login .corr_bg,.online_deposit .corr_bg,.accounts_form .err_bg{
 	width: 64px;
 	height: 64px;
+}
+.accounts_form .corr_bg{
+	width: 88px;
+	height: 88px;
+	margin: 0 20px;
+	background: url(../img/icon2.png) no-repeat -930px -147px;
+}
+.accounts_form .err_bg{
+	background: url(../img/icon2.png) no-repeat -1081px -158px;
+	display: inline-block;
 }
 #shadow .btn:nth-child(4){
 	background: #fff;
@@ -1481,12 +1585,12 @@ p{
 }
 .f_bg{
 	background: #fff;
-	padding-top: 60px;
+	padding-top: 30px;
 }
 /**login**/
 .login_body{
 	background: #faf7f1;
-	padding: 50px 0;
+	padding: 75px 0;
 }
 .login_body .log_bg{
 	width: 750px;
@@ -1499,7 +1603,7 @@ p{
 	width: 320px;
 	float: right;
 	box-shadow: 0 0 5px #ccc;
-	margin-right: 100px;
+	margin: 26px 50px 0 0;
 }
 .login_body .log_tit{
 	font-size: 24px;
@@ -1555,13 +1659,13 @@ p{
 	top: 10px;
 }
 .uname:before{
-	background: url(../img/user_icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -251px -47px;
 }
 .pwd:before{
-	background: url(../img/pwd_icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -291px -47px;
 }
 .checkcode:before{
-	background: url(../img/check_icon.png) no-repeat;
+	background: url(../img/icon.png) no-repeat -330px -47px;
 }
 .login_form .checkcode{
 	width: 140px;
@@ -1614,7 +1718,7 @@ p{
 	margin-top: -186px;
 }
 .login .correctbox .corr_bg{
-	background: url(../img/error_b.png) no-repeat;
+	background: url(../img/icon2.png) no-repeat -1081px -158px;
 }
 .online_deposit .correctbox .corr_bg{
 	background: url(../img/timer.png) no-repeat;
@@ -1624,7 +1728,7 @@ p{
 	background-size: 100% 100%;
 }
 /**personal_info**/.comfirm_info{
-	margin: 30px 0;
+	margin: 15px 0;
 }.infomation{
 	border: none;
 }
@@ -1658,7 +1762,7 @@ p{
 .personal_info table td:nth-child(4) .btn:nth-child(3){
 	background: rgb(153,153,153);
 }
-.personal_info table td:nth-child(4) .btn:nth-child(3):hover{
+.personal_info table td:nth-child(4) .btn:nth-child(3):hover,.navbox .lft_nav .layout:hover{
 	background: rgb(178,178,178);
 }
 .personal_info .contactbox{
@@ -1696,9 +1800,12 @@ p{
 	resize: none;
 }
 .attention{
-	background: #f7f7f7;
-	margin-top: 40px;
-	padding: 15px;
+	background: #fcf7f7;
+    margin-top: 20px;
+    padding: 0 15px 20px 15px;
+}
+.att2{
+	padding: 10px 20px 30px 20px;
 }
 .attention h3{
 	padding: 30px 0 20px;
@@ -1719,6 +1826,9 @@ p{
 	width: 39px;
 	height: 24px;
 	background: url(../img/step_icon.png) no-repeat;
+}
+.stepbox .step_tit span{
+	font-size: 14px;
 }
 .stepbox .area{
 	width: 810px;
@@ -1793,3 +1903,66 @@ p{
 	background: #fff;
 	border: 1px solid #cc9c3d;
 }
+#alertTip .box{
+	width: 460px;
+	height: 276px;
+	margin-left: -230px;
+	margin-top: -115px;
+}
+#alertTip .box .icon{
+	display: inline-block;
+	width: 54px;
+	height: 64px;
+	background: url(../img/icon.png) no-repeat 0 -175px; 
+}
+#alertTip .box p,#shadow .correctbox p{
+	width: 250px;
+	margin: 20px auto;
+	line-height: 24px;
+}
+.accounts_form .cnx{
+	background: #fff;
+	margin: 0 auto;
+}
+.trbox{
+	min-height: 30px;
+	line-height: 30px;
+	margin: 30px 0;
+}
+.trbox .listname{
+	width: 180px;
+	height: 100%;
+}
+.trbox .listname,.trbox .switch{
+	float: left;
+	display: block;
+}
+.trbox .switch{
+	line-height: 30px;
+	border-radius: 3px;
+}
+.trbox .switch span,.trbox .big span{
+	display: block;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	color: #666;
+	font-size: 14px;
+	height: 30px;
+}
+.trbox .switch span{
+	width: 100px;
+}
+.trbox .big span{
+	width: 150px;
+}
+.trbox .switch span:first-child{
+	margin-right: -1px;
+}
+.trbox .switch .active{
+	background: #dbb76e;
+	color: #fff;
+	border-color: #dbb76e;
+}
+

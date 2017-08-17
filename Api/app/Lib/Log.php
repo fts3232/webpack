@@ -6,6 +6,7 @@ use Monolog\Handler\RotatingFileHandler;
 class Log {   
     //write log
     public function write($record,$level='info',$context=[]){
+        $message = '';
         if($record instanceof \Exception){
             $exception = array(
                 'file' => $record->getFile(),

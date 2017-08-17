@@ -4,6 +4,7 @@ use App\Business\Business;
 use Captcha;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\Customer;
 class Account extends Business{
     protected function singleValidator($key){
         $result = array('status'=>true);

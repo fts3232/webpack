@@ -17,13 +17,15 @@ return [
     ],
     'password'=>[
         'required'=>'Password cannot be empty!',
-        'confirmed'=>'Password inconsistency'
+        'confirmed'=>'Password inconsistency',
+        'password'=>'Must be 6-15 bit English in combination with numbers',
     ],
     'password__confirmation'=>[
         'requrired'=>'Verify that the password is not empty'
     ],
     'email'=>[
         'required'=>'Mailbox cannot be empty',
+        'isExists'=>'The E-mail has been registered. If you need to open a new transaction account, please login to the member center before applying.',
         'email'=>'The mailbox format is incorrect'
     ],
     'verficode'=>[
@@ -47,7 +49,8 @@ return [
     ],
    'document_number'=>[
        'required'=>'The Document Number cannot be empty',
-       'regex'=>'The Document Number you entered is incorrect. Please confirm it and re-enter it.'
+       'regex'=>'The Document Number you entered is incorrect. Please confirm it and re-enter it.',
+       'isExists'=>'Your ID already exists. Please fill in again.',
    ],
    'resid_addr'=>[
        'required'=>'The Resident Address cannot be empty',
@@ -60,6 +63,7 @@ return [
     
     'mobile'=>[
         'required'=>'Mobile phone number cannot be empty',
+        'isExists'=>'The Cellphone has been registered. If you need to open a new transaction account, please login to the member center before applying.',
         'regex'=>'The phone number you entered is incorrect. Please confirm it and re-enter it.',
     ],
     'account_name'=>[

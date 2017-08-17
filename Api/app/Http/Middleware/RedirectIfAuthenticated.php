@@ -17,11 +17,12 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
+        $auth = \App::make('App\Lib\Auth');
+        if ($auth->isLogin($guard)) {
             if($guard=='admin'){
                 return redirect('/admin');
             }else{
-                return redirect('/member/personalInfo');
+                return redirect()->route('person');
             }
         }
 

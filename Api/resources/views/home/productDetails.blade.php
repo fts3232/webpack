@@ -23,11 +23,11 @@
 <div class="pro_details">
 	<div class="container">
 		<div class="pro_txt">
-			<h3 class="home_title">CFDs on Forex Trading Products</h3>
+			<h3 class="home_title">Forex Trading Products</h3>
 			<p class="text-center">CIDT offers the hottest currency pairs for trading.<br/>The first currency in the currency pair is called the base currency, and the second is called the relative currency".<br/>When you buy or sell a currency, you take action with the underlying currency.</p>
 			<div class="group_btn">
-				<a href="{{ url('/account/demo') }}" class="btn"><i class="icon"></i>Open Demo Account</a>
-				<a href="{{ url('/account/standard') }}" class="btn"><i class="icon"></i>Create Live Account</a>
+				<a href="{{ route('demoAccount') }}" class="btn"><i class="icon"></i>Open Demo Account</a>
+				<a href="{{ route('liveAccount') }}" class="btn"><i class="icon"></i>Create Live Account</a>
 			</div>
 		</div>
 		<div class="foreign_pro">
@@ -116,13 +116,6 @@
 								<td>2.22</td>
 								<td>4.8</td>
 								<td>$ 0.26</td>
-							</tr>
-							<tr key="EWCFDSD">
-								<td>EWCFDSD</td>
-								<td>8.88</td>
-								<td>8.66</td>
-								<td>6.3</td>
-								<td>$ 2.4</td>
 							</tr>
 							<tr key="GDXSDDS">
 								<td>GDXSDDS</td>

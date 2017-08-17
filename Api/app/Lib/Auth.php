@@ -11,21 +11,29 @@ class Auth {
             return false;
         }
     }
+    protected function getSession(){
+        return \App::make('App\Lib\Session');
+    }
     //is login
     protected function isLogin($guard=''){
-        return LaravelAuth::guard($guard)->check();
+        return $this->getSession()->has($guard.'_user');
     }
     //get login user
     protected function getLoginUser($guard=''){
-        return LaravelAuth::guard($guard)->user();
+        return $this->getSession()->get($guard.'_user');
+        //return LaravelAuth::guard($guard)->user();
     }
     //login
-    protected function login($id,$guard='',$remember=false){
-        return LaravelAuth::guard($guard)->loginUsingId($id, $remember);
+    protected function login($user,$guard=''){
+        $this->getSession()->set($guard.'_user',$user);
     }
+   /*  protected function login($id,$guard='',$remember=false){
+        return LaravelAuth::guard($guard)->loginUsingId($id, $remember);
+    } */
     //logout
     protected function logout($guard=''){
-        return LaravelAuth::guard($guard)->logout();
+        return $this->getSession()->delete($guard.'_user');
+        //return LaravelAuth::guard($guard)->logout();
     }
 }
 ?>
