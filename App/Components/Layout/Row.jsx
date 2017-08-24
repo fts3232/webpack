@@ -28,7 +28,7 @@ class Row extends Component {
 }
 
 Row.childContextTypes = {
-  gutter: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+	gutter: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
 };
 
 Row.PropTypes = {

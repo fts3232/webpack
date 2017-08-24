@@ -37,7 +37,6 @@ $hoverMap:(
     padding: 10px 15px;
     font-size: 14px;
     border-radius: 4px;
-    margin-left: 10px;
     &:focus, &:hover {
         color: #20a0ff;
         border-color: #20a0ff;
@@ -56,6 +55,13 @@ $hoverMap:(
                 @each $key,$value in $hover{
                     #{$key}:$value;
                 }
+            }
+            &.is-plain:hover,&.is-plain:focus{
+                $hover:map-get($hoverMap,$type);
+                $color:map-get($hover,'border-color');
+                border-color:$color;
+                background:#fff;
+                color:$color;
             }
         }
     }
@@ -98,12 +104,30 @@ $hoverMap:(
         height: 16px;
         margin-right: 5px;
         vertical-align: middle;
-        fill:#fff;
-        animation: rotating 1s linear infinite;
+    }
+    &.is-plain{
+        background: #fff;
+        border: 1px solid #bfcbd9;
+        color: #1f2d3d;
     }
 }
-@keyframes rotating{
-    from {transform:rotate(0deg)}
-    to {transform:rotate(1turn)}
+.button-group{
+    & .button:first-child{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right-color: rgba(255,255,255,.5);
+    }
+    & .button:last-child{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-color: rgba(255,255,255,.5);
+    }
+    & .button:not(:first-child):not(:last-child){
+        border-radius:0;
+        border-right-color: rgba(255,255,255,.5);
+        border-left-color: rgba(255,255,255,.5);
+    }
+    & .button:not(:last-child){
+        margin-right: -1px;
+    }
 }
-

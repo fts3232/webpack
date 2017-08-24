@@ -27,6 +27,10 @@
             color:#fff;
             transform: scale(0);
             transition: transform .15s cubic-bezier(.71,-.46,.88,.6) .05s;
+            font-size: 14px;
+            left: 1px;
+            position: absolute;
+            top: 1px;
         }
 
         &.is-checked .checkbox-input-inner{

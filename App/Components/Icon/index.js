@@ -6,7 +6,7 @@ class Icon extends Component {
 	}
 	render() {
 		return (
-			<i className={this.classNames('icon','fa','fa-'+this.props.iconName)} aria-hidden="true" onClick={this.props.onClick}></i>
+			<i className={this.classNames('icon','fa','fa-'+this.props.iconName,{'fa-pulse':this.props.isPulse})} aria-hidden="true"></i>
 		);
 	}
 }
@@ -14,10 +14,10 @@ class Icon extends Component {
 
 Icon.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     iconName:React.PropTypes.string.isRequired,
-    onClick:React.PropTypes.func
+    isPulse:React.PropTypes.bool
 }
 Icon.defaultProps={
-    
+	isPulse:false
 };//设置默认属性
 
 export default Icon;

@@ -1,7 +1,6 @@
 import css from './Scss/Main.scss';
-import Svg from '../Svg';
-import React from 'react';
-class Alert extends React.Component {
+import Component from '../Component';
+class Alert extends Component {
 	constructor(props){
 		super(props)
 		this.props.style = this.props.style!=''?this.props.style:'default';

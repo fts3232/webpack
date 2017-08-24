@@ -22,7 +22,7 @@ class Col extends Component {
 }
 
 Col.contextTypes = {
-  gutter: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+  	gutter: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 };
 
 Col.PropTypes = {

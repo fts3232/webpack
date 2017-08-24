@@ -5,6 +5,9 @@ import Layout from '../../Components/Layout';
 import Breadcrumb from '../../Components/Breadcrumb';
 import Table from '../../Components/Table';
 import Button from '../../Components/Button';
+import Radio from '../../Components/Radio';
+import CheckBox from '../../Components/CheckBox';
+import DatePicker from '../../Components/DatePicker';
 const request = superagent;
 class Show extends React.Component {
 	constructor(props){
@@ -31,13 +34,31 @@ class Show extends React.Component {
     render() {
         return (
             <div className="user-show-page">
-                <Layout.Row>
+                <Layout.Row gutter="10">
                     <Layout.Col span='22' offset='1'>
                         <Breadcrumb item={[{name:'用户列表',path:'/User/Show'}]}/>
                     </Layout.Col>
                 </Layout.Row>
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
+                        <Button.Group>
+                            <Button onClick={()=>{console.log('click')}}>按钮1</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮2</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮3</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮4</Button>
+                        </Button.Group>
+                        <Radio.Group value="3">
+                            <Radio value="1" name='a'>背景</Radio>
+                            <Radio value="2" name='a'>背景2</Radio>
+                            <Radio value="3" name='a'>背景3</Radio>
+                        </Radio.Group>
+                        <Radio.Group>
+                            <Radio.Button value="1" name='a'>背景</Radio.Button>
+                            <Radio.Button value="2" name='a' disabled="true">背景2</Radio.Button>
+                            <Radio.Button value="3" name='a'>背景3</Radio.Button>
+                        </Radio.Group>
+                            <CheckBox value="1" name='b'/>
+                            <CheckBox value="2" name='b'/>
                         <div className="block">
                             <Table data={this.state.data.result} columns={this.props.columns} />
                         </div>

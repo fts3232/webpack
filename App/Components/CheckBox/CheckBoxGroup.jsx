@@ -1,7 +1,7 @@
 import css from './Scss/main.scss';
 import Component from '../Component';
 import Icon from '../Icon';
-class CheckBox extends Component {
+class CheckBoxGroup extends Component {
 	constructor(props){
 		super(props);
         this.state = {
@@ -36,17 +36,17 @@ class CheckBox extends Component {
     }
 }
 
-CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报错
+CheckBoxGroup.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
     checked:React.PropTypes.bool,
     indeterminate:React.PropTypes.bool,
     onChange: React.PropTypes.func
 }
-CheckBox.defaultProps={
+CheckBoxGroup.defaultProps={
     name:'',
     checked:false,
     indeterminate:false,
 };//设置默认属性
 
 //导出组件
-export default CheckBox;
+export default CheckBoxGroup;
