@@ -1,6 +1,7 @@
-import css from './Scss/Select.scss';
-import Input from './Input.jsx';
-class Select extends React.Component {
+import css from './Scss/Main.scss';
+import Input from '../Input';
+import Component from '../Component';
+class Select extends Component {
 	constructor(props){
 		super(props);
         this.retract = this.retract.bind(this)

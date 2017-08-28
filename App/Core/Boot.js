@@ -4,7 +4,7 @@ const request = superagent;
 import mock from '../Data/mock.js';
 //加载functions
 import * as functions from '../Common/Functions.js';
-global.functions = functions;
+global.helper = functions;
 //加载配置
 import Config from '../Config/Config.js';
 global.frameConfig = Config;
@@ -52,8 +52,8 @@ getRoute().then((data)=>{
 	ReactDOM.render((
 		<Router history={history}>
 			<Frame>
-				<Header />
-				<Nav menu={menus}/>
+				{/*<Header />
+				<Nav menu={menus}/>*/}
 				<div className="body">
 					<Switch>
 						{/*<Route path={loginPath} render={(props) =>(

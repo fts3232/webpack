@@ -143,7 +143,7 @@ $sizeMap:(
         color: #bbb;
         cursor: not-allowed;
     }
-    & .input-number-minus,& .input-number-add{
+    & .input-number-minus,& .input-number-plus{
         height: auto;
         border-left: 1px solid #bfcbd9;
         width: 36px;
@@ -162,20 +162,20 @@ $sizeMap:(
                 #{$key}:$value;
             }
         }
-        &.input-#{$size} .input-number-minus,&.input-#{$size} .input-number-add{
+        &.input-#{$size} .input-number-minus,&.input-#{$size} .input-number-plus{
             line-height: map-get($style,'height') - 2
         }
     }
     & .input-number-minus{
         right: 37px;
     }
-    & .input-number-add{
+    & .input-number-plus{
         right: 0px;
     }
-    & .input-number-minus:hover,& .input-number-add:hover{
+    & .input-number-minus:hover,& .input-number-plus:hover{
         color:#20a0ff
     }
-    & .input-number-minus.is-disabled,& .input-number-add.is-disabled {
+    & .input-number-minus.is-disabled,& .input-number-plus.is-disabled {
         color: #d1dbe5;
         cursor: not-allowed;
     }

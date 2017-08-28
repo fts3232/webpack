@@ -1,6 +1,6 @@
 import css from './Scss/Main.scss';
 import Component from '../Component';
-import Input from '../Form/Input';
+import Input from '../Input';
 class DatePicker extends Component {
 	constructor(props){
 		super(props)   

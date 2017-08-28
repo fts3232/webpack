@@ -1,8 +1,12 @@
-/*import Charts from '../../Components/Charts';*/
 import css from './Scss/Main.scss';
-/*import Button from '../../Components/Button';*/
 import Layout from '../../Components/Layout';
 import Breadcrumb from '../../Components/Breadcrumb';
+import Button from '../../Components/Button';
+import Radio from '../../Components/Radio';
+import CheckBox from '../../Components/CheckBox';
+import Input from '../../Components/Input';
+import DatePicker from '../../Components/DatePicker';
+import Select from '../../Components/Select';
 class Home extends React.Component {
 	constructor(props){
 		super(props);
@@ -41,6 +45,36 @@ class Home extends React.Component {
                 </Layout.Row>
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
+                        <Button.Group>
+                            <Button onClick={()=>{console.log('click')}}>按钮1</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮2</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮3</Button>
+                            <Button onClick={()=>{console.log('click')}}>按钮4</Button>
+                        </Button.Group>
+                        <Radio.Group>
+                            <Radio value="1" name='a'>背景</Radio>
+                            <Radio value="2" name='a'>背景2</Radio>
+                            <Radio value="3" name='a'>背景3</Radio>
+                        </Radio.Group>
+                        <Radio.Group>
+                            <Radio.Button value="1" name='a'>背景</Radio.Button>
+                            <Radio.Button value="2" name='a' disabled="true">背景2</Radio.Button>
+                            <Radio.Button value="3" name='a'>背景3</Radio.Button>
+                        </Radio.Group>
+                        <CheckBox value="1" name='b' disabled='true'/>
+                        <CheckBox.Group>
+                            <CheckBox value="1" name='b'/>
+                            <CheckBox value="2" name='b' disabled='true'/>
+                        </CheckBox.Group>
+                        <CheckBox.Group>
+                            <CheckBox.Button value="1" name='b'>背景</CheckBox.Button>
+                            <CheckBox.Button value="2" name='b' disabled='true'>背景2</CheckBox.Button>
+                            <CheckBox.Button value="3" name='b' >背景3</CheckBox.Button>
+                            <CheckBox.Button value="4" name='b' >背景4</CheckBox.Button>
+                        </CheckBox.Group>
+                        <Input placeholder="请输入" value="121"/>
+                        <Input placeholder="请输入" type="textarea" autosize="true"/>
+                        <Input placeholder="请输入" type="number" step='2'/>
                         <div className="block">
                             1212
                         </div>

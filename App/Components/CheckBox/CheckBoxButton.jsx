@@ -1,6 +1,5 @@
-import css from './Scss/main.scss';
+import css from './Scss/Main.scss';
 import Component from '../Component';
-import Icon from '../Icon';
 class CheckBoxButton extends Component {
 	constructor(props){
 		super(props);
@@ -10,9 +9,10 @@ class CheckBoxButton extends Component {
 	}
     onChange(e){
         const checked = e.target.checked;
-        this.setState({checked: checked,},() => {
+        const value = e.target.value;
+        this.setState({checked: checked},() => {
             if (this.props.onChange) {
-              this.props.onChange(checked);
+              this.props.onChange(value,checked);
             }
         })
     }
@@ -23,14 +23,11 @@ class CheckBoxButton extends Component {
     }
     render() {
         return(
-            <label className="checkbox">
-                <span className={this.classNames('checkbox-input',{'is-checked': this.state.checked})}>
-                    <span className="checkbox-input-inner">
-                        <input type="checkbox" checked={this.state.checked} name={this.props.name} value={this.props.value} onChange={this.onChange.bind(this)}/>
-                        <Icon iconName={this.state.checked?'check':null} />
-                    </span>
+            <label className={this.classNames('checkbox-button',{'is-checked': this.state.checked},{'is-disabled':this.props.disabled})}>
+                <input type="checkbox" checked={this.state.checked} name={this.props.name} value={this.props.value} onChange={this.onChange.bind(this)} disabled={this.props.disabled}/>
+                <span className="checkbox-button-label">
+                    {this.props.children || this.props.value}
                 </span>
-                {typeof this.props.children!='undefined'?(<span className="checkbox-label">{this.props.children}</span>):null}
             </label>
         )
     }
@@ -39,13 +36,16 @@ class CheckBoxButton extends Component {
 CheckBoxButton.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
     checked:React.PropTypes.bool,
-    indeterminate:React.PropTypes.bool,
+    disabled:React.PropTypes.bool,
+    value:React.PropTypes.string,
     onChange: React.PropTypes.func
 }
 CheckBoxButton.defaultProps={
     name:'',
     checked:false,
-    indeterminate:false,
+    disabled:false,
+    value:'',
+    onChange:()=>{}
 };//设置默认属性
 
 //导出组件

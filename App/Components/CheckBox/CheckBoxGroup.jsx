@@ -1,51 +1,45 @@
-import css from './Scss/main.scss';
+import css from './Scss/Main.scss';
 import Component from '../Component';
-import Icon from '../Icon';
 class CheckBoxGroup extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            checked: props.checked,
+            value: props.value || [],
         }
 	}
-    onChange(e){
-        const checked = e.target.checked;
-        this.setState({checked: checked,},() => {
-            if (this.props.onChange) {
-              this.props.onChange(checked);
-            }
-        })
-    }
-    componentWillReceiveProps(props){
-        this.state = {
-            checked: props.checked,
+    onChange(value,checked){
+        const index = this.state.value.indexOf(value);
+        if (checked) {
+          if (index === -1) {
+            this.state.value.push(value);
+          }
+        } else {
+          this.state.value.splice(index, 1);
         }
+        this.setState({value:this.state.value})
     }
     render() {
         return(
-            <label className="checkbox">
-                <span className={this.classNames('checkbox-input',{'is-checked': this.state.checked})}>
-                    <span className="checkbox-input-inner">
-                        <input type="checkbox" checked={this.state.checked} name={this.props.name} value={this.props.value} onChange={this.onChange.bind(this)}/>
-                        <Icon iconName={this.state.checked?'check':null} />
-                    </span>
-                </span>
-                {typeof this.props.children!='undefined'?(<span className="checkbox-label">{this.props.children}</span>):null}
-            </label>
+            <div className={this.classNames('checkbox-group')}>
+                {this.props.children.map((element)=>{
+                    if(!element || (element.type.name!='CheckBox' && element.type.name!='CheckBoxButton') ){
+                        return null;
+                    }
+                    return React.cloneElement(element, Object.assign({}, element.props, {
+                      onChange: this.onChange.bind(this),
+                      checked:element.props.checked || this.state.value.indexOf(element.props.value)>=0
+                    }))
+                })}
+            </div>
         )
     }
 }
 
 CheckBoxGroup.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    name:React.PropTypes.string,
-    checked:React.PropTypes.bool,
-    indeterminate:React.PropTypes.bool,
-    onChange: React.PropTypes.func
+    value:React.PropTypes.array
 }
 CheckBoxGroup.defaultProps={
-    name:'',
-    checked:false,
-    indeterminate:false,
+    value:[]
 };//设置默认属性
 
 //导出组件
