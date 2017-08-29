@@ -5,9 +5,6 @@ import mock from '../Data/mock.js';
 //加载functions
 import * as functions from '../Common/Functions.js';
 global.helper = functions;
-//加载配置
-import Config from '../Config/Config.js';
-global.frameConfig = Config;
 //加载框架组件
 import Frame from './Frame';
 //加载框架头部
@@ -62,7 +59,7 @@ getRoute().then((data)=>{
 						} />*/}
 						{routes.map((val)=>{
 							return (
-								<Route exact path={global.frameConfig.Root + val.path} render={(props) =>(
+								<Route exact path={SITE_ROOT + val.path} render={(props) =>(
 										<Loader path={val.path} name={val.component} location={props.location} />
 										//this.state.login ? (<Loader path={val.path} name={val.component} menu={this.state.menu} location={props.location} />):(<Redirect to={loginPath}/>)
 									)			

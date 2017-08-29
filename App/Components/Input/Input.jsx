@@ -97,20 +97,54 @@ class Input extends Component {
             this.refs['textarea'].style.height = `${height}px`
         }
     }
+    handleIconCLick(){
+        if(this.props.onIconClick){
+            this.props.onIconClick();
+        }
+    }
+    handleChange(){
+        if(this.props.onChange){
+            this.props.onChange();
+        }
+    }
+    handleBlur(){
+        if(this.props.onBlur){
+            this.props.onBlur();
+        }
+    }
+    handleFocus(){
+        if(this.props.onFocus){
+            this.props.onFocus();
+        }
+    }
+    componentWillReceiveProps(props){
+        this.setState({value:props.value});
+    }
     render() {
-        const {type,disabled,readonly,size,placeholder} = this.props;
+        const {type,disabled,readonly,size,placeholder,name} = this.props;
         let value = this.state.value;
         switch(type){
             case 'textarea':
                 const {rows} = this.props;
                 return(
                     <div className={this.classNames('form-textarea',{'is-disabled':disabled})}>
-                        <textarea autocomplete="off" defaultValue={value} readOnly={readonly?'readonly':null} placeholder={placeholder} rows={rows} className='input-inner' disabled={disabled} onChange={this.onChange.bind(this)} ref="textarea"></textarea>
+                        <textarea 
+                            autocomplete="off" 
+                            name={name}
+                            value={value} 
+                            readOnly={readonly && 'readonly'} 
+                            placeholder={placeholder} 
+                            rows={rows} 
+                            className='input-inner' 
+                            disabled={disabled} 
+                            onChange={this.onChange.bind(this)} 
+                            ref="textarea"
+                        ></textarea>
                     </div>
                 )
                 break;
             case 'text':
-                const {append,prepend} = this.props;
+                const {append,prepend,icon,onMouseEnter,onMouseLeave,onMouseDown} = this.props;
                 return(
                     <div className={this.classNames(
                         'form-input',
@@ -119,22 +153,46 @@ class Input extends Component {
                         {'input-group':prepend || append},
                         {'input-group-prepend':prepend},
                         {'input-group-append':append}
-                    )}>
-                        {prepend?(<div className="input-prepend">{prepend}</div>):null}
-                        <input type="text" defaultValue={value} readOnly={readonly?'readonly':null} autocomplete="off" placeholder={placeholder} className='input-inner' disabled={disabled} />
-                        {append?(<div className="input-append">{append}</div>):null}
+                    )} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onMouseDown={onMouseDown}>
+                        {prepend && (<div className="input-prepend">{prepend}</div>)}
+                        <input 
+                            type="text" 
+                            name={name}
+                            value={value} 
+                            readOnly={readonly && 'readonly'} 
+                            autocomplete="off" 
+                            placeholder={placeholder} 
+                            className='input-inner' 
+                            disabled={disabled} 
+                            onChange={this.handleChange.bind(this)}
+                            onBlur={this.handleBlur.bind(this)}
+                            onFocus={this.handleFocus.bind(this)}
+                        />
+                        {icon && (<Icon iconName={icon} onClick={this.handleIconClick}/>)}
+                        {append && (<div className="input-append">{append}</div>)}
                     </div>
                 )
                 break;
             case 'number':
-                const {start} = this.props;
                 return(
                     <div className={this.classNames(
                         'form-input-number',
                         {'is-disabled':disabled},
                         size && `input-${size}`
                     )}>
-                        <input type="text" autocomplete="off" defaultValue={value} readOnly={readonly?'readonly':null} value={start} placeholder={placeholder} className='input-inner' disabled={disabled} ref="input-number" onKeyDown={this.onKeyDown.bind(this)} onChange={this.onInput.bind(this)}/>
+                        <input 
+                            type="text" 
+                            name={name}
+                            autocomplete="off" 
+                            defaultValue={value} 
+                            readOnly={readonly && 'readonly'} 
+                            placeholder={placeholder} 
+                            className='input-inner' 
+                            disabled={disabled} 
+                            ref="input-number" 
+                            onKeyDown={this.onKeyDown.bind(this)} 
+                            onChange={this.onInput.bind(this)}
+                        />
                         <span className={this.classNames('input-number-minus',{'is-disabled':disabled})} onClick={this.minusHandler.bind(this)} ref="input-number-minus"><Icon iconName='minus'></Icon></span>
                         <span className={this.classNames('input-number-plus',{'is-disabled':disabled})} onClick={this.plusHandler.bind(this)} ref="input-number-plus"><Icon iconName='plus'></Icon></span>
                     </div>
@@ -146,6 +204,7 @@ class Input extends Component {
 
 Input.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     placeholder:React.PropTypes.string,
+    name:React.PropTypes.string,
     disabled:React.PropTypes.bool,
     type:React.PropTypes.oneOf(['text','textarea','number']),
     icon:React.PropTypes.string,
@@ -155,11 +214,14 @@ Input.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     prepend:React.PropTypes.oneOfType([React.PropTypes.string,React.PropTypes.object]),
     readonly:React.PropTypes.bool,
     autosize:React.PropTypes.bool,
+    step:React.PropTypes.number,
+    icon:React.PropTypes.string,
     max:React.PropTypes.number,
     min:React.PropTypes.number,
 }
 Input.defaultProps={
     placeholder:'',
+    name:'',
     disabled:false,
     type:'text',
     icon:false,
@@ -169,6 +231,8 @@ Input.defaultProps={
     prepend:false,
     readonly:false,
     autosize:false,
+    icon:false,
+    step:1,
     max: Infinity,
     min: 0
 };//设置默认属性

@@ -5,7 +5,7 @@ class Component extends React.Component {
 	}
 	style(args) {
 	    return Object.assign({}, args, this.props.style)
-	  }
+	}
 }
 
 export default Component;

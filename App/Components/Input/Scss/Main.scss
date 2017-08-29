@@ -4,6 +4,14 @@ $sizeMap:(
     mini:(font-size:12px,height:22px)
 );
 .form-input {
+    position:relative;
+    & .icon{
+        position: absolute;
+        right: 10px;
+        color: #bfcbd9;
+        line-height: 1.5;
+        font-size: 25px;
+    }
     & .input-inner{
         appearance: none;
         background-color: #fff;

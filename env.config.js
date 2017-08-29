@@ -1,5 +1,5 @@
 var path = require('path');
-var env = 'development';
+var env = process.env.NODE_ENV;
 var config = {
 	//开发环境(dev)
 	'development':{

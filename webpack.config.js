@@ -25,7 +25,7 @@ var config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'common':[APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb']
+    'common':[APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb','react-click-outside',APP_PATH+'/Components/Icon']
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -33,8 +33,8 @@ var config = {
   //输出的文件名 合并以后的js会命名为bundle.js
   output: {
     path: BUILD_PATH,
-    filename:'js/[name].js',
-    chunkFilename: 'js/[name].bundle.js',
+    filename:'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].bundle.js',
     publicPath:ROOT,
   },
   //webpack-dev-server
@@ -131,8 +131,10 @@ var config = {
     new CopyWebpackPlugin([
       // {output}/file.txt
       { from: APP_PATH+'/.htaccess',to: BUILD_PATH }
-    ])
-            
+    ]),
+    new webpack.DefinePlugin({
+      SITE_ROOT: JSON.stringify(ROOT)
+    })
   ]
 };
 if(env == 'production' || env == 'test' ){
@@ -165,9 +167,9 @@ else{
   config.plugins.push(extractCss);*/
 }
 //提取多个入口的公共部分
-var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.js"});
+var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.[chunkhash:8].js"});
 config.plugins.push(CommonChunk);
-var extractText = new ExtractTextPlugin({filename:"css/[name].css",allChunks: true});  //打包成一个css文件
+var extractText = new ExtractTextPlugin({filename:"css/[name].[contenthash:8].css",allChunks: true});  //打包成一个css文件
 config.plugins.push(extractText);
 //动态加载
 /*var CommonAsyncChunk = new webpack.optimize.CommonsChunkPlugin({

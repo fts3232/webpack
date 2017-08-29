@@ -7,6 +7,7 @@ import CheckBox from '../../Components/CheckBox';
 import Input from '../../Components/Input';
 import DatePicker from '../../Components/DatePicker';
 import Select from '../../Components/Select';
+import Switch from '../../Components/Switch';
 class Home extends React.Component {
 	constructor(props){
 		super(props);
@@ -72,9 +73,20 @@ class Home extends React.Component {
                             <CheckBox.Button value="3" name='b' >背景3</CheckBox.Button>
                             <CheckBox.Button value="4" name='b' >背景4</CheckBox.Button>
                         </CheckBox.Group>
-                        <Input placeholder="请输入" value="121"/>
+                        <Input placeholder="请输入" value="121" />
                         <Input placeholder="请输入" type="textarea" autosize="true"/>
                         <Input placeholder="请输入" type="number" step='2'/>
+                        <Select>
+                            <Select.OptionGroup label='分组1'>
+                                <Select.Option value='1'></Select.Option>
+                                <Select.Option value='2' ></Select.Option>
+                            </Select.OptionGroup>
+                            <Select.OptionGroup label='分组2'>
+                                <Select.Option value='3'></Select.Option>
+                                <Select.Option value='4' ></Select.Option>
+                            </Select.OptionGroup>
+                        </Select>
+                        <Switch width='62' onColor="#13ce66" onValue='1' offValue='0' offColor="#ff4949"/>
                         <div className="block">
                             1212
                         </div>

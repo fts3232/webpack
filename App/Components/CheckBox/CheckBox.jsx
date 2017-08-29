@@ -23,14 +23,16 @@ class CheckBox extends Component {
         }
     }
     render() {
+        let {name,value,disabled,children} = this.props
+        let checked = this.state.checked;
         return(
             <label className="checkbox">
-                <span className={this.classNames('checkbox-input',{'is-checked': this.state.checked},{'is-disabled':this.props.disabled})}>
-                    <input type="checkbox" checked={this.state.checked} name={this.props.name} value={this.props.value} onChange={this.onChange.bind(this)} disabled={this.props.disabled}/>
-                    <Icon iconName={this.state.checked?'check':null} />
+                <span className={this.classNames('checkbox-input',{'is-checked': checked},{'is-disabled':disabled})}>
+                    <input type="checkbox" checked={checked} name={name} value={value} onChange={this.onChange.bind(this)} disabled={disabled}/>
+                    <Icon iconName={checked?'check':null} />
                 </span>
                 <span className="checkbox-label">
-                    {this.props.children || this.props.value}
+                    {children || value}
                 </span>
             </label>
         )

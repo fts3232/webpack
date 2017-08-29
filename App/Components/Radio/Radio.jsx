@@ -22,10 +22,7 @@ class Radio extends Component {
     }
     render() {
         let checked = this.state.checked;
-        let disabled = this.props.disabled;
-        let children = this.props.children;
-        let value = this.props.value;
-        let name = this.props.name;
+        let {disabled,children,value,name} = this.props;
         return(
             <label className={this.classNames('radio')}>
                 <span className={this.classNames('radio-input',{'is-checked':checked},{'is-disabled':disabled})}>
