@@ -22,7 +22,9 @@
         border: 1px solid #d1dbe5;
         border-radius: 2px;
         background-color: #fff;
+        max-height: 178px;
         position: absolute;
+        z-index: 100;
         top: 36px;
         width:100%;
         margin: 5px 0;
@@ -30,41 +32,46 @@
         list-style: none;
         padding: 6px 0;
         box-sizing: border-box;
+        & .scrollbar-wrapper{
+            max-height: 178px;
+        }
+        & .select-dropdown-item{
+            font-size: 14px;
+            padding: 8px 10px;
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #48576a;
+            height: 36px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            cursor: pointer;
+            &:not(.is-disabled):not(.selected):hover{
+                background-color: #e4e8f1;
+            }
+            &.selected{
+                background-color: #1c8de0;
+                color:#fff;
+            }
+            &.is-disabled{
+                color: #bfcbd9;
+                cursor: not-allowed;
+            }
+        }  
+        & .select-group-wrap{
+            & .select-group-title{
+                padding-left: 10px;
+                font-size: 12px;
+                color: #999;
+                height: 30px;
+                line-height: 30px;
+            }
+            & .select-group .select-dropdown-item{
+                padding-left: 20px;
+            }
+        }
     }
-    & .select-group-wrap{
-        & .select-group-title{
-            padding-left: 10px;
-            font-size: 12px;
-            color: #999;
-            height: 30px;
-            line-height: 30px;
-        }
-        & .select-group .select-dropdown-item{
-            padding-left: 20px;
-        }
-    }
-    & .select-dropdown-item{
-        font-size: 14px;
-        padding: 8px 10px;
-        position: relative;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #48576a;
-        height: 36px;
-        line-height: 1.5;
-        box-sizing: border-box;
-        cursor: pointer;
-        &:not(.is-disabled):not(.selected):hover{
-            background-color: #e4e8f1;
-        }
-        &.selected{
-            background-color: #1c8de0;
-            color:#fff;
-        }
-        &.is-disabled{
-            color: #bfcbd9;
-            cursor: not-allowed;
-        }
-    }  
+    
+    
 }

@@ -1,6 +1,7 @@
 import css from './Scss/Main.scss';
 import Input from '../Input';
 import Component from '../Component';
+import Scrollbar from '../Scrollbar';
 import ClickOutside from 'react-click-outside';
 class Select extends Component {
 	constructor(props){
@@ -36,9 +37,14 @@ class Select extends Component {
         return(
             <div className={this.classNames('select',{'is-visible':this.state.visible})} ref='root'>
                 <Input placeholder={this.props.placeholder} name={this.props.name} readonly="true" disabled={this.props.disabled} icon='caret-down' value={this.state.value} onMouseDown={this.onMouseDown.bind(this)}/>
-                <ul className="select-dropdown">
-                    {this.props.children}
-                </ul>
+                <div className="select-dropdown">
+                    <Scrollbar>
+                        <ul >
+                            {this.props.children}
+                        </ul>
+                    </Scrollbar>
+                </div>
+                
             </div>
         )
     }

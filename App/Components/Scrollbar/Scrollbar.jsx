@@ -51,7 +51,7 @@ class Scrollbar extends Component {
     render() {
         let {sizeHeight,sizeWidth,moveX,moveY} = this.state;
         return (
-            <div className="scrollbar">
+            <div className="scrollbar" ref='root'>
                 <div className="scrollbar-wrapper" onScroll={this.handleScroll.bind(this)} ref={(wrapper)=>{this.wrapper = wrapper}}>
                     {this.props.children}
                 </div>

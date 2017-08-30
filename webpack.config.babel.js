@@ -1,20 +1,21 @@
 // /* webpack.config.js */
-var envConfig = require('./env.config.js');
-var path = require('path');
-var webpack = require('webpack');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+import envConfig from './env.config.js';
+import path from 'path';
+import webpack from 'webpack';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import HtmlwebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import cssnano from 'cssnano';
 //定义了一些文件夹的路径
-var env = envConfig.ENV;
-var ROOT = envConfig.ROOT;
-var ROOT_PATH = envConfig.ROOT_PATH;
-var APP_PATH = envConfig.APP_PATH;
-var BUILD_PATH = envConfig.BUILD_PATH;
-var ASSET_PATH = envConfig.ASSET_PATH;
-var config = {
+let env = envConfig.ENV;
+let ROOT = envConfig.ROOT;
+let ROOT_PATH = envConfig.ROOT_PATH;
+let APP_PATH = envConfig.APP_PATH;
+let BUILD_PATH = envConfig.BUILD_PATH;
+let ASSET_PATH = envConfig.ASSET_PATH;
+let config = {
   /*
   source-map  在一个单独的文件中产生一个完整且功能完全的文件。这个文件具有最好的source map，但是它会减慢打包文件的构建速度；
   cheap-module-source-map 在一个单独的文件中生成一个不带列映射的map，不带列映射提高项目构建速度，但是也使得浏览器开发者工具只能对应到具体的行，不能对应到具体的列（符号），会对调试造成不便；
@@ -25,7 +26,7 @@ var config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'common':[APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb','react-click-outside',APP_PATH+'/Components/Icon']
+    'vendor':[APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb','react-click-outside',APP_PATH+'/Components/Icon']
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -140,7 +141,7 @@ var config = {
 if(env == 'production' || env == 'test' ){
   if(env == 'production'){
     //压缩js
-    var extractJs = new webpack.optimize.UglifyJsPlugin({
+    let extractJs = new webpack.optimize.UglifyJsPlugin({
         output: {
           comments: false,  // remove all comments
         },
@@ -149,9 +150,9 @@ if(env == 'production' || env == 'test' ){
         }
       })
     //压缩css
-    var extractCss = new OptimizeCssAssetsPlugin({
+    let extractCss = new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/g,
-        cssProcessor: require('cssnano'),
+        cssProcessor: cssnano,
         cssProcessorOptions: { discardComments: {removeAll: true } },
         canPrint: true
       })
@@ -167,9 +168,9 @@ else{
   config.plugins.push(extractCss);*/
 }
 //提取多个入口的公共部分
-var CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.[chunkhash:8].js"});
+let CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.[hash:8].js"});
 config.plugins.push(CommonChunk);
-var extractText = new ExtractTextPlugin({filename:"css/[name].[contenthash:8].css",allChunks: true});  //打包成一个css文件
+let extractText = new ExtractTextPlugin({filename:"css/[name].[contenthash:8].css",allChunks: true});  //打包成一个css文件
 config.plugins.push(extractText);
 //动态加载
 /*var CommonAsyncChunk = new webpack.optimize.CommonsChunkPlugin({
@@ -178,14 +179,14 @@ config.plugins.push(extractText);
 })*/
 
 //页面
-var pages = ['index'];
+let pages = ['index'];
 pages.forEach(function(name) {
-    var page = new HtmlwebpackPlugin({
+    let page = new HtmlwebpackPlugin({
       filename: BUILD_PATH+'/'+name+'.html',
       template: APP_PATH+'/template/'+name+'.hbs',
-      chunks: ["common",name]
+      chunks: ["common","vendor",name]
     });
     config.plugins.push(page);
 });
 
-module.exports = config;
+export default config;

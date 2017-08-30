@@ -1,2 +1,3 @@
 import DatePicker from './DatePicker.jsx';
-export default DatePicker;
+import TimePicker from './TimePicker.jsx';
+export {DatePicker,TimePicker}
