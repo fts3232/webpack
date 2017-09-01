@@ -9,6 +9,8 @@ import DatePicker from '../../Components/DatePicker';
 import Select from '../../Components/Select';
 import Switch from '../../Components/Switch';
 import {TimePicker} from '../../Components/DatePicker';
+import Transfer from '../../Components/Transfer';
+import Rate from '../../Components/Rate';
 class Home extends React.Component {
 	constructor(props){
 		super(props);
@@ -89,6 +91,8 @@ class Home extends React.Component {
                         </Select>
                         <Switch width='62' onColor="#13ce66" onValue='1' offValue='0' offColor="#ff4949"/>
                         <TimePicker/>
+                        <Transfer/>
+                        <Rate/>
                         <div className="block">
                             1212
                         </div>

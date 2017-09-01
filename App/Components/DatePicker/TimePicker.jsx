@@ -1,7 +1,7 @@
 import css from './Scss/Main.scss';
 import Component from '../Component';
 import Input from '../Input';
-import TimePanel from './Panel/TimePanel.jsx';
+import TimeSelectPanel from './Panel/TimeSelectPanel.jsx';
 import ClickOutside from 'react-click-outside';
 class TimePicker extends Component {
 	constructor(props){
@@ -29,12 +29,15 @@ class TimePicker extends Component {
     onFocus(){
     	this.setState({ visible: true })
     }
+    handleClear(){
+    	this.setState({value:''})
+    }
 	render(){
 		let {placeholder,start,end,step,minTime,maxTime} = this.props;
 		return(
 			<div className="time-picker" onFocus={this.onFocus.bind(this)}>
-				<Input readonly='true' value={this.state.value} placeholder={placeholder} icon='clock-o'/>
-				{this.state.visible && (<TimePanel start={start} end={end} step={step} value={this.state.value} minTime={minTime} maxTime={maxTime}/>)}
+				<Input readonly='true' value={this.state.value} placeholder={placeholder} icon='clock-o' onIconClick={this.handleClear.bind(this)}/>
+				{this.state.visible && (<TimeSelectPanel start={start} end={end} step={step} value={this.state.value} minTime={minTime} maxTime={maxTime}/>)}
 			</div>
 		)
 	}

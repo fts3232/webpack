@@ -10,10 +10,9 @@ class CheckBox extends Component {
 	}
     onChange(e){
         const checked = e.target.checked;
-        const value = e.target.value;
         this.setState({checked: checked},() => {
             if (this.props.onChange) {
-              this.props.onChange(value,checked);
+              this.props.onChange(checked);
             }
         })
     }
@@ -23,13 +22,18 @@ class CheckBox extends Component {
         }
     }
     render() {
-        let {name,value,disabled,children} = this.props
+        let {name,value,disabled,children,indeterminate,className} = this.props
         let checked = this.state.checked;
         return(
-            <label className="checkbox">
-                <span className={this.classNames('checkbox-input',{'is-checked': checked},{'is-disabled':disabled})}>
+            <label className={this.classNames('checkbox',className)}>
+                <span className={this.classNames(
+                    'checkbox-input',
+                    {'is-checked': checked},
+                    {'is-disabled':disabled},
+                    {'is-indeterminate': indeterminate})
+                }>
                     <input type="checkbox" checked={checked} name={name} value={value} onChange={this.onChange.bind(this)} disabled={disabled}/>
-                    <Icon iconName={checked?'check':null} />
+                    <Icon iconName={checked?'check':indeterminate?'minus':null} />
                 </span>
                 <span className="checkbox-label">
                     {children || value}
@@ -41,14 +45,18 @@ class CheckBox extends Component {
 
 CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
+    className:React.PropTypes.string,
     checked:React.PropTypes.bool,
     disabled:React.PropTypes.bool,
+    indeterminate:React.PropTypes.bool,
     value:React.PropTypes.string,
     onChange: React.PropTypes.func
 }
 CheckBox.defaultProps={
     name:'',
+    className:'',
     checked:false,
+    indeterminate:false,
     disabled:false,
     value:'',
     onChange:()=>{}

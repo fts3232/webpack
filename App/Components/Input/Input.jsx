@@ -6,6 +6,7 @@ class Input extends Component {
 		super(props);
         this.state = {
             value:props.value,
+            icon:props.icon
         }
 	}
     minusHandler(){
@@ -97,9 +98,19 @@ class Input extends Component {
             this.refs['textarea'].style.height = `${height}px`
         }
     }
-    handleIconCLick(){
+    handleIconClick(){
         if(this.props.onIconClick){
             this.props.onIconClick();
+        }
+    }
+    handleIconMouseOver(){
+        if(this.state.value!=''){
+            this.setState({icon:'remove'})
+        }
+    }
+    handleIconMouseOut(){
+        if(this.state.icon=='remove'){
+            this.setState({icon:this.props.icon})
         }
     }
     handleChange(){
@@ -144,7 +155,8 @@ class Input extends Component {
                 )
                 break;
             case 'text':
-                const {append,prepend,icon,onMouseEnter,onMouseLeave,onMouseDown} = this.props;
+                const {append,prepend,onMouseEnter,onMouseLeave,onMouseDown} = this.props;
+                let icon = this.state.icon;
                 return(
                     <div className={this.classNames(
                         'form-input',
@@ -168,7 +180,7 @@ class Input extends Component {
                             onBlur={this.handleBlur.bind(this)}
                             onFocus={this.handleFocus.bind(this)}
                         />
-                        {icon && (<Icon iconName={icon} onClick={this.handleIconClick}/>)}
+                        {icon && <Icon iconName={icon} onMouseOver={this.handleIconMouseOver.bind(this)} onMouseOut={this.handleIconMouseOut.bind(this)} onClick={(this.handleIconClick.bind(this))}/>}
                         {append && (<div className="input-append">{append}</div>)}
                     </div>
                 )

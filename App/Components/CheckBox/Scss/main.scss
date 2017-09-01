@@ -31,12 +31,16 @@
             top: 1px;
         }
 
-        &.is-checked {
+        &.is-checked,&.is-indeterminate {
             border-color: #20a0ff;
             background: #20a0ff;
         }
+        
+        &.is-indeterminate .icon{
+            left: 2.4px;
+        }
 
-        &.is-checked  .icon{
+        &.is-checked .icon,&.is-indeterminate .icon{
             transform: scaleY(1);
         }
 

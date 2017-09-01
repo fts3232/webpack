@@ -1,0 +1,70 @@
+.transfer{
+    & .transfer-panel{
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #d1dbe5;
+        box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+        display: inline-block;
+        width: 200px;
+        position: relative;
+        & .transfer-panel-header{
+            height: 36px;
+            line-height: 36px;
+            background: #fbfdff;
+            margin: 0;
+            padding-left: 20px;
+            border-bottom: 1px solid #d1dbe5;
+            box-sizing: border-box;
+            color: #1f2d3d;
+        }
+        & .transfer-panel-body{
+            background: #fff;
+            height: 216px;
+            overflow: auto;
+            & .transfer-panel-item{
+                color: #48576a;
+                height: 32px;
+                line-height: 32px;
+                padding-left: 20px;
+                cursor: pointer;
+                width: 100%;
+                display:block;
+                &:hover{
+                    background: #e4e8f1;
+                }
+                &+.transfer-panel-item{
+                    margin-left: 0;
+                }
+            }
+        }
+        & .transfer-panel-footer{
+            height: 36px;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid #d1dbe5;
+            width: 100%;
+            z-index: 1;
+            & .checkbox{
+                padding-left: 20px;
+                padding-top: 7px;
+                color: #8391a5;
+            }
+        }
+    }
+    & .transfer-button-box{
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 10px;
+        & button{
+            font-size: 20px;
+            display:block;
+            height: 30px;
+            width: 30px;
+            padding: 0;
+            line-height: 1;
+            margin-bottom:5px;
+        }
+    }
+    
+}

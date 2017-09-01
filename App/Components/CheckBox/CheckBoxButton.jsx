@@ -9,10 +9,9 @@ class CheckBoxButton extends Component {
 	}
     onChange(e){
         const checked = e.target.checked;
-        const value = e.target.value;
         this.setState({checked: checked},() => {
             if (this.props.onChange) {
-              this.props.onChange(value,checked);
+              this.props.onChange(checked);
             }
         })
     }
@@ -22,10 +21,10 @@ class CheckBoxButton extends Component {
         }
     }
     render() {
-        let {name,value,disabled,children} = this.props
+        let {name,value,disabled,children,className} = this.props
         let checked = this.state.checked;
         return(
-            <label className={this.classNames('checkbox-button',{'is-checked': checked},{'is-disabled':disabled})}>
+            <label className={this.classNames('checkbox-button',className,{'is-checked': checked},{'is-disabled':disabled})}>
                 <input type="checkbox" checked={checked} name={name} value={value} onChange={this.onChange.bind(this)} disabled={disabled}/>
                 <span className="checkbox-button-label">
                     {children || value}
@@ -37,6 +36,7 @@ class CheckBoxButton extends Component {
 
 CheckBoxButton.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
+    className:React.PropTypes.string,
     checked:React.PropTypes.bool,
     disabled:React.PropTypes.bool,
     value:React.PropTypes.string,
@@ -44,6 +44,7 @@ CheckBoxButton.propTypes={//属性校验器，表示改属性必须是bool，否
 }
 CheckBoxButton.defaultProps={
     name:'',
+    className:'',
     checked:false,
     disabled:false,
     value:'',

@@ -1,6 +1,6 @@
 import Component from '../../Component';
 import Scrollbar from '../../Scrollbar';
-class TimePanel extends Component {
+class TimeSelectPanel extends Component {
 	constructor(props){
 		super(props)   
 	}
@@ -84,11 +84,11 @@ class TimePanel extends Component {
 	}
 }
 
-TimePanel.contextTypes = {
+TimeSelectPanel.contextTypes = {
   component: React.PropTypes.any
 };
 
-TimePanel.PropTypes = {
+TimeSelectPanel.PropTypes = {
 	start:React.PropTypes.string,
 	end:React.PropTypes.string,
 	step:React.PropTypes.number,
@@ -96,8 +96,8 @@ TimePanel.PropTypes = {
 	minTime:React.PropTypes.string,
 }
 
-TimePanel.defaultProps = {
+TimeSelectPanel.defaultProps = {
 	
 }
 
-export default TimePanel;
+export default TimeSelectPanel;

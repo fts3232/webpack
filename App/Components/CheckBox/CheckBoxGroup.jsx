@@ -17,8 +17,17 @@ class CheckBoxGroup extends Component {
           this.state.value.splice(index, 1);
         }
         this.setState({value:this.state.value})
+        if(this.props.onChange){
+            this.props.onChange(this.state.value)
+        }
+    }
+    componentWillReceiveProps(props){
+        this.state = {
+            value: props.value,
+        }
     }
     render() {
+
         return(
             <div className={this.classNames('checkbox-group')}>
                 {this.props.children.map((element)=>{
@@ -26,7 +35,7 @@ class CheckBoxGroup extends Component {
                         return null;
                     }
                     return React.cloneElement(element, Object.assign({}, element.props, {
-                      onChange: this.onChange.bind(this),
+                      onChange: this.onChange.bind(this,element.props.value),
                       checked:element.props.checked || this.state.value.indexOf(element.props.value)>=0
                     }))
                 })}
@@ -36,10 +45,12 @@ class CheckBoxGroup extends Component {
 }
 
 CheckBoxGroup.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    value:React.PropTypes.array
+    value:React.PropTypes.array,
+    onChange:React.PropTypes.func,
 }
 CheckBoxGroup.defaultProps={
-    value:[]
+    value:[],
+    onChange:()=>{}
 };//设置默认属性
 
 //导出组件
