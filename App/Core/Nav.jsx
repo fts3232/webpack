@@ -55,19 +55,6 @@ class Nav extends React.Component {
 									return (<Link to={ global.frameConfig.Root + val.path}><Menu.Item index={index}><Icon iconName={val.icon}/><span>{val.cnName}</span></Menu.Item></Link>)
 								}
 							})}
-							{/*<Menu.Item index='1'>导航一</Menu.Item>
-							<Menu.Item index='2'>导航二</Menu.Item>
-							<Menu.SubMenu index='3' title="导航三">
-								<Menu.ItemGroup title='分组1'>
-									<Menu.Item index='3-1'>选项1</Menu.Item>
-									<Menu.Item index='3-2'>选项2</Menu.Item>
-								</Menu.ItemGroup>
-								<Menu.ItemGroup title='分组2'>
-									<Menu.Item index='3-3'>选项3</Menu.Item>
-									<Menu.Item index='3-4'>选项4</Menu.Item>
-								</Menu.ItemGroup>
-							</Menu.SubMenu>
-							<Menu.Item index='4'>导航四</Menu.Item>*/}
 						</Menu>
 					</Scrollbar>
 				):null}

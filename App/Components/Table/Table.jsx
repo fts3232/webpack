@@ -1,5 +1,4 @@
 //Component1.jsx
-const Link = ReactRouterDOM.Link;
 import Component from '../Component';
 import css from './Scss/Main.scss';
 

@@ -12,7 +12,13 @@ class Icon extends Component {
 	}
 	render() {
 		return (
-			<i className={this.classNames('icon','fa','fa-'+this.state.icon,{'fa-pulse':this.props.isPulse})} aria-hidden="true" onMouseOver={this.props.onMouseOver} onMouseOut={this.props.onMouseOut} onClick={this.props.onClick}></i>
+			<i className={this.classNames('icon',this.props.className,'fa','fa-'+this.state.icon,{'fa-pulse':this.props.isPulse})} aria-hidden="true" 
+				onMouseOver={this.props.onMouseOver} 
+				onMouseOut={this.props.onMouseOut} 
+				onMouseMove={this.props.onMouseMove}
+				onClick={this.props.onClick}>
+				{this.props.children}
+			</i>
 		);
 	}
 }
@@ -24,12 +30,14 @@ Icon.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     onMouseOver:React.PropTypes.func,
     onClick:React.PropTypes.func,
     onMouseOut:React.PropTypes.func,
+    onMouseMove:React.PropTypes.func,
 }
 Icon.defaultProps={
 	isPulse:false,
 	onMouseOver:()=>{},
 	onClick:()=>{},
 	onMouseOut:()=>{},
+	onMouseMove:()=>{},
 };//设置默认属性
 
 export default Icon;

@@ -26,7 +26,26 @@ let config = {
   //项目的文件夹 可以直接用文件夹名称 默认会找index.js 也可以确定是哪个文件名字
   entry: {
     'index':APP_PATH+'/main.js',
-    'vendor':[APP_PATH+'/Components/Component',APP_PATH+'/Components/Breadcrumb','react-click-outside',APP_PATH+'/Components/Icon']
+    'vendor':[
+      APP_PATH+'/Components/Component',
+      APP_PATH+'/Components/Breadcrumb',
+      'react-click-outside',
+      APP_PATH+'/Components/Icon',
+      APP_PATH+'/Components/Table',
+      APP_PATH+'/Components/Button',
+      APP_PATH+'/Components/CheckBox',
+      APP_PATH+'/Components/Form',
+      APP_PATH+'/Components/Input',
+      APP_PATH+'/Components/Layout',
+      APP_PATH+'/Components/Menu',
+      APP_PATH+'/Components/Radio',
+      APP_PATH+'/Components/Rate',
+      APP_PATH+'/Components/Scrollbar',
+      APP_PATH+'/Components/Select',
+      APP_PATH+'/Components/Switch',
+      APP_PATH+'/Components/Transfer',
+      APP_PATH+'/Components/Tag',
+    ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -168,7 +187,7 @@ else{
   config.plugins.push(extractCss);*/
 }
 //提取多个入口的公共部分
-let CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "common", filename: "js/common.[hash:8].js"});
+let CommonChunk = new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: "js/vendor.[hash:8].js"});
 config.plugins.push(CommonChunk);
 let extractText = new ExtractTextPlugin({filename:"css/[name].[contenthash:8].css",allChunks: true});  //打包成一个css文件
 config.plugins.push(extractText);
@@ -184,7 +203,7 @@ pages.forEach(function(name) {
     let page = new HtmlwebpackPlugin({
       filename: BUILD_PATH+'/'+name+'.html',
       template: APP_PATH+'/template/'+name+'.hbs',
-      chunks: ["common","vendor",name]
+      chunks: ["vendor",name]
     });
     config.plugins.push(page);
 });

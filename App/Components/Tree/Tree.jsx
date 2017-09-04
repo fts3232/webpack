@@ -1,6 +1,6 @@
 import css from './Scss/Main.scss';
-import Svg from '../Svg';
-class Tree extends React.Component {
+import Component from '../Component';
+class Tree extends Component {
 	constructor(props){
 		super(props);
 	}

@@ -11,10 +11,15 @@ import Switch from '../../Components/Switch';
 import {TimePicker} from '../../Components/DatePicker';
 import Transfer from '../../Components/Transfer';
 import Rate from '../../Components/Rate';
+import Table from '../../Components/Table';
+import Tag from '../../Components/Tag';
+import Tree from '../../Components/Tree';
+const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
 		super(props);
         this.state = {
+            data:{},
             yesterday:null,
             today:null,
             series:[{
@@ -25,7 +30,22 @@ class Home extends React.Component {
         }
 	}
     componentDidMount(){
-        /*let _this = this;
+        let _this = this;
+        new Promise((resolve,reject)=>{
+            request.post('/api/getUser')
+                   .end(function(err, res){
+                        if(res.ok){
+                            resolve(JSON.parse(res.text))
+                        }else{
+                            reject(err)
+                        }
+                   })
+        }).then((data)=>{
+            _this.setState({'data':data})
+        })
+    }
+/*    componentDidMount(){
+        let _this = this;
         $.ajax({
             url:'/api/getPv',
             dataType:'json',
@@ -37,8 +57,8 @@ class Home extends React.Component {
             error:function(){
                 console.log('getDateError');
             }
-        })*/
-    }
+        })
+    }*/
     render() {
         return (
             <div className="home-page">
@@ -49,7 +69,7 @@ class Home extends React.Component {
                 </Layout.Row>
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
-                        <Button.Group>
+                        {/*<Button.Group>
                             <Button onClick={()=>{console.log('click')}}>按钮1</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮2</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮3</Button>
@@ -93,6 +113,14 @@ class Home extends React.Component {
                         <TimePicker/>
                         <Transfer/>
                         <Rate/>
+                        <Table data={this.state.data.result} columns={this.props.columns} />*/}
+                        <Tag >标签1</Tag>
+                        <Tag type='gray'>标签2</Tag>
+                        <Tag type='success'>标签3</Tag>
+                        <Tag type='warning'>标签4</Tag>
+                        <Tag type='danger'>标签5</Tag>
+                        <Tag type='primary'>标签6</Tag>
+                        <Tree/>
                         <div className="block">
                             1212
                         </div>
@@ -156,6 +184,49 @@ Home.PropTypes = {
 }
 
 Home.defaultProps = {
+    columns:[
+        {
+            type: 'expand',
+            'width':'48',
+            'expandPannel': function(data){
+                return (
+                    <div>{data.msg}</div>
+                )
+            }
+        },
+        {
+            'type':'selection',
+            'align': 'center',
+            'width':'48'
+        },
+        {
+            'label':'id',
+            'prop':'id'
+        },
+        {
+            'label':'名字',
+            'prop':'name'
+        },
+        {
+            'label':'年龄',
+            'prop':'age',
+            'sortable': true
+        },
+        {
+            'label':'地址',
+            'prop':'address'
+        },
+        {
+            'label':'操作',
+            'width':100,
+            'render':(data)=>{
+                let editUrl = '/user/edit/'+data.id;
+                let delUrl = '/user/del/'+data.id;
+                return (<div><Link to={editUrl}>修改</Link><Link to={delUrl}>删除</Link></div>)
+            }
+        }
+
+    ],
     title : {
         text:'浏览量(PV)',
         align:'center',
