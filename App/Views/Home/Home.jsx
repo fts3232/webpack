@@ -69,7 +69,7 @@ class Home extends React.Component {
                 </Layout.Row>
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
-                        {/*<Button.Group>
+                        <Button.Group>
                             <Button onClick={()=>{console.log('click')}}>按钮1</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮2</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮3</Button>
@@ -113,7 +113,7 @@ class Home extends React.Component {
                         <TimePicker/>
                         <Transfer/>
                         <Rate/>
-                        <Table data={this.state.data.result} columns={this.props.columns} />*/}
+                        <Table data={this.state.data.result} columns={this.props.columns} />
                         <Tag >标签1</Tag>
                         <Tag type='gray'>标签2</Tag>
                         <Tag type='success'>标签3</Tag>

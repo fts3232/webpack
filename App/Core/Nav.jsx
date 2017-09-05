@@ -17,22 +17,22 @@ class Nav extends React.Component {
 			if(typeof val.subMenu !='undefined'){
 				val.subMenu.map((v,k)=>{
 					let childIndex = index+'-'+(k+1);		
-					if(location.pathname==  global.frameConfig.Root+v.path){
+					if(location.pathname==  SITE_ROOT+v.path){
 						defaultActive = childIndex;
 						defaultOpen = index;
 					}
 				})
 			}else{
-				if(location.pathname==   global.frameConfig.Root+val.path){
+				if(location.pathname==   SITE_ROOT+val.path){
 					defaultActive = index
 				}
 			}
 		})
+		let height = document.body.clientHeight - 60;
 		return (
-			
 			<div className="nav">
 				{this.getMenu()!=''?(
-					<Scrollbar>
+					<Scrollbar height={height}>
 						<Menu mode="vertical" defaultActive={defaultActive} defaultOpen={defaultOpen}>
 							{this.getMenu().map((val,key)=>{
 								let index = key+1;
@@ -47,12 +47,12 @@ class Nav extends React.Component {
 													return false;
 												}
 												let childIndex = index+'-'+(k+1);
-												return (<Link to={ global.frameConfig.Root + v.path}><Menu.Item index={childIndex}>{v.cnName}</Menu.Item></Link>)
+												return (<Link to={ SITE_ROOT + v.path}><Menu.Item index={childIndex}>{v.cnName}</Menu.Item></Link>)
 											})}
 										</Menu.SubMenu>
 									)
 								}else{
-									return (<Link to={ global.frameConfig.Root + val.path}><Menu.Item index={index}><Icon iconName={val.icon}/><span>{val.cnName}</span></Menu.Item></Link>)
+									return (<Link to={ SITE_ROOT + val.path}><Menu.Item index={index}><Icon iconName={val.icon}/><span>{val.cnName}</span></Menu.Item></Link>)
 								}
 							})}
 						</Menu>

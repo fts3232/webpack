@@ -47,15 +47,17 @@ class Scrollbar extends Component {
     componentWillUnmount(){
         this.cleanRAF();
         this.cleanResize && this.cleanResize();
-      }
+    }
     render() {
         let {sizeHeight,sizeWidth,moveX,moveY} = this.state;
+        let {height} = this.props
+        height = parseFloat(height)+17 + 'px'
         return (
             <div className="scrollbar" ref='root'>
-                <div className="scrollbar-wrapper" onScroll={this.handleScroll.bind(this)} ref={(wrapper)=>{this.wrapper = wrapper}}>
+                <div className="scrollbar-wrapper" style={this.style({'height':height})} onScroll={this.handleScroll.bind(this)} ref={(wrapper)=>{this.wrapper = wrapper}}>
                     {this.props.children}
                 </div>
-                <Bar  move={moveX} size={sizeWidth} getParentWrap={()=>this.wrapper} />
+                <Bar move={moveX} size={sizeWidth} getParentWrap={()=>this.wrapper} />
                 <Bar move={moveY} size={sizeHeight} getParentWrap={()=>this.wrapper} vertical={true}/>
             </div>
         )

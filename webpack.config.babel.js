@@ -45,6 +45,7 @@ let config = {
       APP_PATH+'/Components/Switch',
       APP_PATH+'/Components/Transfer',
       APP_PATH+'/Components/Tag',
+      APP_PATH+'/Components/Tree',
     ]
   },
   resolve: {

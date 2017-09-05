@@ -1,5 +1,6 @@
 //Component1.jsx
 /*import React from 'react';*/
+import Scrollbar from '../Components/Scrollbar';
 class Loader extends React.Component {
 	constructor(props){
 		super(props);
@@ -26,12 +27,16 @@ class Loader extends React.Component {
         this.loadPage(props)
     }
     componentDidMount(){
+
         this.loadPage(this.props)
     }
     render() {
+        let height = document.body.clientHeight - 60;
         return (
             <div className="Loader">
-                {this.state.Component}
+                <Scrollbar height={height}>
+                    {this.state.Component}
+                </Scrollbar>
             </div>
         )
     }

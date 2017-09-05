@@ -49,8 +49,8 @@ getRoute().then((data)=>{
 	ReactDOM.render((
 		<Router history={history}>
 			<Frame>
-				{/*<Header />
-				<Nav menu={menus}/>*/}
+				<Header />
+				<Nav menu={menus}/>
 				<div className="body">
 					<Switch>
 						{/*<Route path={loginPath} render={(props) =>(
