@@ -41,7 +41,6 @@ class TableHeader extends Component {
       }
     render() {
         let {allChecked,sortStatus,sortColumn} = this.state;
-        
         return (
             <thead>
                 <tr >
@@ -52,7 +51,7 @@ class TableHeader extends Component {
                                 className={this.classNames({'asc':sortStatus==1 && sortColumn==column,'desc':sortStatus==2 && sortColumn==column,'is-checkbox':column.type=='selection','is-center':column.align=='center','is-left':column.align=='left','is-right':column.align=='right',}) }
                                 style={this.style(style)}
                             >
-                                    {column.type=='selection'?(<CheckBox name="check" checked={allChecked} onChange={this.onAllChecked.bind(this)} indeterminate={true}/>):column.label}
+                                    {column.type=='selection'?(<CheckBox name="check" checked={allChecked} onChange={this.onAllChecked.bind(this)}/>):column.label}
                                     {column.sortable?(<span className="sort-wrapper" onClick={this.onSort.bind(this,column)}><Icon iconName="sort-asc"/><Icon iconName="sort-desc"/></span>):null}
                             </th>
                         )

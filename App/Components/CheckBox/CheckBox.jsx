@@ -16,6 +16,9 @@ class CheckBox extends Component {
             }
         })
     }
+    onClick(e){
+        e.stopPropagation();
+    }
     componentWillReceiveProps(props){
         this.state = {
             checked: props.checked,
@@ -25,14 +28,14 @@ class CheckBox extends Component {
         let {name,value,disabled,children,indeterminate,className} = this.props
         let checked = this.state.checked;
         return(
-            <label className={this.classNames('checkbox',className)}>
+            <label className={this.classNames('checkbox',className)} onClick={this.onClick.bind(this)}>
                 <span className={this.classNames(
                     'checkbox-input',
                     {'is-checked': checked},
                     {'is-disabled':disabled},
                     {'is-indeterminate': indeterminate})
-                }>
-                    <input type="checkbox" checked={checked} name={name} value={value} onChange={this.onChange.bind(this)} disabled={disabled}/>
+                } >
+                    <input type="checkbox" checked={checked} name={name} value={value}  onChange={this.onChange.bind(this)}  disabled={disabled}/>
                     <Icon iconName={checked?'check':indeterminate?'minus':null} />
                 </span>
                 <span className="checkbox-label">
@@ -50,7 +53,7 @@ CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报
     disabled:React.PropTypes.bool,
     indeterminate:React.PropTypes.bool,
     value:React.PropTypes.string,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
 }
 CheckBox.defaultProps={
     name:'',
@@ -59,7 +62,7 @@ CheckBox.defaultProps={
     indeterminate:false,
     disabled:false,
     value:'',
-    onChange:()=>{}
+    onChange:()=>{},
 };//设置默认属性
 
 //导出组件

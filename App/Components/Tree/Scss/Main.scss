@@ -6,7 +6,7 @@
             line-height: 36px;
             height: 36px;
             cursor: pointer;
-            & .icon{
+            & .icon-expand{
                 display: inline-block;
                 margin-right:8px;
                 cursor: pointer;
@@ -21,7 +21,7 @@
                 transform: rotate(0);
                 transition: transform .3s ease-in-out;
             }
-            & .icon.no-children{
+            & .icon-expand.no-children{
                 border-color: transparent;
                 cursor: default;
             }
@@ -36,7 +36,7 @@
         }
         &.is-expand{
             &>.node-content{
-                & .icon{
+                & .icon-expand{
                     transform: rotate(90deg);
                 }
             }
