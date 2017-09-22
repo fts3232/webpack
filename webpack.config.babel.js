@@ -27,9 +27,9 @@ let config = {
   entry: {
     'index':APP_PATH+'/main.js',
     'vendor':[
+      'react-click-outside',
       APP_PATH+'/Components/Component',
       APP_PATH+'/Components/Breadcrumb',
-      'react-click-outside',
       APP_PATH+'/Components/Icon',
       APP_PATH+'/Components/Table',
       APP_PATH+'/Components/Button',
@@ -46,6 +46,19 @@ let config = {
       APP_PATH+'/Components/Transfer',
       APP_PATH+'/Components/Tag',
       APP_PATH+'/Components/Tree',
+      APP_PATH+'/Components/Pagination',
+      APP_PATH+'/Components/Badge',
+      APP_PATH+'/Components/Alert',
+      APP_PATH+'/Components/Loading',
+      APP_PATH+'/Components/Message',
+      APP_PATH+'/Components/MessageBox',
+      APP_PATH+'/Components/Notification',
+      APP_PATH+'/Components/Tabs',
+      APP_PATH+'/Components/DropDown',
+      APP_PATH+'/Components/Steps',
+      APP_PATH+'/Components/Dialog',
+      APP_PATH+'/Components/Tooltip',
+      APP_PATH+'/Components/Popover',
     ]
   },
   resolve: {

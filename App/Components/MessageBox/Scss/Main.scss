@@ -1,0 +1,106 @@
+$typeMap:(
+    success:(color: #13ce66),
+    warning:(color: #f7ba2a),
+    info:(color: #50bfff),
+    error:(color: #ff4949)
+);
+
+.message-box-wrapper{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 200;
+    &:after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        vertical-align: middle;
+    }
+    & .message-box-mask{
+        position:absolute;
+        width:100%;
+        height: 100%;
+        opacity: .5;
+        background: #000;
+        left: 0;
+        top: 0;
+    }
+    & .message-box{
+        text-align: left;
+        display: inline-block;
+        vertical-align: middle;
+        background-color: #fff;
+        width: 420px;
+        border-radius: 3px;
+        font-size: 16px;
+        overflow: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        z-index: 201;
+        position: relative;
+        opacity: 1;
+        transition: opacity .3s,transform .4s;
+        &.enter-active{
+            opacity: 0;
+            transform: translateY(-50%);
+        }
+        & .message-box-header{
+            position: relative;
+            padding: 20px 20px 0;
+            & .message-box-title{
+                padding-left: 0;
+                margin-bottom: 0;
+                font-size: 16px;
+                font-weight: 700;
+                color: #333;
+            }
+            & .close{
+                position: absolute;
+                top: 22px;
+                right: 20px;
+                cursor: pointer;
+                color: #999;
+                &:hover{
+                    color: #20a0ff;
+                }
+            }
+        }
+        & .message-box-body{
+            padding: 30px 20px;
+            color: #48576a;
+            font-size: 14px;
+            position: relative;
+            & .message-box-status{
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 0px;
+                & .icon{
+                    font-size: 36px;
+                }
+                @each $type,$style in $typeMap{
+                    &.is-#{$type}{
+                        @each $key,$value in $style{
+                            #{$key}:$value;
+                        }
+                    }
+                }
+            }
+            & .message-box-input{
+                padding-top: 15px;
+            }
+        }
+        & .message-box-btns{
+            padding: 10px 20px 15px;
+            text-align: right;
+            & button:nth-child(2) {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+

@@ -25,10 +25,10 @@ class CheckBox extends Component {
         }
     }
     render() {
-        let {name,value,disabled,children,indeterminate,className} = this.props
+        let {name,value,disabled,children,indeterminate} = this.props
         let checked = this.state.checked;
         return(
-            <label className={this.classNames('checkbox',className)} onClick={this.onClick.bind(this)}>
+            <label className={this.className('checkbox')} onClick={this.onClick.bind(this)}>
                 <span className={this.classNames(
                     'checkbox-input',
                     {'is-checked': checked},
@@ -48,7 +48,6 @@ class CheckBox extends Component {
 
 CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报错
     name:React.PropTypes.string,
-    className:React.PropTypes.string,
     checked:React.PropTypes.bool,
     disabled:React.PropTypes.bool,
     indeterminate:React.PropTypes.bool,
@@ -57,7 +56,6 @@ CheckBox.propTypes={//属性校验器，表示改属性必须是bool，否则报
 }
 CheckBox.defaultProps={
     name:'',
-    className:'',
     checked:false,
     indeterminate:false,
     disabled:false,

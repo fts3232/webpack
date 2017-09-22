@@ -14,6 +14,19 @@ import Rate from '../../Components/Rate';
 import Table from '../../Components/Table';
 import Tag from '../../Components/Tag';
 import Tree from '../../Components/Tree';
+import Pagination from '../../Components/Pagination';
+import Badge from '../../Components/Badge';
+import Alert from '../../Components/Alert';
+import Loading from '../../Components/Loading';
+import Message from '../../Components/Message';
+import MessageBox from '../../Components/MessageBox';
+import Notification from '../../Components/Notification';
+import Tabs from '../../Components/Tabs';
+import DropDown from '../../Components/DropDown';
+import Steps from '../../Components/Steps';
+import Dialog from '../../Components/Dialog';
+import Tooltip from '../../Components/Tooltip';
+import Popover from '../../Components/Popover';
 const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
@@ -26,7 +39,8 @@ class Home extends React.Component {
                 type: 'area',
                 name: '浏览量(PV)',
                 data: null
-            }]
+            }],
+            dialogVisible:false,
         }
 	}
     componentDidMount(){
@@ -121,6 +135,146 @@ class Home extends React.Component {
                         <Tag type='danger'>标签5</Tag>
                         <Tag type='primary'>标签6</Tag>
                         <Tree/>
+                        <Pagination pageSize="10" total="100" currentPage="5" onCurrentChange={(currentPage,pageSize)=>{console.log(currentPage,pageSize)}}/>
+                        <Badge className="mark" value="12" max={5} >
+                            <Button size="small">评论</Button>
+                        </Badge>
+                        <Alert title="成功提示的文案" type="success" closeText="知道了"/>
+                        <Alert title="消息提示的文案" type="info" closable={false}/>
+                        <Alert title="警告提示的文案" type="warning" description="description" />
+                        <Alert title="错误提示的文案" type="error" showIcon={true} />
+                        <Loading text="拼命加载中">
+                            <span>111</span>
+                        </Loading>
+                        <Button onClick={()=>{Message('success','success')}}>success</Button>
+                        <Button onClick={()=>{Message('error','error')}}>error</Button>
+                        <Button onClick={()=>{Message('info','info')}}>info</Button>
+                        <Button onClick={()=>{Message({message:'warning',type:'warning',showClose:true})}}>warning</Button>
+
+                        <Button onClick={()=>{MessageBox.alert('标题','内容').then(() => {
+                          Message({
+                            type: 'success',
+                            message: '确定'
+                          });
+                        }).catch(() => {
+                          Message({
+                            type: 'info',
+                            message: '取消'
+                          });       
+                        })  }}>alert</Button>
+
+                        <Button onClick={()=>{MessageBox.confirm('标题','内容',{'type':'warning'}).then(() => {
+                          Message({
+                            type: 'success',
+                            message: '确定'
+                          });
+                        }).catch(() => {
+                          Message({
+                            type: 'info',
+                            message: '取消'
+                          });       
+                        })  }}>confirm</Button>
+
+                        <Button onClick={()=>{MessageBox.prompt('标题','内容').then((v) => {
+                          Message({
+                            type: 'success',
+                            message: '你输入的内容是'+v
+                          });
+                        }).catch(() => {
+                          Message({
+                            type: 'info',
+                            message: '取消输入'
+                          });       
+                        })  }}>prompt</Button>
+
+                        <Button onClick={()=>{Notification('标题','内容')}}>Notification</Button>
+
+                        <Button onClick={()=>{Notification('标题','内容',{type:'success',offset:100})}}>success</Button>
+                        <Button onClick={()=>{Notification('标题','内容',{type:'warning'})}}>warning</Button>
+                        <Button onClick={()=>{Notification('标题','内容',{type:'error'})}}>error</Button>
+                        <Button onClick={()=>{Notification('标题','内容',{type:'info'})}}>info</Button>
+
+                        <Tabs>
+                            <Tabs.Panel label="选项卡1">选项卡1</Tabs.Panel>
+                            <Tabs.Panel label="选项卡2">选项卡2</Tabs.Panel>
+                            <Tabs.Panel label="选项卡3">选项卡3</Tabs.Panel>
+                            <Tabs.Panel label="选项卡4">选项卡4</Tabs.Panel>
+                        </Tabs>
+
+                        <DropDown label="下拉菜单" onCommand={(command)=>{console.log(command)}}>
+                            <DropDown.Item command="选项1">选项1</DropDown.Item>
+                            <DropDown.Item command="选项2" disabled={true}>选项2</DropDown.Item>
+                            <DropDown.Item command="选项3">选项3</DropDown.Item>
+                            <DropDown.Item command="选项4">选项4</DropDown.Item>
+                        </DropDown>
+
+                        <Steps active={2} direction="vertical">
+                            <Steps.Step title="步骤 1" description="这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字"/>
+                            <Steps.Step title="步骤 2" description="这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字"/>
+                            <Steps.Step title="步骤 3" description="这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字这是一段很长很长很长的描述性文字"/>
+                        </Steps>
+
+                        <Button onClick={()=>{this.setState({'dialogVisible':true})}}>dialog</Button>
+                        <Dialog  visible={ this.state.dialogVisible }>
+                            1212121
+                        </Dialog>
+
+                        <Tooltip content="Top Left 提示文字" placement="top-left">
+                          <Button>上左</Button>
+                        </Tooltip>
+                        <Tooltip content="Top Center 提示文字11111111111111" placement="top">
+                          <Button>上边</Button>
+                        </Tooltip>
+                        <Tooltip content="Top Right 提示文字" placement="top-right">
+                          <Button>上右</Button>
+                        </Tooltip>
+
+                        <Tooltip content="Top Left 提示文字" placement="bottom-left">
+                          <Button>下左</Button>
+                        </Tooltip>
+                        <Tooltip content="Top Center 提示文字11111111111111" placement="bottom">
+                          <Button>下边</Button>
+                        </Tooltip>
+                        <Tooltip content="Top Right 提示文字" placement="bottom-right">
+                          <Button>下右</Button>
+                        </Tooltip>
+
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="left-top">
+                          <Button>左上</Button>
+                        </Tooltip>
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="left">
+                          <Button>左边</Button>
+                        </Tooltip>
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="left-bottom">
+                          <Button>左下</Button>
+                        </Tooltip>
+
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="right-top">
+                          <Button>右上</Button>
+                        </Tooltip>
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="right">
+                          <Button>右边</Button>
+                        </Tooltip>
+                        <Tooltip content={ <div>多行信息<br/>第二行信息</div>} placement="right-bottom">
+                          <Button>右下</Button>
+                        </Tooltip>
+
+                        <Popover content={ <div>多行信息<br/>第二行信息</div>} placement="right-top" title="标题">
+                          <Button>右上</Button>
+                        </Popover>
+
+                        <Popover content={ <div>多行信息<br/>第二行信息</div>} placement="left-top" title="标题">
+                          <Button>左上</Button>
+                        </Popover>
+
+                        <Popover content={ <div>多行信息<br/>第二行信息</div>} placement="top" title="标题">
+                          <Button>上</Button>
+                        </Popover>
+
+                        <Popover content={ <div>多行信息<br/>第二行信息</div>} placement="bottom" title="标题">
+                          <Button>下</Button>
+                        </Popover>
+
                         <div className="block">
                             1212
                         </div>

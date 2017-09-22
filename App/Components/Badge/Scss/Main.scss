@@ -1,0 +1,30 @@
+.badge{
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    & .badge-content{
+	    background-color: #ff4949;
+	    border-radius: 10px;
+	    color: #fff;
+	    display: inline-block;
+	    font-size: 12px;
+	    height: 18px;
+	    line-height: 18px;
+	    padding: 0 6px;
+	    text-align: center;
+	    border: 1px solid #fff;
+	    &.is-dot{
+	    	width: 10px;
+		    height: 10px;
+		    padding: 0;
+		    right: 0;
+		    border-radius: 50%;
+	    }
+	    &.is-fixed{
+    	    top: 0;
+		    position: absolute;
+		    right:0;
+    		transform: translateY(-50%) translateX(50%);
+	    }
+    }
+}

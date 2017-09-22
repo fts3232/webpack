@@ -1,0 +1,85 @@
+.tooltip{
+	position: relative;
+    display: inline-block;
+	& .tooltip-poper{
+		position: absolute;
+		padding: 10px;
+		background: #000;
+		color:#fff;
+	    border-radius: 4px;
+	    padding: 10px;
+	    font-size: 12px;
+	    line-height: 1.2;
+	    white-space: nowrap;
+        z-index: 100;
+	    & .arrow{
+			display: block;
+			position: absolute;
+			width:0;
+			height: 0;
+			border-color: transparent;
+    		border-style: solid;
+    		border-width: 6px;
+		}
+		&.top,&.top-left,&.top-right{
+			& .arrow{
+				border-bottom-width: 0;
+				border-top-color: #000;
+				bottom: -6px;
+			}
+		}
+		&.bottom,&.bottom-left,&.bottom-right{
+			& .arrow{
+				border-top-width: 0;
+				border-bottom-color: #000;
+				top: -6px;
+			}
+		}
+		&.left,&.left-top,&.left-bottom{
+			& .arrow{
+				border-right-width: 0;
+				border-left-color: #000;
+				right: -6px;
+			}
+		}
+		&.right,&.right-top,&.right-bottom{
+			& .arrow{
+				border-left-width: 0;
+				border-right-color: #000;
+				left: -6px;
+			}
+		}
+
+		&.top-right,&.bottom-right{
+			& .arrow{
+				right:10px;
+			}
+		}
+		&.left-top,&.right-top{
+			& .arrow{
+				top:10px;
+			}
+		}
+		&.left-bottom,&.right-bottom{
+			& .arrow{
+				bottom:10px;
+			}
+		}
+
+		&.top,&.bottom{
+			& .arrow{
+				left:50%;
+				transform: translateX(-50%);
+			}
+		}
+		&.left,&.right{
+			& .arrow{
+				top:50%;
+				transform: translateY(-50%);
+			}
+		}
+	}
+}
+
+
+		

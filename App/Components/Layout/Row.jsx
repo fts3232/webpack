@@ -20,7 +20,7 @@ class Row extends Component {
 	}
 	render(){
 		return(
-			<div className={this.classNames('row',this.props.className)} style={this.style(this.getStyle())}>
+			<div className={this.classNames('row')} style={this.style(this.getStyle())}>
 				{this.props.children}
 			</div>
 		)
@@ -32,12 +32,10 @@ Row.childContextTypes = {
 };
 
 Row.PropTypes = {
-	className:React.PropTypes.string,
 	gutter: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 }
 
 Row.defaultProps = {
-	className:null,
 	gutter:0
 }
 

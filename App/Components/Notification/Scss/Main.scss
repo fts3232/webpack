@@ -1,0 +1,62 @@
+$typeMap:(
+    success:(color: #13ce66),
+    warning:(color: #f7ba2a),
+    info:(color: #50bfff),
+    error:(color: #ff4949)
+);
+.notification{
+    width: 330px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    position: fixed;
+    right: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+    transition: opacity .3s,transform .3s,right .3s,top .4s;
+    overflow: hidden;
+    top: 16px;
+    z-index: 200;
+    &.enter-active{
+        right:-330px;
+        opacity: 0;
+    }
+    & .notification-status{
+        font-size: 40px;
+        float: left;
+        @each $type,$style in $typeMap{
+            &.is-#{$type}{
+                @each $key,$value in $style{
+                    #{$key}:$value;
+                }
+            }
+        }
+    }
+    & .notification-group.is-with-icon{
+        margin-left: 50px;
+    }
+    & .notification-title{
+        font-weight: 400;
+        font-size: 16px;
+        color: #1f2d3d;
+        margin: 0;
+    }
+    & .notification-content{
+        font-size: 14px;
+        line-height: 21px;
+        margin: 10px 0 0;
+        color: #8391a5;
+        text-align: justify;
+    }
+    & .close{
+        top: 20px;
+        right: 20px;
+        position: absolute;
+        cursor: pointer;
+        color: #bfcbd9;
+        font-size: 14px;
+        &:hover{
+            color: #20a0ff;
+        }
+    }
+}

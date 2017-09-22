@@ -35,7 +35,7 @@ Button.PropTypes = {
 
 Button.defaultProps = {
 	onClick: ()=>{},
-	type: 'primary',
+	type: '',
 	size: '',
 	nativeType: 'text',
 	loading: false,

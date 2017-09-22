@@ -1,0 +1,59 @@
+$typeMap:(
+    success:(background-color: #13ce66),
+    warning:(background-color: #f7ba2a),
+    info:(background-color: #50bfff),
+    error:(background-color: #ff4949)
+);
+.toast{
+	z-index: 300;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+    min-width: 300px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    position: fixed;
+    left: 50%;
+    top: 20px;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: #fff;
+    transition: opacity .3s,transform .4s;
+    overflow: hidden;
+    &.enter-active{
+    	opacity: 0;
+    	transform: translateX(-50%) translateY(-100%);
+    }
+    @each $type,$style in $typeMap{
+        &.toast-#{$type} .img{
+            @each $key,$value in $style{
+                #{$key}:$value;
+            }
+            
+        }
+    }
+    & .img{
+	    width: 50px;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    text-align: center;
+	    line-height: 41px;
+	    color: #fff;
+    }
+    & .close{
+       top: 13px;
+    	right: 15px;
+	    position: absolute;
+	    cursor: pointer;
+	    color: #bfcbd9;
+	    font-size: 14px;
+    }
+    & .text{
+	    width: 100%;
+    	display: inline-block;
+    	padding-left: 50px;
+	    font-size: 14px;
+	    color: #8391a5;
+    }
+}

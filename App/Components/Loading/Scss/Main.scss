@@ -1,0 +1,29 @@
+.loading{
+	width:100%;
+	height: 400px;
+	position: relative;
+    & .loading-mask{
+    	position: absolute;
+	    margin: 0px;
+	    top: 0px;
+	    right: 0px;
+	    bottom: 0px;
+	    left: 0px;
+    	background-color: rgba(255, 255, 255, 0.9);
+    	& .loading-spinner{
+			text-align: center;
+			color:#20a0ff;
+			position: absolute;
+			top: 50%;
+		    width: 100%;  
+		    & .icon{
+		    	font-size: 40px
+		    }  
+		    & .loading-spinner-text{
+		    	font-size: 14px;
+		    	margin-top: 3px;
+		    }
+		}
+    }
+	
+}

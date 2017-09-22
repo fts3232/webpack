@@ -12,7 +12,7 @@ class Icon extends Component {
 	}
 	render() {
 		return (
-			<i className={this.classNames('icon',this.props.className,'fa','fa-'+this.state.icon,{'fa-pulse':this.props.isPulse})} aria-hidden="true" 
+			<i className={this.className('icon','fa','fa-'+this.state.icon,{'fa-pulse':this.props.isPulse})} aria-hidden="true" 
 				onMouseOver={this.props.onMouseOver} 
 				onMouseOut={this.props.onMouseOut} 
 				onMouseMove={this.props.onMouseMove}

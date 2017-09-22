@@ -64,8 +64,8 @@ class Transfer extends Component {
 			<div className="transfer">
 				<TransferPanel title="列表1" data={this.sourceData} checked={leftChecked} onChange={this.onSourceCheckedChange.bind(this)}/>
 				<div className="transfer-button-box">
-					<Button size="small" disabled={rightChecked.length<=0} onClick={this.addToLeft.bind(this)}><Icon iconName="angle-left"/></Button>
-					<Button size="small" disabled={leftChecked.length<=0} onClick={this.addToRight.bind(this)}><Icon iconName="angle-right"/></Button>
+					<Button size="small" disabled={rightChecked.length<=0} onClick={this.addToLeft.bind(this)}><Icon className="left" iconName="angle-left"/></Button>
+					<Button size="small" disabled={leftChecked.length<=0} onClick={this.addToRight.bind(this)}><Icon className="right" iconName="angle-right"/></Button>
 				</div>
 				<TransferPanel title="列表2" data={this.targetData} checked={rightChecked} onChange={this.onTargetCheckedChange.bind(this)}/>
 			</div>

@@ -32,51 +32,54 @@ class Node extends Component {
             }
         })
     }
-    getRoot(){
-        return this.context.root;
-    }
-    onAllChecked(checked){
-        let data = this.props.context;
-        let ids = this.getID(data);
-        this.getRoot().onChecked(checked,ids);
-    }
-    getID(context){
-        let ids = [];
-        let childrenID = [];
-        if(!Array.isArray(context)){
-            ids.push(context.id)
-            if( typeof context.children !='undefined'){
-                childrenID = this.getID(context.children)
-                ids = ids.concat(childrenID);
-            }
-        }else{
-            context.map((v,k)=>{
-                ids.push(v.id);
-                if( typeof v.children !='undefined'){
-                    childrenID = this.getID(v.children)
-                    ids = ids.concat(childrenID);
-                }
+    getNodeKey(nodeModel){
+        let {nodeKey} = this.props
+        let key = [];
+        if(typeof nodeModel.children!='undefined'){
+            nodeModel.children.map((v)=>{
+                let childKey = this.getNodeKey(v);
+                key = key.concat(childKey);
             })
+        }else{
+            key.push(nodeModel[nodeKey]);
         }
-        return ids;
-        
+        return key;
+    }
+    onChecked(checked){
+        let {nodeModel} = this.props
+        let key = this.getNodeKey(nodeModel);
+        this.props.treeNode.onCheckChange(checked,key)
     }
     render() {
-        let {context,showCheckBox,checkedKey,nodeKey} = this.props;
+        let {nodeModel,showCheckBox,checkedKey,nodeKey,treeNode} = this.props;
         let {expand} = this.state;
+        let indeterminate = false;
+        let checked = true;
+        let key = this.getNodeKey(nodeModel);
+        if(Array.isArray(key)){
+            key.map((v)=>{
+                if(!checkedKey.includes(v)){
+                    checked = false
+                }else{
+                    indeterminate = true;
+                }
+            })
+        }else{
+            checked = checkedKey.includes(key);
+        }
         return(
             <div className={this.classNames('node',{'is-expand':expand})}>
                 <div className="node-content" onClick={this.onExpand.bind(this)}>
-                    <span className={this.classNames('icon','icon-expand',{'no-children':typeof context.children =='undefined' || context.children==''})}></span>
+                    <span className={this.classNames('icon','icon-expand',{'no-children':typeof nodeModel.children =='undefined' || nodeModel.children==''})}></span>
                     {showCheckBox?(
-                        <CheckBox checked={checkedKey.includes(context[nodeKey])} onChange={this.onAllChecked.bind(this)}/>
+                        <CheckBox checked={checked} indeterminate={indeterminate} onChange={this.onChecked.bind(this)}/>
                     ):null}
-                    <span>{context.label}</span>
+                    <span>{nodeModel.label}</span>
                 </div>
 
                 <div className="node-children" ref='children'>
-                    {typeof context.children !='undefined' && context.children.map((v,k)=>{
-                        return (<Node nodeKey={nodeKey} checkedKey={checkedKey} showCheckBox={showCheckBox} context={v}/>);
+                    {typeof nodeModel.children !='undefined' && nodeModel.children.map((v,k)=>{
+                        return (<Node nodeKey={nodeKey} treeNode={treeNode} checkedKey={checkedKey} showCheckBox={showCheckBox} nodeModel={v}/>);
                     })}
                 </div>
             </div>
@@ -84,18 +87,15 @@ class Node extends Component {
     }
 }
 
-Node.contextTypes = {
-    root: React.PropTypes.string.isRequired
-}
-
 Node.propTypes={//属性校验器，表示改属性必须是bool，否则报错
-    context:React.PropTypes.object,
+    nodeModel:React.PropTypes.object,
     showCheckBox:React.PropTypes.bool,
     nodeKey:React.PropTypes.string,
     checkedKey:React.PropTypes.array,
+    treeNode:React.PropTypes.object,
 }
 Node.defaultProps={
-    context:{},
+    nodeModel:{},
     showCheckBox:false,
     nodeKey:'id',
     checkedKey:[],

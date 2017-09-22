@@ -1,0 +1,121 @@
+.steps{
+	& .step{
+		position: relative;
+		vertical-align: top;
+		display: inline-block;
+		& .step-header{
+			width: 28px;
+		    height: 28px;
+		    border-radius: 50%;
+		    background-color: transparent;
+		    line-height: 28px;
+		    font-size: 14px;
+		    vertical-align: top;
+		    transition: all 150ms;
+		    text-align: center;
+			border-width: 2px;
+		    border-style: solid;
+		    border-color: #bfcbd9;
+			& .step-icon {
+			    display: block;
+			    width:24px;
+			    height: 24px;
+			    & .icon{
+			    	position: relative;
+			    	top: -3px;
+			    }
+			}
+			& .step-line{
+			    position: absolute;
+			    border-color: inherit;
+			    background-color: #bfcbd9;
+			    top: 13px;
+			    height: 2px;
+			    left: 28px;
+			    right: 0;
+			    & .step-line-inner {
+				    display: block;
+				    transition: all 150ms;
+				    width: 0;
+				    height: 0;
+				}
+			}
+		}
+		& .step-main{
+		    padding-right: 10px;
+		    & .step-main-title{
+				font-weight: 700;
+			    color: #48576a;
+			    font-size: 14px;
+			    line-height: 32px;
+			}
+			& .step-main-desc{
+			    font-size: 12px;
+			    font-weight: 400;
+			    line-height: 14px;
+			}
+		}
+		
+		&.is-process{
+			& .step-header{
+				background-color: #bfcbd9;
+				color: #fff;
+			}
+		}
+		&.is-wait{
+			& .step-header{
+			    color: #bfcbd9;
+				background-color: #fff;
+			}
+			& .step-main{
+				& .step-main-title{
+					font-weight: 400;
+					color: #97a8be;
+				}
+				& .step-main-desc{
+					color: #97a8be;
+				}
+			}
+		}
+		&.is-success{
+			& .step-header{
+			    color: #fff;
+				background-color: #13ce66;
+				border-color: #13ce66;
+				& .step-line{
+					& .step-line-inner{
+
+					}
+				}
+			}
+			& .step-main{
+				& .step-main-title{
+					font-weight: 700;
+					color: #13ce66;
+				}
+				& .step-main-desc{
+					color: #13ce66;
+				}
+			}
+		}
+	}
+	&.is-vertical {
+		& .step{
+			display:block;
+			& .step-header{
+				display: inline-block;
+				& .step-line{
+					top: 28px;
+					left: 13px;
+					width: 2px;
+					bottom:0;
+					height: auto;
+				}
+			}
+			& .step-main{
+				display: inline-block;
+				padding-left:10px;
+			}
+		}
+	}
+}

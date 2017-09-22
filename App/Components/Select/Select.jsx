@@ -7,7 +7,7 @@ class Select extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            value:'',
+            value:props.value,
             visible:false,
         }
 	}
@@ -32,6 +32,9 @@ class Select extends Component {
     }
     handleOptionClick(value){
         this.setState({value:value,visible:false});
+        if(this.props.onChange){
+            this.props.onChange(value);
+        }
     }
     render() {
         return(
@@ -58,11 +61,15 @@ Select.propTypes={//属性校验器，表示改属性必须是bool，否则报�
     disabled:React.PropTypes.bool,
     name:React.PropTypes.string,
     placeholder:React.PropTypes.string,
+    value:React.PropTypes.string,
+    onChange:React.PropTypes.func,
 }
 Select.defaultProps={
     disabled:false,
     name:'',
-    placeholder:'请输入'
+    placeholder:'请输入',
+    value:'',
+    onChange:false,
 };//设置默认属性
 
 //导出组件

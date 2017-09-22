@@ -113,9 +113,9 @@ class Input extends Component {
             this.setState({icon:this.props.icon})
         }
     }
-    handleChange(){
+    handleChange(e){
         if(this.props.onChange){
-            this.props.onChange();
+            this.props.onChange(e.target.value);
         }
     }
     handleBlur(){

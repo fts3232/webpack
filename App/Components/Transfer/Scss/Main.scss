@@ -64,6 +64,15 @@
             padding: 0;
             line-height: 1;
             margin-bottom:5px;
+            & .icon.left{
+                position: relative;
+                top: -2px;
+            }
+            & .icon.right{
+                position: relative;
+                left: 2px;
+                top: -2px;
+            }
         }
     }
     
