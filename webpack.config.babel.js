@@ -59,6 +59,9 @@ let config = {
       APP_PATH+'/Components/Dialog',
       APP_PATH+'/Components/Tooltip',
       APP_PATH+'/Components/Popover',
+      APP_PATH+'/Components/Card',
+      APP_PATH+'/Components/Carousel',
+      APP_PATH+'/Components/Collapse',
     ]
   },
   resolve: {

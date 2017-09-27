@@ -2,9 +2,6 @@
 window.request = superagent;
 //加载模拟数据
 import mock from '../Data/mock.js';
-//加载functions
-import * as functions from '../Common/Functions.js';
-global.helper = functions;
 //加载框架组件
 import Frame from './Frame';
 //加载框架头部
