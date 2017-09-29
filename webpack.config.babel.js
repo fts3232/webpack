@@ -62,6 +62,8 @@ let config = {
       APP_PATH+'/Components/Card',
       APP_PATH+'/Components/Carousel',
       APP_PATH+'/Components/Collapse',
+      APP_PATH+'/Components/Progress',
+      APP_PATH+'/Components/Upload',
     ]
   },
   resolve: {

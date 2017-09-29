@@ -1,168 +1,247 @@
 import css from './Scss/Main.scss';
-import Svg from '../Svg';
-import Dropzone from 'react-dropzone';
-import request from 'superagent';
-import image1 from '../../../Assets/images/image1.jpg';
-class Upload extends React.Component {
+import Button from '../Button';
+import Icon from '../Icon';
+import Component from '../Component';
+import ajax from './ajax.js';
+//import Dropzone from 'react-dropzone';
+class Upload extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            uploadFile:[]
+            fileList:props.fileList || [],
+            tempIndex:1
         }
-        this.locationItem = this.locationItem.bind(this);
 	}
-    fileSelectHandler(e){
-        this.uploadHandler(e.target.files);
-        //console.log(e.target.files)
-        /*let upload = request.post('upload').field('file', file);
-        upload.end((err, response) => {
-            if (err) {
-                console.error(err);
+    clearFileList(){
+        this.setState({fileList:[]})
+    }
+    handleClick(){
+        this.refs.input.click();
+    }
+    handleChange(e) {
+        const files = e.target.files;
+        if (!files) {
+            return;
+        }
+        this.uploadFiles(files);
+        this.refs.input.value = null;
+    }
+    getFile(file){
+        let {fileList} = this.state;
+        return fileList.find((item)=>{return item.uid==file.uid});
+    }
+    uploadFiles(files){
+        const { multiple ,autoUpload} = this.props;
+        let postFiles = Array.prototype.slice.call(files);
+        if (postFiles.length === 0) {
+          return;
+        }
+        if (!multiple) {
+          postFiles = postFiles.slice(0, 1);
+        }
+        postFiles.forEach(file => {
+          this.addFileList(file);
+          if (autoUpload) 
+            this.upload(file);
+        });
+    }
+    addFileList(file) {
+        let { tempIndex, fileList } = this.state;
+
+        file.uid = Date.now() + tempIndex++;
+
+        let _file = {
+            status: 'ready',
+            name: file.name,
+            size: file.size,
+            percentage: 0,
+            uid: file.uid,
+            raw: file
+        };
+
+        try {
+            _file.url = URL.createObjectURL(file);
+        } catch (err) {
+            return;
+        }
+
+        fileList.push(_file);
+        this.setState({
+            fileList,
+            tempIndex
+        });
+    }
+
+    upload(file){
+        try{
+            this.beforeUpload(file);
+            this.post(file);
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+        /*const { beforeUpload } = this.props;
+        if (!beforeUpload) {
+            return this.post(rawFile);
+        }
+        const before = beforeUpload(rawFile);
+        if (before && before.then) {
+          before.then(
+            processedFile => {
+              if (
+                Object.prototype.toString.call(processedFile) === '[object File]'
+              ) {
+                this.post(processedFile);
+              } else {
+                this.post(rawFile);
+              }
+            },
+            () => {
+              if (file) this.onRemove(file);
             }
-     
-            console.log(response)
+          );
+        } else if (before !== false) {
+          this.post(rawFile);
+        } else {
+          if (file) this.onRemove(file);
+        }*/
+    }
+    beforeUpload(){
+        
+    }
+    post(file){
+        let {action,name} = this.props
+        ajax({
+            action:action,
+            data:{},
+            file:file,
+            filename:name,
+            withCredentials:true,
+            onProgress:(e)=>{this.onProgress(e)},
+            onError:(err)=>{this.uploadSuccess(err,file)},
+            onSuccess:(res)=>{this.uploadSuccess(res,file)},
+        })
+         /*const {
+          name: filename,
+          headers,
+          withCredentials,
+          data,
+          action,
+          onProgress,
+          onSuccess,
+          onError
+        } = this.props;
+        ajax({
+          headers,
+          withCredentials,
+          file,
+          data,
+          filename,
+          action,
+          onProgress: e => onProgress(e, file),
+          onSuccess: res => onSuccess(res, file),
+          onError: err => onError(err, file)
         });*/
     }
-    uploadHandler(files){
-            //创建xhr
-            var xhr = new XMLHttpRequest();
-
-            var url = "http://localhost/webpack/Api/upload.php";
-            //FormData对象
-            var fd = new FormData();
-            fd.append("file", files[0]);
-            //进度条部分
-           
-            xhr.open("POST", url, true);
-            xhr.send(fd);
-            let _this = this;
-            let uploadFile = this.state.uploadFile;
-            xhr.onreadystatechange = function (data) {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var result = JSON.parse(xhr.responseText);
-                    result.map((val,i)=>{
-                        let temp = {};
-                        let size = _this.convertUnit(files[i].size)
-                        temp.size = size.size;
-                        temp.sizeUnit = size.unit;
-                        temp.name = files[i].name;
-                        temp.url = val;
-                        uploadFile.push(temp)
-                    })
-                    _this.refs['upload'].reset();
-                    _this.setState({uploadFile:uploadFile})
-                    //document.getElementById("result").innerHTML = result;
+    onProgress(e){
+        console.log(e)
+    }
+    uploadSuccess(res,file){
+        let {fileList} = this.state;
+        let _file = this.getFile(file);
+        _file.status = res.status==true?'success':'error';
+        _file.response = res;
+        setTimeout(()=>{
+             this.setState({fileList},()=>{
+                if(this.props.onSuccess){
+                    this.props.onSuccess(res,file);
                 }
+             })
+        },1000)
+    }
+    uploadError(err, file){
+        let {fileList} = this.state;
+        let _file = this.getFile(file);
+        _file.status = 'error';
+        _file.response = res;
+        setTimeout(()=>{
+             this.setState({fileList},()=>{
+                if(this.props.onError){
+                    this.props.onError(err,file);
+                }
+             })
+        },1000)
+    }
+    removeItem(index){
+        let {fileList} = this.state;
+        let delFile = fileList[index];
+        fileList.splice(index,1);
+        this.setState({fileList},()=>{
+            if(this.props.onRemove){
+                this.props.onRemove(delFile);
             }
-
-
-        /*let length = files.length;
-        let uploadFile = this.state.uploadFile;
-        for(let i=0;i<length;i++){
-            let temp = {};
-            let size = this.convertUnit(files[i].size)
-            temp.size = size.size;
-            temp.sizeUnit = size.unit;
-            temp.name = files[i].name;
-            temp.url = '';
-            uploadFile.push(temp)
-        }
-        this.refs['upload'].reset();
-        this.setState({uploadFile:uploadFile})*/
-    }
-    convertUnit(size){
-        let unit = 'b';
-        size = parseInt(size);
-        if(size>=1024){
-            size = parseInt(size / 1024);
-            unit = 'kb';
-            if(size>=1024){
-                size = parseInt(size / 1024);
-                unit = 'mb'
-            }
-        }
-        return {unit:unit,size:size}
-    }
-    delHandler(index){
-        let uploadFile = this.state.uploadFile;
-        uploadFile.splice(index,1)
-        this.setState({uploadFile:uploadFile})
-    }
-    locationItem(){
-        let count = this.state.uploadFile.length;
-        let itemWidth = 125;
-        let itemHeight = 146;
-        let width = this.refs['upload-list'].clientWidth;
-        let col = parseInt(width / itemWidth);
-
-        let row = Math.ceil(count / col);
-        this.refs['upload-list'].style.height = row * itemHeight +'px';
-        let y = 10;
-        let x = 15;
-        for(let i = 0;i<count;i++){
-            if(i % col!=0){
-               x += itemWidth;
-            }else{
-                x = 15
-            }
-            if(typeof this.refs['item-'+i].style.transform =='undefined'){
-                this.refs['item-'+i].style.top = y+'px';
-                this.refs['item-'+i].style.left = x+'px'
-            }else{
-                this.refs['item-'+i].style.transform = 'translate('+x+'px, '+y+'px)'
-            }
-            if(i % col== (col-1) ){
-                y +=itemHeight
-            }
-        }
-    }
-    componentDidMount(){
-        window.addEventListener("resize", this.locationItem);
-        this.locationItem();
-    }
-    componentWillUnmount(){
-        window.removeEventListener("resize", this.locationItem);
-    }
-    componentDidUpdate(){
-        this.locationItem();
+        })
     }
     render() {
+        let {name,tip,accept,multiple,trigger} = this.props;
+        let {fileList} = this.state;
         return(
-            <div className='upload'  >
-                <form ref='upload'>
-                    {this.props.multiple?(
-                        <input type="file" onChange={this.fileSelectHandler.bind(this)} accept={this.props.accept} multiple/>
-                    ):(
-                        <input type="file" onChange={this.fileSelectHandler.bind(this)} accept={this.props.accept}/>
-                    )}
-                    <p className="msg">Drop files here or click to upload.</p>
-                    
-                </form>
-                <div className="upload-list" ref='upload-list'>
-                        {this.state.uploadFile.map((val,key)=>{
-                            let ref = 'item-'+key;
-                            return (
-                                <div className="item" ref={ref}>
-                                    <img src={val.url}/>
-                                    <div className="filename">{val.name}</div>
-                                    <div className="filesize"><strong>{val.size}</strong> {val.sizeUnit}</div>
-                                    <a onClick={this.delHandler.bind(this,key)}><Svg name="Close" /></a>
-                                </div>
-                            )
-                        })}
-                    </div>
+            <div className={this.className('upload')} >
+                <div className="upload-trigger" onClick={this.handleClick.bind(this)}>
+                    {trigger}
+                    <input type="file" name={name} className="upload-input" ref='input'  onChange={(e) => {this.handleChange(e)}}  multiple={multiple}/>
+                </div>
+                <div className="upload-tip">{tip}</div>
+                <ul className="upload-list">
+                    {fileList.map((v,index)=>{
+                        let statusIcon = v.status=='error'?'is-error':'is-success';
+                        let icon = v.status=='error'?'times-circle':'check-circle';
+                        return (
+                            <li className="upload-list-item">
+                                <Icon iconName="file-o" className="file-icon"/>
+                                <span>{v.name}</span>
+                                <Icon iconName="close" onClick={this.removeItem.bind(this,index)} className="close-icon"/>
+                                {v.status!='ready'?(
+                                    <Icon iconName={icon} className={this.classNames('status-icon',statusIcon)}/>
+                                ):null}
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         )
     }
 }
 
 Upload.propTypes={//属性校验器，表示改属性必须是bool，否则报错
+    trigger:React.PropTypes.any,
     multiple:React.PropTypes.bool,
-    accept:React.PropTypes.string
+    /*accept:React.PropTypes.string,*/
+    action:React.PropTypes.string,
+    autoUpload:React.PropTypes.bool,
+    fileList:React.PropTypes.array,
+    onRemove:React.PropTypes.func,
+    onSuccess:React.PropTypes.func,
+    onError:React.PropTypes.func,
+    name:React.PropTypes.string,
+    tip:React.PropTypes.string,
 }
 Upload.defaultProps={
+    trigger:null,
     multiple:false,
-    accept:'image/*'
+   /* accept:'image/*',*/
+    action:'',
+    autoUpload:true,
+    fileList:[
+        {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg'}, 
+        {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg'}
+    ],
+    onRemove:()=>{},
+    onSuccess:()=>{},
+    onError:()=>{},
+    name:'file',
+    tip:'',
+    
 };//设置默认属性
 
 //导出组件

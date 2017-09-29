@@ -30,6 +30,8 @@ import Popover from '../../Components/Popover';
 import Card from '../../Components/Card';
 import Carousel from '../../Components/Carousel';
 import Collapse from '../../Components/Collapse';
+import Progress from '../../Components/Progress';
+import Upload from '../../Components/Upload';
 const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
@@ -311,6 +313,10 @@ class Home extends React.Component {
                             </Collapse.Item>
                         </Collapse>
 
+                        <Progress percentage={70} status="success" textInside/>
+
+                        <Upload action="/api/getPv" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>
+                        
                         <div className="block">
                             1212
                         </div>
