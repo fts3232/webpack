@@ -1,13 +1,15 @@
 import css from './Scss/Main.scss';
 import Component from '../Component';
 import Input from '../Input';
-import TimeSelectPanel from './Panel/TimeSelectPanel.jsx';
+import TimePickerPanel from './Panel/TimePickerPanel.jsx';
 import ClickOutside from 'react-click-outside';
+import {parseTime,format} from './parseTime';
 class TimePicker extends Component {
 	constructor(props){
 		super(props)   
 		this.state = {
-			value:props.value,
+			value:props.value || format("hh:mm:ss",new Date()),
+			time:parseTime(props.value || new Date()),
 			visible:false,
 		}
 	}
@@ -16,10 +18,20 @@ class TimePicker extends Component {
           component: this
         };
     }
-    handleItemClick(item){
-    	if(!item.disabled){
-    		this.setState({value:item.value,visible:false})
-    	}
+    changeHour(v){
+    	let {time} = this.state;
+    	time.hours = v.value;
+    	this.setState({time:time,value:`${time.hours}:${time.minutes}:${time.seconds}`})
+    }
+    changeMinute(v){
+    	let {time} = this.state;
+    	time.minutes = v.value;
+    	this.setState({time:time,value:`${time.hours}:${time.minutes}:${time.seconds}`})
+    }
+    changeSecond(v){
+    	let {time} = this.state;
+    	time.seconds = v.value;
+    	this.setState({time:time,value:`${time.hours}:${time.minutes}:${time.seconds}`})
     }
     handleClickOutside() {
         if (this.state.visible) {
@@ -32,12 +44,17 @@ class TimePicker extends Component {
     handleClear(){
     	this.setState({value:''})
     }
+    hide(){
+    	this.setState({ visible: false });
+    }
 	render(){
-		let {placeholder,start,end,step,minTime,maxTime} = this.props;
+		let {placeholder,selectableRange} = this.props;
+		let {visible} = this.state;
 		return(
 			<div className="time-picker" onFocus={this.onFocus.bind(this)}>
 				<Input readonly='true' value={this.state.value} placeholder={placeholder} icon='clock-o' onIconClick={this.handleClear.bind(this)}/>
-				{this.state.visible && (<TimeSelectPanel start={start} end={end} step={step} value={this.state.value} minTime={minTime} maxTime={maxTime}/>)}
+
+				{visible && (<TimePickerPanel selectableRange={selectableRange}/>)}
 			</div>
 		)
 	}
@@ -50,21 +67,12 @@ TimePicker.childContextTypes = {
 TimePicker.PropTypes = {
 	value:React.PropTypes.string,
 	placeholder:React.PropTypes.string,
-	start:React.PropTypes.string,
-	end:React.PropTypes.string,
-	step:React.PropTypes.string,
-	minTime:React.PropTypes.string,
-	maxTime:React.PropTypes.string,
+	selectableRange:React.PropTypes.oneOfType([React.PropTypes.string,React.PropTypes.array]),
 }
 
 TimePicker.defaultProps = {
 	value:'',
 	placeholder:'请选择时间',
-	start:'00:00',
-	end:'23:30',
-	step:'00:30',
-	maxTime:'23:60',
-	minTime:'-1:-1',
 }
 
 export default ClickOutside(TimePicker);

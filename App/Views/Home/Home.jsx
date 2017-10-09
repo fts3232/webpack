@@ -5,10 +5,8 @@ import Button from '../../Components/Button';
 import Radio from '../../Components/Radio';
 import CheckBox from '../../Components/CheckBox';
 import Input from '../../Components/Input';
-import DatePicker from '../../Components/DatePicker';
 import Select from '../../Components/Select';
 import Switch from '../../Components/Switch';
-import {TimePicker} from '../../Components/DatePicker';
 import Transfer from '../../Components/Transfer';
 import Rate from '../../Components/Rate';
 import Table from '../../Components/Table';
@@ -32,6 +30,8 @@ import Carousel from '../../Components/Carousel';
 import Collapse from '../../Components/Collapse';
 import Progress from '../../Components/Progress';
 import Upload from '../../Components/Upload';
+import ColorPicker from '../../Components/ColorPicker';
+import {DatePicker,TimePicker,TimeSelect} from '../../Components/DatePicker';
 const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
@@ -88,7 +88,7 @@ class Home extends React.Component {
                 </Layout.Row>
                 <Layout.Row>
                     <Layout.Col span='22' offset='1'>
-                        <Button.Group>
+                        {/*<Button.Group>
                             <Button onClick={()=>{console.log('click')}}>按钮1</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮2</Button>
                             <Button onClick={()=>{console.log('click')}}>按钮3</Button>
@@ -315,8 +315,16 @@ class Home extends React.Component {
 
                         <Progress percentage={70} status="success" textInside/>
 
-                        <Upload action="/api/getPv" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>
+                        <Upload listType="picture-card" action="http://localhost/test.php" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>*/}
                         
+                        <ColorPicker value="#20a0ff" showAlpha/>
+
+                        <TimePicker/>
+
+                        <TimeSelect/>
+
+                        <DatePicker/>
+
                         <div className="block">
                             1212
                         </div>

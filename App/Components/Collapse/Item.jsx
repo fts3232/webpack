@@ -1,6 +1,6 @@
 import Component from '../Component';
 import Icon from '../Icon';
-import {throttle} from '../../Function/throttle-debounce.js';
+import {throttle} from '../../Lib/throttle-debounce.js';
 class Item extends Component {
 	constructor(props){
 		super(props)   

@@ -3,15 +3,31 @@ import Button from '../Button';
 import Icon from '../Icon';
 import Component from '../Component';
 import ajax from './ajax.js';
+import Progress from '../Progress';
+import Message from '../Message';
 //import Dropzone from 'react-dropzone';
 class Upload extends Component {
 	constructor(props){
 		super(props);
         this.state = {
-            fileList:props.fileList || [],
+            fileList: [],
             tempIndex:1
         }
 	}
+    componentWillMount() {
+        this.init(this.props);
+    }
+
+    init(props){
+        let { tempIndex } = this.state;
+        const { fileList } = props;
+        const uploadFiles = fileList.map(file => {
+          file.uid = file.uid || Date.now() + tempIndex++;
+          file.status = 'success';
+          return file;
+        });
+        this.setState({ fileList: uploadFiles });
+    }
     clearFileList(){
         this.setState({fileList:[]})
     }
@@ -73,41 +89,23 @@ class Upload extends Component {
     }
 
     upload(file){
-        try{
-            this.beforeUpload(file);
-            this.post(file);
-        }catch(err){
-            console.log(err);
+        if(!this.beforeUpload(file)){
+            this.removeItem(file);
             return false;
         }
-        /*const { beforeUpload } = this.props;
-        if (!beforeUpload) {
-            return this.post(rawFile);
-        }
-        const before = beforeUpload(rawFile);
-        if (before && before.then) {
-          before.then(
-            processedFile => {
-              if (
-                Object.prototype.toString.call(processedFile) === '[object File]'
-              ) {
-                this.post(processedFile);
-              } else {
-                this.post(rawFile);
-              }
-            },
-            () => {
-              if (file) this.onRemove(file);
-            }
-          );
-        } else if (before !== false) {
-          this.post(rawFile);
-        } else {
-          if (file) this.onRemove(file);
-        }*/
+        this.post(file);
     }
-    beforeUpload(){
-        
+    beforeUpload(file){
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+            Message('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+            Message('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
     }
     post(file){
         let {action,name} = this.props
@@ -116,35 +114,20 @@ class Upload extends Component {
             data:{},
             file:file,
             filename:name,
-            withCredentials:true,
-            onProgress:(e)=>{this.onProgress(e)},
+            onProgress:(e)=>{this.onProgress(e,file)},
             onError:(err)=>{this.uploadSuccess(err,file)},
             onSuccess:(res)=>{this.uploadSuccess(res,file)},
         })
-         /*const {
-          name: filename,
-          headers,
-          withCredentials,
-          data,
-          action,
-          onProgress,
-          onSuccess,
-          onError
-        } = this.props;
-        ajax({
-          headers,
-          withCredentials,
-          file,
-          data,
-          filename,
-          action,
-          onProgress: e => onProgress(e, file),
-          onSuccess: res => onSuccess(res, file),
-          onError: err => onError(err, file)
-        });*/
     }
-    onProgress(e){
-        console.log(e)
+    onProgress(e,file){
+        let {fileList} = this.state;
+        let _file = this.getFile(file);
+        if (_file) {
+            _file.percentage = e.percent || 0;
+            _file.status = 'uploading';
+            //this.props.onProgress(e, _file, fileList);
+            this.setState({ fileList });
+        }
     }
     uploadSuccess(res,file){
         let {fileList} = this.state;
@@ -172,18 +155,22 @@ class Upload extends Component {
              })
         },1000)
     }
-    removeItem(index){
+    removeItem(file){
         let {fileList} = this.state;
-        let delFile = fileList[index];
-        fileList.splice(index,1);
+        fileList.splice(fileList.indexOf(file), 1);
         this.setState({fileList},()=>{
             if(this.props.onRemove){
-                this.props.onRemove(delFile);
+                this.props.onRemove(file);
             }
         })
     }
+    onPreview(file){
+        if(file.status=='success'){
+            this.props.onPreview(file);
+        }
+    }
     render() {
-        let {name,tip,accept,multiple,trigger} = this.props;
+        let {name,tip,accept,multiple,trigger,listType} = this.props;
         let {fileList} = this.state;
         return(
             <div className={this.className('upload')} >
@@ -192,18 +179,39 @@ class Upload extends Component {
                     <input type="file" name={name} className="upload-input" ref='input'  onChange={(e) => {this.handleChange(e)}}  multiple={multiple}/>
                 </div>
                 <div className="upload-tip">{tip}</div>
-                <ul className="upload-list">
+                <ul className={this.classNames('upload-list',`upload-${listType}`)}>
                     {fileList.map((v,index)=>{
                         let statusIcon = v.status=='error'?'is-error':'is-success';
-                        let icon = v.status=='error'?'times-circle':'check-circle';
+                        let icon ;
+                        if(['picture','picture-card'].includes(listType)){
+                            icon = v.status=='error'?'times':'check';
+                        }else{
+                            icon = v.status=='error'?'times-circle':'check-circle';
+                        }
+                        
                         return (
-                            <li className="upload-list-item">
-                                <Icon iconName="file-o" className="file-icon"/>
-                                <span>{v.name}</span>
-                                <Icon iconName="close" onClick={this.removeItem.bind(this,index)} className="close-icon"/>
-                                {v.status!='ready'?(
-                                    <Icon iconName={icon} className={this.classNames('status-icon',statusIcon)}/>
+                            <li className="upload-list-item" onClick={this.onPreview.bind(this,v)}>
+                                {['picture','picture-card'].includes(listType) && v.status=='success'?(
+                                        <img className="upload-list-item-thumbnail" src={v.url} alt=""/>
+                                    ):(
+                                        <Icon iconName="file-o" className="file-icon"/>
+                                    )
+                                }
+                                <span className="upload-list-item-name">{v.name}</span>
+                                <Icon iconName="close" onClick={this.removeItem.bind(this,v)} className="close-icon"/>
+                                {v.status=='success' || v.status=='error'?(
+                                    <label className="upload-list-item-status-label">
+                                        <Icon iconName={icon} className={this.classNames('status-icon',statusIcon)}/>
+                                    </label>
                                 ):null}
+                                {v.status === 'uploading' &&
+                                  <Progress
+                                    strokeWidth={2}
+                                    percentage={parseInt(v.percentage, 10)}
+                                    status={
+                                      v.status=='success' ? 'success' : ''
+                                    }
+                                />}
                             </li>
                         );
                     })}
@@ -217,19 +225,23 @@ Upload.propTypes={//属性校验器，表示改属性必须是bool，否则报�
     trigger:React.PropTypes.any,
     multiple:React.PropTypes.bool,
     /*accept:React.PropTypes.string,*/
+    listType:React.PropTypes.oneOf(['text','picture','picture-card']),
     action:React.PropTypes.string,
     autoUpload:React.PropTypes.bool,
     fileList:React.PropTypes.array,
     onRemove:React.PropTypes.func,
     onSuccess:React.PropTypes.func,
     onError:React.PropTypes.func,
+    onPreview:React.PropTypes.func,
     name:React.PropTypes.string,
     tip:React.PropTypes.string,
+
 }
 Upload.defaultProps={
     trigger:null,
     multiple:false,
-   /* accept:'image/*',*/
+    /* accept:'image/*',*/
+    listType:'text',
     action:'',
     autoUpload:true,
     fileList:[
@@ -239,6 +251,7 @@ Upload.defaultProps={
     onRemove:()=>{},
     onSuccess:()=>{},
     onError:()=>{},
+    onPreview:()=>{},
     name:'file',
     tip:'',
     
