@@ -1,4 +1,3 @@
-import css from './Scss/Main.scss';
 import Component from '../Component';
 class Option extends Component {
 	constructor(props){
@@ -23,7 +22,7 @@ class Option extends Component {
 }
 
 Option.contextTypes = {
-  component: React.PropTypes.any
+    component: React.PropTypes.any
 };
 
 Option.propTypes={//属性校验器，表示改属性必须是bool，否则报错

@@ -1,0 +1,97 @@
+.cascader{
+    position: relative;
+    box-sizing: border-box;
+    & .form-input{
+        & input{
+            cursor: pointer;
+            user-select:none;
+        }
+        & .icon{
+            transition: transform .3s;
+        }
+    } 
+    & .cascader-label{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        line-height: 36px;
+        padding: 0 25px 0 10px;
+        color: #1f2d3d;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: left;
+        & span {
+            vertical-align: baseline;
+            color: #97a8be;
+        }
+    }
+    &.is-visible{
+        & .form-input .icon{
+            transform: rotateZ(180deg);
+        }
+        & .cascader-menus{
+            display: block;
+        }
+    } 
+    & .cascader-menus{
+        position: absolute;
+        z-index: 100;
+        top: 36px;
+        margin: 5px 0;
+        display: none;
+        & .scrollbar{
+            display: inline-block;
+            vertical-align: top;
+            & .scrollbar-wrapper{
+                border: 1px solid #d1dbe5;
+                border-radius: 2px;
+                background-color: #fff;
+                max-height: 178px;
+                min-width: 160px;
+            }
+            & .cascader-menu{
+                list-style: none;
+                padding: 6px 0;
+                box-sizing: border-box;
+                & .scrollbar-wrapper{
+                    max-height: 178px;
+                }
+                & .cascader-menu-item{
+                    font-size: 14px;
+                    padding: 8px 10px;
+                    position: relative;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    color: #48576a;
+                    height: 36px;
+                    line-height: 1.5;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    & .icon{
+                        position: absolute;
+                        right: 10px;
+                        top: 13px;
+                    }
+                    &:not(.is-disabled):not(.is-selected):hover{
+                        background-color: #e4e8f1;
+                    }
+                    &.is-selected{
+                        background-color: #1c8de0;
+                        color:#fff;
+                    }
+                    &.is-disabled{
+                        color: #bfcbd9;
+                        cursor: not-allowed;
+                    }
+                }  
+            }
+        }
+    }
+}
