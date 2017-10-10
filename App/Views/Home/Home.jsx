@@ -319,6 +319,8 @@ class Home extends React.Component {
 
                         <Upload action="/api/getPv" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>*/}
                         
+                        <Progress percentage={70} status="success" type="circle"/>
+
                         <Cascader options={[{
       value: 'zhinan',
       label: '指南',
