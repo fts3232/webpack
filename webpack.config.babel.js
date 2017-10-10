@@ -64,6 +64,8 @@ let config = {
       APP_PATH+'/Components/Collapse',
       APP_PATH+'/Components/Progress',
       APP_PATH+'/Components/Upload',
+      APP_PATH+'/Components/ColorPicker',
+      APP_PATH+'/Components/DatePicker',
     ]
   },
   resolve: {
@@ -114,7 +116,7 @@ let config = {
       {
 　　　　test: /\.(png|jpg|svg|ttf|woff)$/,
 　　　　loader: ['url-loader?limit=8192&name=[path][name].[ext]&publicPath=../'],
-        include:ASSET_PATH,
+        include:[ASSET_PATH,APP_PATH],
 　　　},
       {
         test: /\.(js|jsx)$/,

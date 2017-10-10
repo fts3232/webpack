@@ -5,10 +5,8 @@ import Button from '../../Components/Button';
 import Radio from '../../Components/Radio';
 import CheckBox from '../../Components/CheckBox';
 import Input from '../../Components/Input';
-import DatePicker from '../../Components/DatePicker';
 import Select from '../../Components/Select';
 import Switch from '../../Components/Switch';
-import {TimePicker} from '../../Components/DatePicker';
 import Transfer from '../../Components/Transfer';
 import Rate from '../../Components/Rate';
 import Table from '../../Components/Table';
@@ -32,7 +30,12 @@ import Carousel from '../../Components/Carousel';
 import Collapse from '../../Components/Collapse';
 import Progress from '../../Components/Progress';
 import Upload from '../../Components/Upload';
+<<<<<<< HEAD
 import Cascader from '../../Components/Cascader';
+=======
+import ColorPicker from '../../Components/ColorPicker';
+import {DatePicker,TimePicker,TimeSelect} from '../../Components/DatePicker';
+>>>>>>> 0d997c9f5aeddd6c0ed617f7b62b91f53faa4171
 const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
@@ -316,6 +319,7 @@ class Home extends React.Component {
 
                         <Progress percentage={70} status="success" textInside/>
 
+<<<<<<< HEAD
                         <Upload action="/api/getPv" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>*/}
                         
                         <Cascader options={[{
@@ -513,6 +517,17 @@ class Home extends React.Component {
         label: '组件交互文档'
       }]
     }]}/>
+=======
+                        <Upload listType="picture-card" action="http://localhost/test.php" tip="只能上传jpg/png文件，且不超过500kb" trigger={<Button type="primary" size='small'>点击上传</Button>}/>*/}
+                        
+                        <ColorPicker value="#20a0ff" showAlpha/>
+
+                        <TimePicker/>
+
+                        <TimeSelect/>
+
+                        <DatePicker/>
+>>>>>>> 0d997c9f5aeddd6c0ed617f7b62b91f53faa4171
 
                         <div className="block">
                             1212

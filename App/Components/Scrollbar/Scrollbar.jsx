@@ -53,7 +53,7 @@ class Scrollbar extends Component {
         let {height} = this.props
         height = parseFloat(height)+17 + 'px'
         return (
-            <div className="scrollbar" ref='root'>
+            <div className={this.className('scrollbar')} ref='root'>
                 <div className="scrollbar-wrapper" style={this.style({'height':height})} onScroll={this.handleScroll.bind(this)} ref={(wrapper)=>{this.wrapper = wrapper}}>
                     {this.props.children}
                 </div>

@@ -3,6 +3,7 @@
     position: relative;
     & .scrollbar-wrapper{
         overflow: scroll;
+        max-height: inherit;
         margin-right: -17px;
         margin-bottom: -17px;
     }

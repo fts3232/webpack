@@ -1,84 +1,93 @@
 import Component from '../../Component';
 import Scrollbar from '../../Scrollbar';
+import parseTime from '../parseTime';
 class TimePickerPanel extends Component {
 	constructor(props){
 		super(props)   
 	}
-	getItems(){
-		const result = [];
-		const {start,end,step,minTime,maxTime} = this.props
-	  	if (start && end && step) {
-			let current = start;
-			while (this.compareTime(current, end) <= 0) {
-				result.push({
-					value: current,
-					disabled: this.compareTime(current, minTime) <= 0 || this.compareTime(current, maxTime) >= 0
-				});
-				current = this.nextTime(current, step);
-			}
-		}
-		return result;
-	}
-	parseTime(time){
-		const values = (time || '').split(':');
-		if (values.length >= 2) {
-		    const hours = parseInt(values[0], 10);
-		    const minutes = parseInt(values[1], 10);
-
-		    return {
-		      hours,
-		      minutes
-		    };
-		}
-		/* istanbul ignore next */
-		return null;
-	}
-	compareTime(time1,time2){
-		const value1 = this.parseTime(time1);
-		const value2 = this.parseTime(time2);
-
-		const minutes1 = value1.minutes + value1.hours * 60;
-		const minutes2 = value2.minutes + value2.hours * 60;
-
-		if (minutes1 === minutes2) {
-			return 0;
-		}
-
-		return minutes1 > minutes2 ? 1 : -1;
-	}
-	nextTime(time,step){
- 		const timeValue = this.parseTime(time);
-  		const stepValue = this.parseTime(step);
-  		let next = {
-  			hours:timeValue.hours,
-  			minutes:timeValue.minutes
-  		}
-  		next.hours += stepValue.hours;
-  		next.minutes += stepValue.minutes;
-  		next.hours += Math.floor(next.minutes / 60);
-  		next.minutes = next.minutes % 60
-  		return (next.hours < 10 ? '0' + next.hours : next.hours) + ':' + (next.minutes < 10 ? '0' + next.minutes : next.minutes);
-	}
 	parent(){
 		return this.context.component;
 	}
-	onClick(v){
-        this.parent().handleItemClick(v)
-    }
     componentDidMount(){
-    	if(document.querySelector('.time-select .scrollbar-wrapper .selected')){
-    		document.querySelector('.time-select .scrollbar-wrapper').scrollTop = document.querySelector('.time-select .scrollbar-wrapper .selected').offsetTop - 4 * 36
-    	}
+    	this.scrollToOption()
+    }
+    componentDidUpdate(props) {
+	    this.scrollToOption()
+  	}
+    scrollToOption() {
+	    const list = this.refs.root.querySelectorAll('.time-spinner-wrapper');
+	    for(let index in list){
+	    	if(list[index].nodeType==1){
+	    		list[index].querySelector('.scrollbar-wrapper').scrollTop = list[index].querySelector('.selected').offsetTop - 79
+	    	}
+	    }
+	}
+    getSeconds(){
+    	const result = [];
+		const {selectableRange} = this.props
+	  	for(let i=1;i<=59;i++){
+	  		result.push({
+				value: i,
+				disabled:false
+			});
+	  	}
+		return result;
+    }
+    getHours(){
+    	const result = [];
+		const {selectableRange} = this.props
+	  	for(let i=0;i<=23;i++){
+	  		result.push({
+				value: i,
+				disabled:false
+			});
+	  	}
+		return result;
+    }
+    getMinutes(){
+    	const result = [];
+		const {start,end,step,minTime,maxTime} = this.props
+	  	for(let i=1;i<=59;i++){
+	  		result.push({
+				value: i,
+				disabled:false
+			});
+	  	}
+		return result;
     }
 	render(){
-		let items = this.getItems();
+		let seconds = this.getSeconds();
+		let hours = this.getHours();
+		let minutes = this.getMinutes();
 		return(
-			<div className="picker-panel time-picker" ref='root'>
-				<Scrollbar>
-	                {items.map((v)=>{
-	                	return (<div className={this.classNames('time-select-item',{'is-disabled':v.disabled,'selected':v.value==this.parent().state.value})} onClick={this.onClick.bind(this,v)}>{v.value}</div>)
+			<div className="picker-panel time-spinner" ref='root'>
+				<Scrollbar className="time-spinner-wrapper">
+					<ul className="time-spinner-list">
+	                {hours.map((v)=>{
+	                	return (<li className={this.classNames('time-spinner-list-item',{'is-disabled':v.disabled,'selected':v.value==this.parent().state.time.hours})} onClick={()=>{this.parent().changeHour(v)}}>{v.value}</li>)
 	                })}
+	                </ul>
 	            </Scrollbar>
+				
+	            <Scrollbar className="time-spinner-wrapper">
+					<ul  className="time-spinner-list">
+	                {minutes.map((v)=>{
+	                	return (<li className={this.classNames('time-spinner-list-item',{'is-disabled':v.disabled,'selected':v.value==this.parent().state.time.minutes})} onClick={()=>{this.parent().changeMinute(v)}}>{v.value}</li>)
+	                })}
+	                </ul>
+	            </Scrollbar>
+
+				<Scrollbar className="time-spinner-wrapper">
+					<ul  className="time-spinner-list">
+	                {seconds.map((v)=>{
+	                	return (<li className={this.classNames('time-spinner-list-item',{'is-disabled':v.disabled,'selected':v.value==this.parent().state.time.seconds})} onClick={()=>{this.parent().changeSecond(v)}}>{v.value}</li>)
+	                })}
+	                </ul>
+	            </Scrollbar>
+	            <div className="time-panel-footer">
+	            	<button type="button" className="time-panel-btn cancel" onClick={()=>{this.parent().hide()}}>取消</button>
+	            	<button type="button" className="time-panel-btn confirm" onClick={()=>{this.parent().hide()}}>确定</button>
+	            </div>
 			</div>
 		)
 	}

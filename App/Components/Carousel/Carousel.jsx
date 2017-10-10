@@ -1,7 +1,7 @@
 import css from './Scss/Main.scss';
 import Component from '../Component';
 import Icon from '../Icon';
-import {throttle} from '../../Function/throttle-debounce.js';
+import {throttle} from '../../Lib/throttle-debounce.js';
 class Carousel extends Component {
 	constructor(props){
 		super(props)   
