@@ -1,5 +1,5 @@
 import Component from '../../Component';
-import draggable from '../draggable';
+import draggable from '../../../Lib/draggable';
 class AlphaSlider extends Component {
 	constructor(props){
 		super(props)   ;
@@ -117,7 +117,7 @@ class AlphaSlider extends Component {
 }
 
 AlphaSlider.contextTypes = {
-  onChange: React.PropTypes.func
+  	onChange: React.PropTypes.func
 };
 
 AlphaSlider.PropTypes = {

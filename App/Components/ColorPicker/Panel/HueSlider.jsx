@@ -1,5 +1,5 @@
 import Component from '../../Component';
-import draggable from '../draggable';
+import draggable from '../../../Lib/draggable';
 class HueSlider extends Component {
 	constructor(props){
 		super(props)   ;
@@ -93,7 +93,7 @@ class HueSlider extends Component {
 }
 
 HueSlider.contextTypes = {
-  onChange: React.PropTypes.func
+  	onChange: React.PropTypes.func
 };
 
 HueSlider.PropTypes = {

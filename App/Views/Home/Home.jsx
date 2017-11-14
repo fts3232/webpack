@@ -33,6 +33,7 @@ import Upload from '../../Components/Upload';
 import Cascader from '../../Components/Cascader';
 import ColorPicker from '../../Components/ColorPicker';
 import {DatePicker,TimePicker,TimeSelect} from '../../Components/DatePicker';
+import Slider from '../../Components/Slider';
 const Link = ReactRouterDOM.Link;
 class Home extends React.Component {
 	constructor(props){
@@ -525,6 +526,10 @@ class Home extends React.Component {
                         <TimeSelect/>
 
                         <DatePicker/>
+
+                        <Slider/>
+
+                        <Slider range={false} value={50} max={100} min={0}/>
 
                         <div className="block">
                             1212

@@ -9,7 +9,6 @@ import AlphaSlider from './Panel/AlphaSlider.jsx';
 class ColorPicker extends Component {
 	constructor(props){
 		super(props)   
-		
 		const color = new Color({
 	      enableAlpha: props.showAlpha,
 	      format: props.colorFormat

@@ -3,11 +3,12 @@ import Component from '../Component';
 import Input from '../Input';
 import ClickOutside from 'react-click-outside';
 import Panel from './Panel/DatePickerPanel';
+import {parseDate,formatDate} from './parseTime';
 class DatePicker extends Component {
 	constructor(props){
 		super(props)   
 		this.state = {
-			value:props.value || '2017-10-02',
+			value:parseDate(props.value),
 			visible:false
 		}
 	}
@@ -22,16 +23,21 @@ class DatePicker extends Component {
     handleItemClick(value){
     	this.setState({ value:value,visible:false })
     }
+    handleClickOutside() {
+        if (this.state.visible) {
+          this.setState({ visible: false });
+        }
+    }
     handleClear(){
-    	this.setState({value:''})
+    	this.setState({value:'',visible:false})
     }
 	render(){
 		let {placeholder} = this.props;
 		let {value,visible} = this.state;
 		return(
 			<div className="date-picker" onFocus={this.onFocus.bind(this)}>
-				<Input readonly='true' value={this.state.value} placeholder={placeholder} icon='calendar' onIconClick={this.handleClear.bind(this)}/>
-				{visible && (<Panel value={value}/>)}
+				<Input readonly='true' value={formatDate(value)} placeholder={placeholder}  icon='calendar' onIconClick={this.handleClear.bind(this)}/>
+				{visible && (<Panel value={formatDate(value)}/>)}
 			</div>
 		)
 	}

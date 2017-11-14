@@ -1,60 +1,79 @@
 .slider{
-    padding: 15px;
-}
-
-.slider .irs{
-    height: 40px;
-}
-
-.slider .line{
-    background: #f1f2f7;
-    height: 5px;
-    border-radius: 10px;
-    position: relative;
-    top: 25px;
-}
-
-.slider .line .min{
-    color: #999;
-    font-size: 10px;
-    line-height: 1.333;
-    text-shadow: none;
-    top: 0;
-    padding: 1px 3px;
-    background: #e1e4e9;
-    border-radius: 4px;
-    position: absolute;
-    left: 0;
-    top: -20px;
-}
-
-.slider .line .max{
-    color: #999;
-    font-size: 10px;
-    line-height: 1.333;
-    text-shadow: none;
-    top: 0;
-    padding: 1px 3px;
-    background: #e1e4e9;
-    border-radius: 4px;
-    position: absolute;
-    right:0;
-    top: -20px;
-}
-
-.slider .grid{
-    position: relative;
-}
-
-.slider .grid span{
-    background: #e1e4e9;
-    height: 4px;
-    width: 1px;
-    display: inline-block;
-    position: absolute;
-    top: 0;
-}
-
-.slider .grid span.big{
-    height: 8px;
+    &:after, &:before {
+        display: table;
+        content: "";
+    }
+    & .runway{
+        width: 100%;
+        height: 4px;
+        margin: 16px 0;
+        background-color: #e4e8f1;
+        border-radius: 3px;
+        position: relative;
+        cursor: pointer;
+        vertical-align: middle;
+        & .bar{
+            height: inherit;
+            width: inherit;
+            background-color: #20a0ff;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            position: absolute;
+        }
+        & .slider-button-wrapper{
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            z-index: 1001;
+            top: -16px;
+            transform: translateX(-50%);
+            background-color: transparent;
+            text-align: center;
+            user-select: none;
+            & .tooltip{
+                display: inline-block;
+                vertical-align: middle;
+                & .slider-button{
+                    width: 12px;
+                    height: 12px;
+                    background-color: #20a0ff;
+                    border-radius: 50%;
+                    transition: .2s;
+                    user-select: none;
+                    position: absolute;
+                    top: 12px;
+                    left: -6px;
+                    right: 0;
+                    
+                    bottom: 0;
+                    margin: auto;
+                }
+            }
+        }
+        &.is-disabled{
+            cursor: default;
+            & .bar {
+                background-color: #bfcbd9;
+            }
+            & .slider-button-wrapper{
+                & .tooltip{
+                    & .slider-button{
+                        background-color: #bfcbd9;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+    &.is-vertical{
+        & .runway{
+            width: 4px;
+            height: 200px;
+            & .slider-button-wrapper{
+                top:auto;
+                left: -16px;
+                transform: translateY(50%);
+            }
+        }
+    }
 }

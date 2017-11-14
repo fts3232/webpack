@@ -12,12 +12,10 @@ class Progress extends Component {
         const radius = 50 - parseFloat(this.relativeStrokeWidth()) / 2;
         return 2 * Math.PI * radius;
     }
-
     relativeStrokeWidth(): string {
         const { strokeWidth, width } = this.props;
         return (strokeWidth / width * 100).toFixed(1);
     }
-
     circlePathStyle(){
         const perimeter = this.perimeter();
         return {
@@ -38,8 +36,6 @@ class Progress extends Component {
                 icon = status=='success'?'check-circle':'times-circle'
             }
         }
-        
-        
         return(
             <div className={this.className('progress',type=='circle' && 'progress-circle',status && `is-${status}`,textInside && 'text-inside')}>
             	{type=='line'?(

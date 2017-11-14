@@ -1,5 +1,5 @@
 import Component from '../../Component';
-import draggable from '../draggable';
+import draggable from '../../../Lib/draggable';
 class SvPanel extends Component {
 	constructor(props){
 		super(props)   ;
@@ -66,15 +66,6 @@ class SvPanel extends Component {
 	      cursorTop: (100 - value) * height / 100,
 	      background: 'hsl(' + color.get('hue') + ', 100%, 50%)'
 	    })
-	    /*const value = color.get('value');
-	    const el = this.$el;
-	    let { width, height } = el.getBoundingClientRect();
-	    if (!height) height = width * 3 / 4;
-	    this.setState({
-	      cursorLeft: saturation * width / 100,
-	      cursorTop: (100 - value) * height / 100,
-	      background: 'hsl(' + color.get('hue') + ', 100%, 50%)'
-	    });*/
   	}
 	render(){
 		let {cursorLeft,cursorTop,background} = this.state
@@ -89,7 +80,7 @@ class SvPanel extends Component {
 }
 
 SvPanel.contextTypes = {
-  onChange: React.PropTypes.func
+  	onChange: React.PropTypes.func
 };
 
 SvPanel.PropTypes = {

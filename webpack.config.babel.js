@@ -66,6 +66,8 @@ let config = {
       APP_PATH+'/Components/Upload',
       APP_PATH+'/Components/ColorPicker',
       APP_PATH+'/Components/DatePicker',
+      APP_PATH+'/Components/Cascader',
+      APP_PATH+'/Components/Slider',
     ]
   },
   resolve: {

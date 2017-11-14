@@ -23,7 +23,12 @@ export function parseTime(time){
 }
 
 export function parseDate(date){
-	if(date instanceof Date){
+	if(date==null){
+		return null;
+	}else if(date instanceof Date){
+		date.setHours(0);
+	    date.setMinutes(0);
+	    date.setSeconds(0);
 		return date
 	}else{
 		const values = date.split('-');
@@ -35,7 +40,9 @@ export function parseDate(date){
 		    date.setFullYear(year);
 		    date.setMonth(month-1);
 		    date.setDate(day);
-		    console.log(date)
+		    date.setHours(0);
+		    date.setMinutes(0);
+		    date.setSeconds(0);
 		    return date;
 		}
 		/* istanbul ignore next */
@@ -43,6 +50,18 @@ export function parseDate(date){
 	}
 }
 
+export function formatDate(date){
+	if(date instanceof Date){
+		let month = date.getMonth()+1;
+			month = month<10?`0${month}`:month;
+		let year  = date.getFullYear();
+		let day = date.getDate();
+			day = day<10?`0${day}`:day;
+		return `${year}-${month}-${day}`;
+	}else{
+		return '';
+	}
+}
 
 export function format(format,time){
 	var o = {

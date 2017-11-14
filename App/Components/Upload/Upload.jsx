@@ -197,7 +197,7 @@ class Upload extends Component {
                                         <Icon iconName="file-o" className="file-icon"/>
                                     )
                                 }
-                                <span className="upload-list-item-name">{v.name}</span>
+                                {!['picture','picture-card'].includes(listType) && (<span className="upload-list-item-name">{v.name}</span>)}
                                 <Icon iconName="close" onClick={this.removeItem.bind(this,v)} className="close-icon"/>
                                 {v.status=='success' || v.status=='error'?(
                                     <label className="upload-list-item-status-label">
@@ -207,6 +207,7 @@ class Upload extends Component {
                                 {v.status === 'uploading' &&
                                   <Progress
                                     strokeWidth={2}
+                                    type={listType=='picture-card'?'circle':'line'}
                                     percentage={parseInt(v.percentage, 10)}
                                     status={
                                       v.status=='success' ? 'success' : ''

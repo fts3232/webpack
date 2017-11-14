@@ -10,15 +10,22 @@ class Tooltip extends Component {
 	onMouseOut(){
 		this.refs['poper'].style.display="none"
 	}
-	componentDidMount(){
-		 let {placement,arrow,space} = this.props;
-		 let relWidth = this.refs['rel'].offsetWidth;
-		 let relHeight = this.refs['rel'].offsetHeight;
-		 let poperWidth = this.refs['poper'].offsetWidth;
-		 let poperHeight = this.refs['poper'].offsetHeight;
-		 let top;
-		 let left;
-		 switch(placement){
+	componentWillReceiveProps(props){
+		this.setPosition();
+    }
+    componentDidMount(){
+    	this.setPosition();
+    }
+	setPosition(){
+		this.refs['poper'].style.display="block"
+		let {placement,arrow,space} = this.props;
+		let relWidth = this.refs['rel'].offsetWidth;
+		let relHeight = this.refs['rel'].offsetHeight;
+		let poperWidth = this.refs['poper'].offsetWidth;
+		let poperHeight = this.refs['poper'].offsetHeight;
+		let top;
+		let left;
+		switch(placement){
 			case 'top':
 				top = 0 - poperHeight - arrow - space;
 				left = 0 - (poperWidth/2) + (relWidth/2);

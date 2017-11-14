@@ -98,7 +98,7 @@ class Input extends Component {
             this.refs['textarea'].style.height = `${height}px`
         }
     }
-    handleIconClick(){
+    handleIconClick(e){
         if(this.props.onIconClick){
             this.props.onIconClick();
         }
@@ -114,6 +114,7 @@ class Input extends Component {
         }
     }
     handleChange(e){
+        e.stopPropagation();
         if(this.props.onChange){
             this.props.onChange(e.target.value);
         }
